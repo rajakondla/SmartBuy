@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <LangVersion>8.0</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="AutoMapper" Version="10.0.0" />
+	  <PackageReference Include="FluentValidation.AspNetCore" Version="9.0.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.6" />
+	  <PackageReference Include="Moq.AutoMock" Version="2.0.1" />
+	  <PackageReference Include="xunit" Version="2.4.1" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+	  <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SmartBuy.Administration.Domain\SmartBuy.Administration.Domain.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.Administration.Infrastructure\SmartBuy.Administration.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.OrderManagement.Domain">
+      <HintPath>..\..\src\SmartBuy.OrderManagement.Domain\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Domain.Services.Abstractions">
+      <HintPath>..\..\src\SmartBuy.OrderManagement.Domain.Services.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Infrastructure">
+      <HintPath>..\..\src\SmartBuy.OrderManagement.Infrastructure\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.SharedKernel">
+      <HintPath>..\..\src\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

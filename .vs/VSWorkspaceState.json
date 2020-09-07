@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\SmartBuy.OrderManagement.Domain.Services",
+    "\\src\\SmartBuy.OrderManagement.Domain.Services\\ScheduleOrderGenerator"
   ],
-  "SelectedNode": "\\SmartBuy.sln",
+  "SelectedNode": "\\src\\SmartBuy.OrderManagement.Domain.Services\\ScheduleOrderGenerator\\ScheduleOrder.cs",
   "PreviewInSolutionExplorer": false
 }

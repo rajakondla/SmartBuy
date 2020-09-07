@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<Nullable>enable</Nullable>
+	<LangVersion>8.0</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Moq.AutoMock" Version="2.0.1" />
+	  <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.Administration.Domain">
+      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.0\SmartBuy.Administration.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.SharedKernel">
+      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.0\SmartBuy.SharedKernel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

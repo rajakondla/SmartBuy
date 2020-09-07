@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.Common.Utilities">
+      <HintPath>..\SmartBuy.Common.Utilities\bin\Debug\netstandard2.1\SmartBuy.Common.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Domain">
+      <HintPath>..\SmartBuy.OrderManagement.Domain\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
+      <HintPath>..\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

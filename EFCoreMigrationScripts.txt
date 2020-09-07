@@ -1,0 +1,5 @@
+add-migration init -Context SmartBuy.Administration.Infrastructure.AdministrationContext
+
+script-migration -Context SmartBuy.Administration.Infrastructure.AdministrationContext
+
+update-database -verbose -Context SmartBuy.Administration.Infrastructure.AdministrationContext

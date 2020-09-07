@@ -35,79 +35,121 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{5682C434-6EBD-4AF8-A5F3-9D9AF1BDD2A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Application", "SmartBuy.OrderManagement.Application\SmartBuy.OrderManagement.Application.csproj", "{F34B25D5-BFB5-496D-9742-9C8C549091C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Application", "src\SmartBuy.OrderManagement.Application\SmartBuy.OrderManagement.Application.csproj", "{F34B25D5-BFB5-496D-9742-9C8C549091C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Application.Tests", "SmartBuy.OrderManagement.Application.Tests\SmartBuy.OrderManagement.Application.Tests.csproj", "{0F5D1FD9-D440-476C-9E5A-004ED5358FC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Application.Tests", "tests\SmartBuy.OrderManagement.Application.Tests\SmartBuy.OrderManagement.Application.Tests.csproj", "{0F5D1FD9-D440-476C-9E5A-004ED5358FC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Data", "SmartBuy.OrderManagement.Data\SmartBuy.OrderManagement.Data.csproj", "{2B884861-8F0C-41F3-9ADB-C0985463DC5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Data", "src\SmartBuy.OrderManagement.Data\SmartBuy.OrderManagement.Data.csproj", "{2B884861-8F0C-41F3-9ADB-C0985463DC5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Domain", "SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj", "{F8CC873B-75F6-4993-BA1B-B4E8DB2D4037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain", "src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj", "{F8CC873B-75F6-4993-BA1B-B4E8DB2D4037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Domain.Services", "SmartBuy.OrderManagement.Domain.Services\SmartBuy.OrderManagement.Domain.Services.csproj", "{166F6D05-3E65-4B36-9620-8A3809D6A747}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain.Services", "src\SmartBuy.OrderManagement.Domain.Services\SmartBuy.OrderManagement.Domain.Services.csproj", "{166F6D05-3E65-4B36-9620-8A3809D6A747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Data.Tests", "SmartBuy.OrderManagement.Data.Tests\SmartBuy.OrderManagement.Data.Tests.csproj", "{E97F17B6-1AEA-4AC5-A168-C6FFF1255343}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Data.Tests", "tests\SmartBuy.OrderManagement.Data.Tests\SmartBuy.OrderManagement.Data.Tests.csproj", "{E97F17B6-1AEA-4AC5-A168-C6FFF1255343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Domain.Tests", "SmartBuy.OrderManagement.Domain.Tests\SmartBuy.OrderManagement.Domain.Tests.csproj", "{071AF694-2128-4DB8-BFA5-04CEC2265B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain.Tests", "tests\SmartBuy.OrderManagement.Domain.Tests\SmartBuy.OrderManagement.Domain.Tests.csproj", "{071AF694-2128-4DB8-BFA5-04CEC2265B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Data.Abstractions", "SmartBuy.OrderManagement.Data.Abstractions\SmartBuy.OrderManagement.Data.Abstractions.csproj", "{0655C987-D8F1-4297-BD7E-B1D716A10EAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Data.Abstractions", "src\SmartBuy.OrderManagement.Data.Abstractions\SmartBuy.OrderManagement.Data.Abstractions.csproj", "{0655C987-D8F1-4297-BD7E-B1D716A10EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Domain.Services.Abstractions", "SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj", "{8F7D628B-5891-46A6-B0BA-9467EE5C46A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain.Services.Abstractions", "src\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj", "{8F7D628B-5891-46A6-B0BA-9467EE5C46A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Application.Abstractions", "SmartBuy.OrderManagement.Application.Abstractions\SmartBuy.OrderManagement.Application.Abstractions.csproj", "{D53D2A2D-680C-4213-AB44-71966A7C8171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Application.Abstractions", "src\SmartBuy.OrderManagement.Application.Abstractions\SmartBuy.OrderManagement.Application.Abstractions.csproj", "{D53D2A2D-680C-4213-AB44-71966A7C8171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Infrastructure", "SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj", "{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure", "src\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj", "{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Infrastructure.Abstractions", "SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj", "{BE675E8C-46AB-4267-850D-47628B4777FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure.Abstractions", "src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj", "{BE675E8C-46AB-4267-850D-47628B4777FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.OrderManagement.Infrastructure.Tests", "SmartBuy.OrderManagement.Infrastructure.Tests\SmartBuy.OrderManagement.Infrastructure.Tests.csproj", "{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Application", "src\SmartBuy.Optimizer.Application\SmartBuy.Optimizer.Application.csproj", "{71F654C9-5AC3-465F-88FE-0910E6636A78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Application", "SmartBuy.Optimizer.Application\SmartBuy.Optimizer.Application.csproj", "{71F654C9-5AC3-465F-88FE-0910E6636A78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Application.Abstractions", "src\SmartBuy.Optimizer.Application.Abstractions\SmartBuy.Optimizer.Application.Abstractions.csproj", "{A42D3140-6504-4114-BA0D-DBC8760547E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Application.Abstractions", "SmartBuy.Optimizer.Application.Abstractions\SmartBuy.Optimizer.Application.Abstractions.csproj", "{A42D3140-6504-4114-BA0D-DBC8760547E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Application.Tests", "tests\SmartBuy.Optimizer.Application.Tests\SmartBuy.Optimizer.Application.Tests.csproj", "{0A73ABD3-B997-45CC-93E6-E99B93576C40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Application.Tests", "SmartBuy.Optimizer.Application.Tests\SmartBuy.Optimizer.Application.Tests.csproj", "{0A73ABD3-B997-45CC-93E6-E99B93576C40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Data", "src\SmartBuy.Optimizer.Data\SmartBuy.Optimizer.Data.csproj", "{77FF564F-8186-4DA3-BCB5-42B2AB0560F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Data", "SmartBuy.Optimizer.Data\SmartBuy.Optimizer.Data.csproj", "{77FF564F-8186-4DA3-BCB5-42B2AB0560F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Data.Abstractions", "src\SmartBuy.Optimizer.Data.Abstractions\SmartBuy.Optimizer.Data.Abstractions.csproj", "{20CEB52D-8B69-4A51-B0A3-A9DF4FC407A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Data.Abstractions", "SmartBuy.Optimizer.Data.Abstractions\SmartBuy.Optimizer.Data.Abstractions.csproj", "{20CEB52D-8B69-4A51-B0A3-A9DF4FC407A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Data.Tests", "tests\SmartBuy.Optimizer.Data.Tests\SmartBuy.Optimizer.Data.Tests.csproj", "{0127CDEC-407C-47B7-8711-7A52CD6B70F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Data.Tests", "SmartBuy.Optimizer.Data.Tests\SmartBuy.Optimizer.Data.Tests.csproj", "{0127CDEC-407C-47B7-8711-7A52CD6B70F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Domain", "src\SmartBuy.Optimizer.Domain\SmartBuy.Optimizer.Domain.csproj", "{E23065D4-DB67-41AB-9905-5A61FA7724F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Domain", "SmartBuy.Optimizer.Domain\SmartBuy.Optimizer.Domain.csproj", "{E23065D4-DB67-41AB-9905-5A61FA7724F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Domain.Services", "src\SmartBuy.Optimizer.Domain.Services\SmartBuy.Optimizer.Domain.Services.csproj", "{E24283AF-AC46-4B09-B92F-4C39211DF17B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Domain.Services", "SmartBuy.Optimizer.Domain.Services\SmartBuy.Optimizer.Domain.Services.csproj", "{E24283AF-AC46-4B09-B92F-4C39211DF17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Domain.Abstractions", "src\SmartBuy.Optimizer.Domain.Abstractions\SmartBuy.Optimizer.Domain.Abstractions.csproj", "{32BAF72D-D19F-4F6A-9FDD-8934766BEBEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Domain.Abstractions", "SmartBuy.Optimizer.Domain.Abstractions\SmartBuy.Optimizer.Domain.Abstractions.csproj", "{32BAF72D-D19F-4F6A-9FDD-8934766BEBEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Domain.Tests", "tests\SmartBuy.Optimizer.Domain.Tests\SmartBuy.Optimizer.Domain.Tests.csproj", "{691F6739-2839-48CE-8AA9-AED5165E8747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Domain.Tests", "SmartBuy.Optimizer.Domain.Tests\SmartBuy.Optimizer.Domain.Tests.csproj", "{691F6739-2839-48CE-8AA9-AED5165E8747}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Infrastructure", "src\SmartBuy.Optimizer.Infrastructure\SmartBuy.Optimizer.Infrastructure.csproj", "{E4426C17-52BB-4CC2-A988-74E12FAA188A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Infrastructure", "SmartBuy.Optimizer.Infrastructure\SmartBuy.Optimizer.Infrastructure.csproj", "{E4426C17-52BB-4CC2-A988-74E12FAA188A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Infrastructure.Abstractions", "src\SmartBuy.Optimizer.Infrastructure.Abstractions\SmartBuy.Optimizer.Infrastructure.Abstractions.csproj", "{BD9704F6-60A2-46F1-AB9D-6FA5CC1A39B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Infrastructure.Abstractions", "SmartBuy.Optimizer.Infrastructure.Abstractions\SmartBuy.Optimizer.Infrastructure.Abstractions.csproj", "{BD9704F6-60A2-46F1-AB9D-6FA5CC1A39B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Infrastructure.Tests", "tests\SmartBuy.Optimizer.Infrastructure.Tests\SmartBuy.Optimizer.Infrastructure.Tests.csproj", "{F1A3C9F0-76B8-46BD-AA94-54ED5F6AC202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Optimizer.Infrastructure.Tests", "SmartBuy.Optimizer.Infrastructure.Tests\SmartBuy.Optimizer.Infrastructure.Tests.csproj", "{F1A3C9F0-76B8-46BD-AA94-54ED5F6AC202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Application", "src\SmartBuy.Dashboard.Application\SmartBuy.Dashboard.Application.csproj", "{7A1A3BDB-BC03-4992-917F-0350572DA3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Application", "SmartBuy.Dashboard.Application\SmartBuy.Dashboard.Application.csproj", "{7A1A3BDB-BC03-4992-917F-0350572DA3DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Application.Abstractions", "src\SmartBuy.Dashboard.Application.Abstractions\SmartBuy.Dashboard.Application.Abstractions.csproj", "{FE73AE6A-1D2C-41F2-8204-7AA66109BFD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Application.Abstractions", "SmartBuy.Dashboard.Application.Abstractions\SmartBuy.Dashboard.Application.Abstractions.csproj", "{FE73AE6A-1D2C-41F2-8204-7AA66109BFD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Application.Tests", "tests\SmartBuy.Dashboard.Application.Tests\SmartBuy.Dashboard.Application.Tests.csproj", "{80854CDA-CCFE-4B4B-982E-B3AC64D3DA54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Application.Tests", "SmartBuy.Dashboard.Application.Tests\SmartBuy.Dashboard.Application.Tests.csproj", "{80854CDA-CCFE-4B4B-982E-B3AC64D3DA54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Data", "src\SmartBuy.Dashboard.Data\SmartBuy.Dashboard.Data.csproj", "{DA0091ED-67F2-46A0-91D8-2CCF04DF0971}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Data", "SmartBuy.Dashboard.Data\SmartBuy.Dashboard.Data.csproj", "{DA0091ED-67F2-46A0-91D8-2CCF04DF0971}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Data.Abstractions", "src\SmartBuy.Dashboard.Data.Abstractions\SmartBuy.Dashboard.Data.Abstractions.csproj", "{C4225AD5-0CCC-4506-8FC0-03EC182D78AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Data.Abstractions", "SmartBuy.Dashboard.Data.Abstractions\SmartBuy.Dashboard.Data.Abstractions.csproj", "{C4225AD5-0CCC-4506-8FC0-03EC182D78AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Dashboard.Data.Tests", "tests\SmartBuy.Dashboard.Data.Tests\SmartBuy.Dashboard.Data.Tests.csproj", "{9C30BA1E-7FA9-4E8D-8FEA-692CAAC20EB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.Dashboard.Data.Tests", "SmartBuy.Dashboard.Data.Tests\SmartBuy.Dashboard.Data.Tests.csproj", "{9C30BA1E-7FA9-4E8D-8FEA-692CAAC20EB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.SharedKernel", "src\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj", "{6DC0E87A-CA21-4B40-82C5-FF5671EB763A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.SharedKernel", "SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj", "{6DC0E87A-CA21-4B40-82C5-FF5671EB763A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.SharedKernel.Tests", "SmartBuy.SharedKernel.Tests\SmartBuy.SharedKernel.Tests.csproj", "{D82DB4F8-419E-4173-9ABF-2A3F5CBE6A03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.SharedKernel.Tests", "tests\SmartBuy.SharedKernel.Tests\SmartBuy.SharedKernel.Tests.csproj", "{D82DB4F8-419E-4173-9ABF-2A3F5CBE6A03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedDatabase", "SharedDatabase", "{1E378FDA-B062-4C1C-9466-6F83BA28F63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.SharedDatabase", "SmartBuy.Database\SmartBuy.SharedDatabase.csproj", "{13FCFB4F-A078-4418-8CDE-BDBD40E8A447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.SharedDatabase", "src\SmartBuy.Database\SmartBuy.SharedDatabase.csproj", "{13FCFB4F-A078-4418-8CDE-BDBD40E8A447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBuy.SharedDatabase.Tests", "SmartBuy.SharedDatabase.Tests\SmartBuy.SharedDatabase.Tests.csproj", "{83C4A9A4-2856-41D7-8A99-D9B8B836945A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.SharedDatabase.Tests", "tests\SmartBuy.SharedDatabase.Tests\SmartBuy.SharedDatabase.Tests.csproj", "{83C4A9A4-2856-41D7-8A99-D9B8B836945A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Administration", "Administration", "{991FABEC-E23B-4080-BBCE-97FBBFE3C645}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D6C6A3A6-CF13-4D1F-96BD-664F2251CD1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E6364B0B-5CD1-483A-8564-06E4F1193218}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5BC9DDD3-0B21-41A9-8660-8F055C69A13F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E37CB4A4-BA6D-410A-9934-E3C65CCD3EE2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Application", "src\SmartBuy.Administration.Application\SmartBuy.Administration.Application.csproj", "{19072ABE-FAB2-4160-A5A4-97CF459EBA7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Application.Abstraction", "src\SmartBuy.Administration.Application.Abstraction\SmartBuy.Administration.Application.Abstraction.csproj", "{40EBAC72-6A7B-4E7B-B199-BFE546D7A884}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Data", "src\SmartBuy.Administration.Data\SmartBuy.Administration.Data.csproj", "{66BBC4BF-3145-4959-87A8-00DA2BFBB63F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Data.Abstraction", "src\SmartBuy.Administration.Data.Abstraction\SmartBuy.Administration.Data.Abstraction.csproj", "{4E9BF27E-E24F-465F-8700-1DEC78AB133F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain", "src\SmartBuy.Administration.Domain\SmartBuy.Administration.Domain.csproj", "{9F908B4A-F747-41EA-8735-22AF46D93EF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain.Abstraction", "src\SmartBuy.Administration.Domain.Abstraction\SmartBuy.Administration.Domain.Abstraction.csproj", "{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure", "src\SmartBuy.Administration.Infrastructure\SmartBuy.Administration.Infrastructure.csproj", "{F1100061-799D-4F45-897C-7FA37B43E10A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure.Abstraction", "src\SmartBuy.Administration.Infrastructure.Abstraction\SmartBuy.Administration.Infrastructure.Abstraction.csproj", "{042566F9-4A09-49E1-AEE1-43F8D9F45004}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Application.Tests", "tests\SmartBuy.Administration.Application.Tests\SmartBuy.Administration.Application.Tests.csproj", "{89854589-216C-476C-9A93-3A508D5C1EA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Data.Tests", "tests\SmartBuy.Administration.Data.Tests\SmartBuy.Administration.Data.Tests.csproj", "{F5A78257-E69B-42CA-B895-AB5FFA1A5548}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain.Tests", "tests\SmartBuy.Administration.Domain.Tests\SmartBuy.Administration.Domain.Tests.csproj", "{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure.Tests", "tests\SmartBuy.Administration.Infrastructure.Tests\SmartBuy.Administration.Infrastructure.Tests.csproj", "{40D43298-1606-43B5-BFD6-487FB3023838}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartBuy.Core", "SmartBuy.Core", "{0D087282-846F-495D-AE51-CC9123A822AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Initiate", "src\SmartBuy.Data.Migration\SmartBuy.Initiate.csproj", "{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuyApi", "src\SmartBuyApi\SmartBuyApi.csproj", "{FA2877B2-9A01-479D-A262-AE778EDFEBA2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Common.Utilities", "src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj", "{0219C295-F873-45D5-9896-133AB283357A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure.Tests", "tests\SmartBuy.OrderManagement.Infrastructure.Tests\SmartBuy.OrderManagement.Infrastructure.Tests.csproj", "{485C3A05-63FA-4A9F-B9D7-450BBB27397E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,10 +205,6 @@ Global
 		{BE675E8C-46AB-4267-850D-47628B4777FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE675E8C-46AB-4267-850D-47628B4777FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE675E8C-46AB-4267-850D-47628B4777FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71F654C9-5AC3-465F-88FE-0910E6636A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71F654C9-5AC3-465F-88FE-0910E6636A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F654C9-5AC3-465F-88FE-0910E6636A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -259,6 +297,70 @@ Global
 		{83C4A9A4-2856-41D7-8A99-D9B8B836945A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C4A9A4-2856-41D7-8A99-D9B8B836945A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C4A9A4-2856-41D7-8A99-D9B8B836945A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19072ABE-FAB2-4160-A5A4-97CF459EBA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19072ABE-FAB2-4160-A5A4-97CF459EBA7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19072ABE-FAB2-4160-A5A4-97CF459EBA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19072ABE-FAB2-4160-A5A4-97CF459EBA7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40EBAC72-6A7B-4E7B-B199-BFE546D7A884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EBAC72-6A7B-4E7B-B199-BFE546D7A884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EBAC72-6A7B-4E7B-B199-BFE546D7A884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EBAC72-6A7B-4E7B-B199-BFE546D7A884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BBC4BF-3145-4959-87A8-00DA2BFBB63F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BBC4BF-3145-4959-87A8-00DA2BFBB63F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BBC4BF-3145-4959-87A8-00DA2BFBB63F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BBC4BF-3145-4959-87A8-00DA2BFBB63F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9BF27E-E24F-465F-8700-1DEC78AB133F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9BF27E-E24F-465F-8700-1DEC78AB133F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9BF27E-E24F-465F-8700-1DEC78AB133F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9BF27E-E24F-465F-8700-1DEC78AB133F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1100061-799D-4F45-897C-7FA37B43E10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1100061-799D-4F45-897C-7FA37B43E10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1100061-799D-4F45-897C-7FA37B43E10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1100061-799D-4F45-897C-7FA37B43E10A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89854589-216C-476C-9A93-3A508D5C1EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89854589-216C-476C-9A93-3A508D5C1EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89854589-216C-476C-9A93-3A508D5C1EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89854589-216C-476C-9A93-3A508D5C1EA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A78257-E69B-42CA-B895-AB5FFA1A5548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A78257-E69B-42CA-B895-AB5FFA1A5548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A78257-E69B-42CA-B895-AB5FFA1A5548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A78257-E69B-42CA-B895-AB5FFA1A5548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40D43298-1606-43B5-BFD6-487FB3023838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40D43298-1606-43B5-BFD6-487FB3023838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40D43298-1606-43B5-BFD6-487FB3023838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40D43298-1606-43B5-BFD6-487FB3023838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2877B2-9A01-479D-A262-AE778EDFEBA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2877B2-9A01-479D-A262-AE778EDFEBA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2877B2-9A01-479D-A262-AE778EDFEBA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2877B2-9A01-479D-A262-AE778EDFEBA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0219C295-F873-45D5-9896-133AB283357A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0219C295-F873-45D5-9896-133AB283357A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0219C295-F873-45D5-9896-133AB283357A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0219C295-F873-45D5-9896-133AB283357A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{485C3A05-63FA-4A9F-B9D7-450BBB27397E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{485C3A05-63FA-4A9F-B9D7-450BBB27397E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{485C3A05-63FA-4A9F-B9D7-450BBB27397E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{485C3A05-63FA-4A9F-B9D7-450BBB27397E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -286,7 +388,6 @@ Global
 		{D53D2A2D-680C-4213-AB44-71966A7C8171} = {18EBB1DD-896C-4F51-A96A-41CDBDA23335}
 		{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F} = {4B23EC59-9493-40B6-9ED2-E70AD1C4FDD8}
 		{BE675E8C-46AB-4267-850D-47628B4777FC} = {4B23EC59-9493-40B6-9ED2-E70AD1C4FDD8}
-		{D9BCA2F9-190C-4B7E-8A99-3BC94FBE94C6} = {4B23EC59-9493-40B6-9ED2-E70AD1C4FDD8}
 		{71F654C9-5AC3-465F-88FE-0910E6636A78} = {D84A0DB6-9F3A-4006-9DE3-913CFC82C787}
 		{A42D3140-6504-4114-BA0D-DBC8760547E5} = {D84A0DB6-9F3A-4006-9DE3-913CFC82C787}
 		{0A73ABD3-B997-45CC-93E6-E99B93576C40} = {D84A0DB6-9F3A-4006-9DE3-913CFC82C787}
@@ -310,6 +411,25 @@ Global
 		{D82DB4F8-419E-4173-9ABF-2A3F5CBE6A03} = {5682C434-6EBD-4AF8-A5F3-9D9AF1BDD2A2}
 		{13FCFB4F-A078-4418-8CDE-BDBD40E8A447} = {1E378FDA-B062-4C1C-9466-6F83BA28F63D}
 		{83C4A9A4-2856-41D7-8A99-D9B8B836945A} = {1E378FDA-B062-4C1C-9466-6F83BA28F63D}
+		{D6C6A3A6-CF13-4D1F-96BD-664F2251CD1F} = {991FABEC-E23B-4080-BBCE-97FBBFE3C645}
+		{E6364B0B-5CD1-483A-8564-06E4F1193218} = {991FABEC-E23B-4080-BBCE-97FBBFE3C645}
+		{5BC9DDD3-0B21-41A9-8660-8F055C69A13F} = {991FABEC-E23B-4080-BBCE-97FBBFE3C645}
+		{E37CB4A4-BA6D-410A-9934-E3C65CCD3EE2} = {991FABEC-E23B-4080-BBCE-97FBBFE3C645}
+		{19072ABE-FAB2-4160-A5A4-97CF459EBA7B} = {D6C6A3A6-CF13-4D1F-96BD-664F2251CD1F}
+		{40EBAC72-6A7B-4E7B-B199-BFE546D7A884} = {D6C6A3A6-CF13-4D1F-96BD-664F2251CD1F}
+		{66BBC4BF-3145-4959-87A8-00DA2BFBB63F} = {E6364B0B-5CD1-483A-8564-06E4F1193218}
+		{4E9BF27E-E24F-465F-8700-1DEC78AB133F} = {E6364B0B-5CD1-483A-8564-06E4F1193218}
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0} = {5BC9DDD3-0B21-41A9-8660-8F055C69A13F}
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879} = {5BC9DDD3-0B21-41A9-8660-8F055C69A13F}
+		{F1100061-799D-4F45-897C-7FA37B43E10A} = {E37CB4A4-BA6D-410A-9934-E3C65CCD3EE2}
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004} = {E37CB4A4-BA6D-410A-9934-E3C65CCD3EE2}
+		{89854589-216C-476C-9A93-3A508D5C1EA1} = {D6C6A3A6-CF13-4D1F-96BD-664F2251CD1F}
+		{F5A78257-E69B-42CA-B895-AB5FFA1A5548} = {E6364B0B-5CD1-483A-8564-06E4F1193218}
+		{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661} = {5BC9DDD3-0B21-41A9-8660-8F055C69A13F}
+		{40D43298-1606-43B5-BFD6-487FB3023838} = {E37CB4A4-BA6D-410A-9934-E3C65CCD3EE2}
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1} = {0D087282-846F-495D-AE51-CC9123A822AB}
+		{0219C295-F873-45D5-9896-133AB283357A} = {9375E887-1601-4A4F-BBA7-623D93A409CF}
+		{485C3A05-63FA-4A9F-B9D7-450BBB27397E} = {4B23EC59-9493-40B6-9ED2-E70AD1C4FDD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B38B5F7-20BB-4ABB-9556-BBCC66C3C5FC}
