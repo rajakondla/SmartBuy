@@ -18,6 +18,15 @@ namespace SmartBuy.Administration.Domain
             Measurement = new Measurement();
         }
 
+        public Tank(int id) :base(id)
+        {
+            GasStationId = default(Guid);
+            ProductId = 0;
+            Name = "";
+            Number = 0;
+            Measurement = new Measurement();
+        }
+
         public string Name { get; set; }
 
         public int Number { get; set; }

@@ -44,6 +44,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain", "src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj", "{F8CC873B-75F6-4993-BA1B-B4E8DB2D4037}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain.Services", "src\SmartBuy.OrderManagement.Domain.Services\SmartBuy.OrderManagement.Domain.Services.csproj", "{166F6D05-3E65-4B36-9620-8A3809D6A747}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F8CC873B-75F6-4993-BA1B-B4E8DB2D4037} = {F8CC873B-75F6-4993-BA1B-B4E8DB2D4037}
+		{BE675E8C-46AB-4267-850D-47628B4777FC} = {BE675E8C-46AB-4267-850D-47628B4777FC}
+		{0219C295-F873-45D5-9896-133AB283357A} = {0219C295-F873-45D5-9896-133AB283357A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Data.Tests", "tests\SmartBuy.OrderManagement.Data.Tests\SmartBuy.OrderManagement.Data.Tests.csproj", "{E97F17B6-1AEA-4AC5-A168-C6FFF1255343}"
 EndProject
@@ -52,12 +57,25 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Data.Abstractions", "src\SmartBuy.OrderManagement.Data.Abstractions\SmartBuy.OrderManagement.Data.Abstractions.csproj", "{0655C987-D8F1-4297-BD7E-B1D716A10EAA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Domain.Services.Abstractions", "src\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj", "{8F7D628B-5891-46A6-B0BA-9467EE5C46A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0219C295-F873-45D5-9896-133AB283357A} = {0219C295-F873-45D5-9896-133AB283357A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Application.Abstractions", "src\SmartBuy.OrderManagement.Application.Abstractions\SmartBuy.OrderManagement.Application.Abstractions.csproj", "{D53D2A2D-680C-4213-AB44-71966A7C8171}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure", "src\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj", "{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0} = {9F908B4A-F747-41EA-8735-22AF46D93EF0}
+		{F1100061-799D-4F45-897C-7FA37B43E10A} = {F1100061-799D-4F45-897C-7FA37B43E10A}
+		{6DC0E87A-CA21-4B40-82C5-FF5671EB763A} = {6DC0E87A-CA21-4B40-82C5-FF5671EB763A}
+		{0219C295-F873-45D5-9896-133AB283357A} = {0219C295-F873-45D5-9896-133AB283357A}
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004} = {042566F9-4A09-49E1-AEE1-43F8D9F45004}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure.Abstractions", "src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj", "{BE675E8C-46AB-4267-850D-47628B4777FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0219C295-F873-45D5-9896-133AB283357A} = {0219C295-F873-45D5-9896-133AB283357A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Optimizer.Application", "src\SmartBuy.Optimizer.Application\SmartBuy.Optimizer.Application.csproj", "{71F654C9-5AC3-465F-88FE-0910E6636A78}"
 EndProject
@@ -126,10 +144,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Data.Abstraction", "src\SmartBuy.Administration.Data.Abstraction\SmartBuy.Administration.Data.Abstraction.csproj", "{4E9BF27E-E24F-465F-8700-1DEC78AB133F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain", "src\SmartBuy.Administration.Domain\SmartBuy.Administration.Domain.csproj", "{9F908B4A-F747-41EA-8735-22AF46D93EF0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DC0E87A-CA21-4B40-82C5-FF5671EB763A} = {6DC0E87A-CA21-4B40-82C5-FF5671EB763A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain.Abstraction", "src\SmartBuy.Administration.Domain.Abstraction\SmartBuy.Administration.Domain.Abstraction.csproj", "{59BD8AAB-FAAB-452B-832C-A9D6B38D5879}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure", "src\SmartBuy.Administration.Infrastructure\SmartBuy.Administration.Infrastructure.csproj", "{F1100061-799D-4F45-897C-7FA37B43E10A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0} = {9F908B4A-F747-41EA-8735-22AF46D93EF0}
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879} = {59BD8AAB-FAAB-452B-832C-A9D6B38D5879}
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004} = {042566F9-4A09-49E1-AEE1-43F8D9F45004}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure.Abstraction", "src\SmartBuy.Administration.Infrastructure.Abstraction\SmartBuy.Administration.Infrastructure.Abstraction.csproj", "{042566F9-4A09-49E1-AEE1-43F8D9F45004}"
 EndProject
@@ -140,16 +166,35 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Domain.Tests", "tests\SmartBuy.Administration.Domain.Tests\SmartBuy.Administration.Domain.Tests.csproj", "{F2DAB07D-716C-4BFA-B3D1-C8EFA3A46661}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Administration.Infrastructure.Tests", "tests\SmartBuy.Administration.Infrastructure.Tests\SmartBuy.Administration.Infrastructure.Tests.csproj", "{40D43298-1606-43B5-BFD6-487FB3023838}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F908B4A-F747-41EA-8735-22AF46D93EF0} = {9F908B4A-F747-41EA-8735-22AF46D93EF0}
+		{F1100061-799D-4F45-897C-7FA37B43E10A} = {F1100061-799D-4F45-897C-7FA37B43E10A}
+		{6DC0E87A-CA21-4B40-82C5-FF5671EB763A} = {6DC0E87A-CA21-4B40-82C5-FF5671EB763A}
+		{0219C295-F873-45D5-9896-133AB283357A} = {0219C295-F873-45D5-9896-133AB283357A}
+		{59BD8AAB-FAAB-452B-832C-A9D6B38D5879} = {59BD8AAB-FAAB-452B-832C-A9D6B38D5879}
+		{042566F9-4A09-49E1-AEE1-43F8D9F45004} = {042566F9-4A09-49E1-AEE1-43F8D9F45004}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartBuy.Core", "SmartBuy.Core", "{0D087282-846F-495D-AE51-CC9123A822AB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Initiate", "src\SmartBuy.Data.Migration\SmartBuy.Initiate.csproj", "{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F1100061-799D-4F45-897C-7FA37B43E10A} = {F1100061-799D-4F45-897C-7FA37B43E10A}
+		{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F} = {D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuyApi", "src\SmartBuyApi\SmartBuyApi.csproj", "{FA2877B2-9A01-479D-A262-AE778EDFEBA2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8DE12528-EDF0-4472-B75D-F62C5B0DE7E1} = {8DE12528-EDF0-4472-B75D-F62C5B0DE7E1}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Common.Utilities", "src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj", "{0219C295-F873-45D5-9896-133AB283357A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.OrderManagement.Infrastructure.Tests", "tests\SmartBuy.OrderManagement.Infrastructure.Tests\SmartBuy.OrderManagement.Infrastructure.Tests.csproj", "{485C3A05-63FA-4A9F-B9D7-450BBB27397E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F8CC873B-75F6-4993-BA1B-B4E8DB2D4037} = {F8CC873B-75F6-4993-BA1B-B4E8DB2D4037}
+		{D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F} = {D0D0FA8B-7ED5-46CA-B542-624BA9AA7E5F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

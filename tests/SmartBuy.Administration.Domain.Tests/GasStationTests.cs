@@ -1,5 +1,6 @@
 using Xunit;
 using System;
+using SmartBuy.Administration.Domain;
 
 namespace SmartBuy.Administration.Domain.Tests
 {    

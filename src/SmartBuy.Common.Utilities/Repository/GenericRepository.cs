@@ -91,6 +91,7 @@ namespace Repository
         {
             IEnumerable<TEntity> results = _dbSet.AsNoTracking()
               .Where(predicate).ToList();
+
             return results;
         }
 

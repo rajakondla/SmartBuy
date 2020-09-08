@@ -19,24 +19,38 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
     public class OrderDataFixture
     {
         private InputOrder _inputOrder;
-        private GasStation _gasStation;
-        private GasStationDetailDTO _gasStationDetailSchedule;
-        private GasStationSchedule _gasStationSchedule;
-        private GasStationTankSchedule _gasStationTank1Schedule;
-        private GasStationTankSchedule _gasStationTank2Schedule;
-        private List<GasStationScheduleByDay> _gasStationSchedulesByDay;
-        private List<GasStationScheduleByTime> _gasStationScheduleByTime;
+        private GasStation _gasStation1;
+        private GasStationDetailDTO _gasStation1DetailSchedule;
+        private GasStationSchedule _gasStation1Schedule;
+        private GasStationTankSchedule _gasStation1Tank1Schedule;
+        private GasStationTankSchedule _gasStation1Tank2Schedule;
+        private List<GasStationScheduleByDay> _gasStation1SchedulesByDay;
+
+        private GasStation _gasStation2;
+        private GasStationDetailDTO _gasStation2DetailSchedule;
+        private GasStationSchedule _gasStation2Schedule;
+        private GasStationTankSchedule _gasStation2Tank1Schedule;
+        private GasStationTankSchedule _gasStation2Tank2Schedule;
+        private List<GasStationScheduleByTime> _gasStation2ScheduleByTime;
 
         public OrderDataFixture()
         {
             var _lineItems = new List<InputOrderProduct>();
             var date = DateTime.Now;
-            var guid = Guid.NewGuid();
-            var tanks = new List<Tank> {
-                new Tank(1, guid, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
-                new Tank(2, guid, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
+            var guid1 = Guid.NewGuid();
+            var guid2 = Guid.NewGuid();
+            var guid1tanks = new List<Tank> {
+                new Tank(1, guid1, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
+                new Tank(2, guid1, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
             };
-            _gasStation = new GasStation(guid, tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+            _gasStation1 = new GasStation(guid1, guid1tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+
+            var guid2tanks = new List<Tank> {
+                new Tank(1, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
+                new Tank(2, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
+            };
+            _gasStation2 = new GasStation(guid2, guid2tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+
             _lineItems.Add(new InputOrderProduct
             {
                 TankId = 1,
@@ -51,9 +65,9 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 LineItems = _lineItems
             };
 
-            _gasStationDetailSchedule = new GasStationDetailDTO
+            _gasStation1DetailSchedule = new GasStationDetailDTO
             {
-                GasStationId = _gasStation.Id,
+                GasStationId = _gasStation1.Id,
                 FromTime = new TimeSpan(12, 0, 0),
                 ToTime = new TimeSpan(23, 59, 0),
                 TankDetails = new List<TankDetail>
@@ -66,41 +80,63 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 OrderType = OrderType.Schedule
             };
 
-            _gasStationSchedule = new GasStationSchedule(_gasStation.Id,
-                ScheduleType.ByDay);
-
-            _gasStationTank1Schedule = new GasStationTankSchedule(1, 500);
-
-            _gasStationTank2Schedule = new GasStationTankSchedule(2, 500);
-
-            _gasStationSchedulesByDay = new List<GasStationScheduleByDay>
+            _gasStation2DetailSchedule = new GasStationDetailDTO
             {
-                new GasStationScheduleByDay(_gasStation.Id, DayOfWeek.Monday),
-                new GasStationScheduleByDay(_gasStation.Id, DayOfWeek.Thursday)
+                GasStationId = _gasStation2.Id,
+                FromTime = new TimeSpan(12, 0, 0),
+                ToTime = new TimeSpan(23, 59, 0),
+                TankDetails = new List<TankDetail>
+                     {
+                      new TankDetail{ Id=3, NetQuantity = 1000, Quantity =500,
+                     Bottom = 100, Top = 100 },
+                      new TankDetail{ Id=4, NetQuantity = 1000, Quantity =500,
+                     Bottom = 100, Top = 100 }
+                     },
+                OrderType = OrderType.Schedule
             };
 
-            _gasStationScheduleByTime = new List<GasStationScheduleByTime>
+            _gasStation1Schedule = new GasStationSchedule(_gasStation1.Id,
+                ScheduleType.ByDay);
+
+            _gasStation2Schedule = new GasStationSchedule(_gasStation2.Id,
+               ScheduleType.ByTime);
+
+            _gasStation1Tank1Schedule = new GasStationTankSchedule(1, 500);
+
+            _gasStation1Tank2Schedule = new GasStationTankSchedule(2, 500);
+
+            _gasStation2Tank1Schedule = new GasStationTankSchedule(3, 500);
+
+            _gasStation2Tank2Schedule = new GasStationTankSchedule(4, 500);
+
+            _gasStation1SchedulesByDay = new List<GasStationScheduleByDay>
             {
-                new GasStationScheduleByTime(_gasStation.Id, new TimeSpan(12))
+                new GasStationScheduleByDay(_gasStation1.Id, DayOfWeek.Monday),
+                new GasStationScheduleByDay(_gasStation1.Id, DayOfWeek.Thursday)
+            };
+
+            _gasStation2ScheduleByTime = new List<GasStationScheduleByTime>
+            {
+                new GasStationScheduleByTime(_gasStation2.Id, new TimeSpan(12))
             };
         }
 
         public InputOrder InputOrder => _inputOrder;
 
-        public GasStation GasStation => _gasStation;
+        public IEnumerable<GasStation> GasStations => new[]
+        { _gasStation1, _gasStation2 };
 
-        public GasStationDetailDTO GasStationDetailSchedule => _gasStationDetailSchedule;
+        public IEnumerable<GasStationDetailDTO> GasStationDetailSchedules => new[] { _gasStation1DetailSchedule, _gasStation2DetailSchedule };
 
-        public GasStationSchedule GasStationSchedule => _gasStationSchedule;
+        public IEnumerable<GasStationSchedule> GasStationSchedules => new[] { _gasStation1Schedule, _gasStation2Schedule };
 
-        public GasStationTankSchedule GasStationTank1Schedule => _gasStationTank1Schedule;
-
-        public GasStationTankSchedule GasStationTank2Schedule => _gasStationTank2Schedule;
+        public IEnumerable<GasStationTankSchedule> GasStationTankSchedules => new[] { _gasStation1Tank1Schedule, _gasStation1Tank2Schedule,
+        _gasStation2Tank1Schedule, _gasStation2Tank2Schedule};
 
         public IEnumerable<GasStationScheduleByDay> GasStationSchedulesByDay =>
-            _gasStationSchedulesByDay;
+            _gasStation1SchedulesByDay;
 
-        public IEnumerable<GasStationScheduleByTime> GasStationScheduleByTime =>
-            _gasStationScheduleByTime;
+        public IEnumerable<GasStationScheduleByTime> GasStationSchedulesByTime =>
+            _gasStation2ScheduleByTime;
     }
 }

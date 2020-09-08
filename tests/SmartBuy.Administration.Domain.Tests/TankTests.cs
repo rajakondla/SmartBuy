@@ -21,7 +21,7 @@ namespace SmartBuy.Administration.Domain.Tests
         public void ShouldNotReturnNullGasStationAndProducts()
         {
             var id = 1;
-            var tank = new Tank(id, _gasStationId, _productId);
+            var tank = new Tank { GasStationId = _gasStationId, ProductId = _productId };
 
             Assert.Equal(_gasStationId, tank.GasStationId);
             Assert.Equal(_productId, tank.ProductId);
@@ -31,7 +31,7 @@ namespace SmartBuy.Administration.Domain.Tests
         public void ShouldMatchTankInformationWithAssignedValues()
         {
             var id = 1;
-            var tank = new Tank(id, _gasStationId, _productId);
+            var tank = new Tank { GasStationId = _gasStationId, ProductId = _productId };
 
             tank.Name = _tankName;
 

@@ -44,81 +44,74 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
                 var scheduleDetail = await _gasStationSchedule.FindByAsync(x =>
                  x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
 
+                var tankIds = gasStationDetail.TankDetails.Select(x => x.Id).ToList();
+                var gsScheduleTanks = await _gasStationTankSchedule.FindByAsync(x =>
+                 tankIds.Contains(x.TankId)).ConfigureAwait(false);
+
+                if (!gsScheduleTanks.Any())
+                    throw new TankConfugurationException(gasStationDetail.GasStationId.ToString());
+
                 if (scheduleDetail.FirstOrDefault().ScheduleType == ScheduleType.ByDay)
                 {
-                    return await CreateOrderByDay(gasStationDetail);
+                    return await CreateOrderByDay(gasStationDetail, gsScheduleTanks);
                 }
                 else
                 {
-                    return await CreateOrderByTimeInterval(gasStationDetail);
+                    return await CreateOrderByTimeInterval(gasStationDetail, gsScheduleTanks);
                 }
             }
 
             return DefaultOrder.GetInstance.InputOrder;
         }
 
-        private async Task<InputOrder> CreateOrderByDay(GasStationDetailDTO gasStationDetail)
+        private async Task<InputOrder> CreateOrderByDay(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             var gsByDay = await _gasStationScheduleByDay.FindByAsync(x =>
             x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
 
-            var tankIds = gasStationDetail.TankDetails.Select(x => x.Id).ToList();
-            var gsScheduleTanks = await _gasStationTankSchedule.FindByAsync(x =>
-            tankIds.Contains(x.TankId)).ConfigureAwait(false);
-
             if (!gsByDay.Any())
                 throw new DayConfugurationException(gasStationDetail.GasStationId.ToString());
 
-            if (!gsScheduleTanks.Any())
-                throw new TankConfugurationException(gasStationDetail.GasStationId.ToString());
-
             if (gsByDay.Any(x => _dayCompare.Compare(x.DayOfWeek)))
             {
-                return new InputOrder
-                {
-                    GasStationId = gasStationDetail.GasStationId,
-                    Comments = "Schedule Order created by system",
-                    FromTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
-                    ToTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
-                    OrderType = OrderType.Schedule,
-                    LineItems = CreateLineItem(gsScheduleTanks)
-                };
+                return CreateInputOrder(gasStationDetail, gsScheduleTanks);
             }
 
             return DefaultOrder.GetInstance.InputOrder;
         }
 
-        private async Task<InputOrder> CreateOrderByTimeInterval(GasStationDetailDTO gasStationDetail)
+        private async Task<InputOrder> CreateOrderByTimeInterval(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             var gsByTime = await _gasStationScheduleByTime.FindByAsync(x =>
             x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
 
-            var tankIds = gasStationDetail.TankDetails.Select(x => x.Id).ToList();
-            var gsScheduleTanks = await _gasStationTankSchedule.FindByAsync(x =>
-            tankIds.Contains(x.TankId)).ConfigureAwait(false);
-
-            if (!gsScheduleTanks.Any())
-                throw new TankConfugurationException(gasStationDetail.GasStationId.ToString());
+            if (!gsByTime.Any())
+                throw new TimIntervalConfigurationException(gasStationDetail.GasStationId.ToString());
 
             if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral)))
             {
-                return new InputOrder
-                {
-                    GasStationId = gasStationDetail.GasStationId,
-                    Comments = "Schedule Order created by system",
-                    FromTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
-                    ToTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
-                    OrderType = OrderType.Schedule,
-                    LineItems = CreateLineItem(gsScheduleTanks)
-                };
+                return CreateInputOrder(gasStationDetail, gsScheduleTanks);
             }
 
             return DefaultOrder.GetInstance.InputOrder;
         }
 
-        private List<InputOrderProduct> CreateLineItem(IEnumerable<GasStationTankSchedule> tanks)
+        private InputOrder CreateInputOrder(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
-            return tanks.Select(x => new InputOrderProduct { Quantity = x.Quantity, TankId = x.TankId }).ToList();
+            List<InputOrderProduct> CreateLineItem(IEnumerable<GasStationTankSchedule> tanks)
+            {
+                return tanks.Select(x => new InputOrderProduct { Quantity = x.Quantity, TankId = x.TankId }).ToList();
+            }
+
+            return new InputOrder
+            {
+                GasStationId = gasStationDetail.GasStationId,
+                Comments = "Schedule Order created by system",
+                FromTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
+                ToTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
+                OrderType = OrderType.Schedule,
+                LineItems = CreateLineItem(gsScheduleTanks)
+            };
         }
 
         public class DayConfugurationException : Exception
@@ -134,6 +127,15 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
         {
             public TankConfugurationException(string gasStationId) :
                 base($"Tank confuguration is not found for gas station {gasStationId}")
+            {
+
+            }
+        }
+
+        public class TimIntervalConfigurationException : Exception
+        {
+            public TimIntervalConfigurationException(string gasStationId) :
+             base($"Time interval confuguration is not found for gas station {gasStationId}")
             {
 
             }

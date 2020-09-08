@@ -21,7 +21,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         [Fact]
         public void ShouldReturnOrder()
         {
-            var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
+            var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 
             Assert.NotNull(order);
             Assert.Equal(_orderData.InputOrder.GasStationId, order.Entity!.GasStationId);
@@ -32,7 +32,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         public void ShouldReturnOrderProductFromOrder()
         {
 
-            var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
+            var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 
             Assert.NotNull(order.Entity);
             Assert.Equal(_orderData.InputOrder.GasStationId, order.Entity!.GasStationId);
@@ -47,14 +47,14 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 _orderData.InputOrder.ToTime = _orderData.InputOrder.FromTime;
-                Order.Create(_orderData.InputOrder, _orderData.GasStation);
+                Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
             });
         }
 
         [Fact]
         public void ShouldCreateOrderWithFromTimeAndToTime()
         {
-            var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
+            var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 
             Assert.Equal(_orderData.InputOrder.FromTime, order.Entity!.DispatchDate.Start);
             Assert.Equal(_orderData.InputOrder.ToTime, order.Entity!.DispatchDate.End);
@@ -65,7 +65,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         {
             OrderDataFixture orderData = _orderData;
             orderData.InputOrder.LineItems = new List<InputOrderProduct>();
-            var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
+            var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 
             Assert.False(order.IsSuccess);
             Assert.Contains("No line items for this order", order.ErrorMessages);

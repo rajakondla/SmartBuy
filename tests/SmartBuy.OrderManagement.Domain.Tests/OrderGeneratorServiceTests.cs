@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SmartBuy.SharedKernel.Enums;
 using SmartBuy.OrderManagement.Domain.Tests.Helper;
+using System.Linq;
+using SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator;
 
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
@@ -20,13 +22,22 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         public OrderGeneratorServiceTests(OrderDataFixture orderData)
         {
             _moqGasStationRepo = new Mock<IGasStationRepository>();
-            _gasStationId = orderData.GasStationDetailSchedule.GasStationId;
+            _gasStationId = orderData.GasStationSchedules.FirstOrDefault().GasStationId;
             _moqGasStationRepo.Setup(x => x.GetGasStationDetailsAsync(It.IsAny<Guid>()))
             .Returns(
                 Task.FromResult(
-                orderData.GasStationDetailSchedule
+                orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == orderData.GasStationSchedules.FirstOrDefault().GasStationId)
                 ));
-            _orderGenService = new OrderGeneratorService(_moqGasStationRepo.Object);
+            MockRepoHelper mockhelper = new MockRepoHelper(orderData);
+            _orderGenService = new OrderGeneratorService(_moqGasStationRepo.Object,
+                new ScheduleOrder(
+                    mockhelper.MockGasStationScheduleRepo.Object,
+                    mockhelper.MockGasStationScheduleByDayRepo.Object,
+                    mockhelper.MockGasStationTanksScheduleRepo.Object,
+                    mockhelper.MockGasStationScheduleByTimeRepo.Object,
+                    mockhelper.MockDayComparable.Object,
+                    mockhelper.MockTimeIntervalComparable.Object
+                    ));
         }
 
         [Fact]

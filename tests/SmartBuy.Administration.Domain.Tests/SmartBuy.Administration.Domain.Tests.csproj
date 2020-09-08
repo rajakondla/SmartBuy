@@ -15,10 +15,10 @@
 
   <ItemGroup>
     <Reference Include="SmartBuy.Administration.Domain">
-      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.0\SmartBuy.Administration.Domain.dll</HintPath>
+      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.1\SmartBuy.Administration.Domain.dll</HintPath>
     </Reference>
     <Reference Include="SmartBuy.SharedKernel">
-      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.0\SmartBuy.SharedKernel.dll</HintPath>
+      <HintPath>..\..\src\SmartBuy.Administration.Domain\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
     </Reference>
   </ItemGroup>
 

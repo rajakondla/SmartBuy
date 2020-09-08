@@ -9,6 +9,11 @@ namespace SmartBuy.Administration.Domain
             Name = "";
         }
 
+        public Product(int id):base(id)
+        {
+            Name = "";
+        }
+
         public string Name { get; set; }
     }
 }

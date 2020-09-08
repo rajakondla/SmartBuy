@@ -1,4 +1,5 @@
 ﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
+using SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.SharedKernel.Enums;
 using System;
@@ -11,10 +12,13 @@ namespace SmartBuy.OrderManagement.Domain.Services
     public class OrderGeneratorService
     {
         private readonly IGasStationRepository _gasStationRepository;
+        private readonly ScheduleOrder _scheduleOrder;
 
-        public OrderGeneratorService(IGasStationRepository gasStationRepository)
+        public OrderGeneratorService(IGasStationRepository gasStationRepository,
+            ScheduleOrder scheduleOrder)
         {
             _gasStationRepository = gasStationRepository;
+            _scheduleOrder = scheduleOrder;
         }
 
         public async Task<InputOrder> RunOrderGenAsync(Guid gasStationId)
@@ -26,23 +30,10 @@ namespace SmartBuy.OrderManagement.Domain.Services
 
             if (result.OrderType == OrderType.Schedule)
             {
-                return new InputOrder
-                {
-                    OrderType = OrderType.Schedule,
-                    Comments = "Schedule Order",
-                    GasStationId = gasStationId
-                };
+                return await _scheduleOrder.CreateOrderAsync(result);
             }
 
             return DefaultOrder.GetInstance.InputOrder;
-        }
-
-        private class DayComparer : IDayComparable
-        {
-            public bool Compare(DayOfWeek targetDay)
-            {
-                return DateTime.UtcNow.DayOfWeek == targetDay;
-            }
         }
     }
 }

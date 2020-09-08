@@ -15,39 +15,24 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 {
     public class ScheduleOrderGeneratorTests : IClassFixture<OrderDataFixture>
     {
-        private OrderDataFixture _orderData;
-        public Mock<IGenericReadRepository<GasStationSchedule>> _mockGasStationScheduleRepo;
-        public Mock<IGenericReadRepository<GasStationScheduleByDay>> _mockGasStationScheduleByDayRepo;
-        public Mock<IGenericReadRepository<GasStationTankSchedule>> _mockGasStationTanksScheduleRepo;
-        public Mock<IGenericReadRepository<GasStationScheduleByTime>> _mockGasStationScheduleByTimeRepo;
-        public IEnumerable<GasStationTankSchedule> _gasStationScheduledTanks;
-        public IEnumerable<GasStationSchedule> _gasStationSchedule;
-        public Mock<IDayComparable> _mockDayComparable;
-        public Mock<ITimeIntervalComparable> _mockTimeIntervalComparable;
+        private readonly OrderDataFixture _orderData;
+        private Mock<IGenericReadRepository<GasStationSchedule>> _mockGasStationScheduleRepo;
+        private Mock<IGenericReadRepository<GasStationScheduleByDay>> _mockGasStationScheduleByDayRepo;
+        private Mock<IGenericReadRepository<GasStationTankSchedule>> _mockGasStationTanksScheduleRepo;
+        private Mock<IGenericReadRepository<GasStationScheduleByTime>> _mockGasStationScheduleByTimeRepo;
+        private Mock<IDayComparable> _mockDayComparable;
+        private Mock<ITimeIntervalComparable> _mockTimeIntervalComparable;
 
         public ScheduleOrderGeneratorTests(OrderDataFixture orderData)
         {
-            _mockGasStationScheduleRepo = new Mock<IGenericReadRepository<GasStationSchedule>>();
-            _gasStationSchedule = new[] { orderData.GasStationSchedule };
-            _mockGasStationScheduleByDayRepo = new Mock<IGenericReadRepository<GasStationScheduleByDay>>();
-            _mockGasStationTanksScheduleRepo = new Mock<IGenericReadRepository<GasStationTankSchedule>>();
-            _mockDayComparable = new Mock<IDayComparable>();
-            _mockTimeIntervalComparable = new Mock<ITimeIntervalComparable>();
-            _gasStationScheduledTanks = new[] { orderData.GasStationTank1Schedule,
-            orderData.GasStationTank2Schedule};
-            _mockGasStationScheduleByTimeRepo = new Mock<IGenericReadRepository<GasStationScheduleByTime>>();
+            MockRepoHelper mockhelper = new MockRepoHelper(orderData);
+            _mockGasStationScheduleRepo = mockhelper.MockGasStationScheduleRepo;
+            _mockGasStationScheduleByDayRepo = mockhelper.MockGasStationScheduleByDayRepo;
+            _mockGasStationTanksScheduleRepo = mockhelper.MockGasStationTanksScheduleRepo;
+            _mockGasStationScheduleByTimeRepo = mockhelper.MockGasStationScheduleByTimeRepo;
+            _mockDayComparable = mockhelper.MockDayComparable;
+            _mockTimeIntervalComparable = mockhelper.MockTimeIntervalComparable;
 
-            _mockGasStationScheduleRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationSchedule, bool>>>())).ReturnsAsync(
-                _gasStationSchedule);
-            _mockGasStationScheduleByDayRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationScheduleByDay, bool>>>())).ReturnsAsync(
-                orderData.GasStationSchedulesByDay
-             );
-            _mockGasStationTanksScheduleRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationTankSchedule, bool>>>())).ReturnsAsync(
-                _gasStationScheduledTanks
-             );
-            _mockGasStationScheduleByTimeRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationScheduleByTime, bool>>>())).ReturnsAsync(
-                orderData.GasStationScheduleByTime
-             );
             _orderData = orderData;
         }
 
@@ -66,7 +51,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             Assert.ThrowsAsync<ArgumentException>(
                 async () =>
                      {
-                         await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedule);
+                         await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == _orderData.GasStations.FirstOrDefault().Id));
                      }
             );
         }
@@ -83,23 +68,27 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             , _mockDayComparable.Object
             , _mockTimeIntervalComparable.Object
             );
-            var result = await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedule);
+
+            var gasStationDetail = _orderData.GasStationDetailSchedules.Where(x =>
+            x.GasStationId == _orderData.GasStations.FirstOrDefault().Id).FirstOrDefault();
+            var result = await scheduleOrder.CreateOrderAsync(gasStationDetail);
 
             var lineItemsTankIds = result.LineItems.Select(x => x.TankId).ToList();
+            var gasStationScheduleTanks = _orderData.GasStationTankSchedules.Where(x => x.TankId == 1 || x.TankId == 2).ToList();
 
             _mockDayComparable.Verify(x => x.Compare(It.IsAny<DayOfWeek>()), Times.Once);
             Assert.Equal(OrderType.Schedule, result.OrderType);
             Assert.Equal(2, result.LineItems.Count());
-            Assert.True(lineItemsTankIds.Exists(x => x == _gasStationScheduledTanks
+            Assert.True(lineItemsTankIds.Exists(x => x == gasStationScheduleTanks
                 .FirstOrDefault().TankId));
-            Assert.True(lineItemsTankIds.Exists(x => x == _gasStationScheduledTanks
+            Assert.True(lineItemsTankIds.Exists(x => x == gasStationScheduleTanks
                 .LastOrDefault().TankId));
             Assert.Equal(result.LineItems.FirstOrDefault(
-                x => x.TankId == _gasStationScheduledTanks.FirstOrDefault().TankId)
-                .Quantity, _gasStationScheduledTanks.FirstOrDefault().Quantity);
+                x => x.TankId == gasStationScheduleTanks.FirstOrDefault().TankId)
+                .Quantity, gasStationScheduleTanks.FirstOrDefault().Quantity);
             Assert.Equal(result.LineItems.FirstOrDefault(
-                x => x.TankId == _gasStationScheduledTanks.LastOrDefault().TankId)
-                .Quantity, _gasStationScheduledTanks.LastOrDefault().Quantity);
+                x => x.TankId == gasStationScheduleTanks.LastOrDefault().TankId)
+                .Quantity, gasStationScheduleTanks.LastOrDefault().Quantity);
         }
 
         [Fact]
@@ -121,7 +110,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             await Assert.ThrowsAsync<ScheduleOrder.DayConfugurationException>(async () =>
             {
-                await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedule);
+                await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == _orderData.GasStations.FirstOrDefault().Id));
             });
         }
 
@@ -144,7 +133,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             await Assert.ThrowsAsync<ScheduleOrder.TankConfugurationException>(async () =>
             {
-                await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedule);
+                await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == _orderData.GasStations.FirstOrDefault().Id));
             });
         }
 
@@ -160,23 +149,47 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             , _mockDayComparable.Object
             , _mockTimeIntervalComparable.Object
             );
-            var result = await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedule);
+            var result = await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == _orderData.GasStations.LastOrDefault().Id));
 
             var lineItemsTankIds = result.LineItems.Select(x => x.TankId).ToList();
+            var gasStationScheduleTanks = _orderData.GasStationTankSchedules.Where(x => x.TankId == 3 || x.TankId == 4).ToList();
 
             _mockTimeIntervalComparable.Verify(x => x.Compare(It.IsAny<TimeSpan>()), Times.Once);
             Assert.Equal(OrderType.Schedule, result.OrderType);
             Assert.Equal(2, result.LineItems.Count());
-            Assert.True(lineItemsTankIds.Exists(x => x == _gasStationScheduledTanks
+            Assert.True(lineItemsTankIds.Exists(x => x == gasStationScheduleTanks
                 .FirstOrDefault().TankId));
-            Assert.True(lineItemsTankIds.Exists(x => x == _gasStationScheduledTanks
+            Assert.True(lineItemsTankIds.Exists(x => x == gasStationScheduleTanks
                 .LastOrDefault().TankId));
             Assert.Equal(result.LineItems.FirstOrDefault(
-                x => x.TankId == _gasStationScheduledTanks.FirstOrDefault().TankId)
-                .Quantity, _gasStationScheduledTanks.FirstOrDefault().Quantity);
+                x => x.TankId == gasStationScheduleTanks.FirstOrDefault().TankId)
+                .Quantity, gasStationScheduleTanks.FirstOrDefault().Quantity);
             Assert.Equal(result.LineItems.FirstOrDefault(
-                x => x.TankId == _gasStationScheduledTanks.LastOrDefault().TankId)
-                .Quantity, _gasStationScheduledTanks.LastOrDefault().Quantity);
+                x => x.TankId == gasStationScheduleTanks.LastOrDefault().TankId)
+                .Quantity, gasStationScheduleTanks.LastOrDefault().Quantity);
+        }
+
+        [Fact]
+        public async Task ShouldGenerateExceptionWhenTimeIntervalConfigurationNotExist()
+        {
+            _mockTimeIntervalComparable.Setup(x => x.Compare(It.IsAny<TimeSpan>())).Returns(true);
+            _mockGasStationScheduleByTimeRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationScheduleByTime, bool>>>())).ReturnsAsync(
+               Enumerable.Empty<GasStationScheduleByTime>()
+              );
+
+            var scheduleOrder = new ScheduleOrder(
+            _mockGasStationScheduleRepo.Object
+            , _mockGasStationScheduleByDayRepo.Object
+            , _mockGasStationTanksScheduleRepo.Object
+            , _mockGasStationScheduleByTimeRepo.Object
+            , _mockDayComparable.Object
+            , _mockTimeIntervalComparable.Object
+            );
+
+            await Assert.ThrowsAsync<ScheduleOrder.TimIntervalConfigurationException>(async () =>
+            {
+                await scheduleOrder.CreateOrderAsync(_orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == _orderData.GasStations.LastOrDefault().Id));
+            });
         }
     }
 }
