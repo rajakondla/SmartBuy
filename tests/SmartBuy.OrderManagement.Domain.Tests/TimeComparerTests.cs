@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartBuy.OrderManagement.Domain.Tests.Helper
+namespace SmartBuy.OrderManagement.Domain.Tests
 {
     class TimeComparerTests
     {
