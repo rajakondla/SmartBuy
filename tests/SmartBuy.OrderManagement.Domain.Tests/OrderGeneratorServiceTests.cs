@@ -36,7 +36,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests
                     mockhelper.MockGasStationTanksScheduleRepo.Object,
                     mockhelper.MockGasStationScheduleByTimeRepo.Object,
                     mockhelper.MockDayComparable.Object,
-                    mockhelper.MockTimeIntervalComparable.Object
+                    mockhelper.MockTimeIntervalComparable.Object,
+                    mockhelper.MockOrderRepository.Object
                     ));
         }
 

@@ -23,6 +23,8 @@ namespace SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs
 
         public OrderType OrderType { get; set; }
 
+        public DateTime? DeliveryData { get; set; }
+
         public IEnumerable<LineItem> LineItems { get; set; }
     }
 

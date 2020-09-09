@@ -1,11 +1,17 @@
 ﻿using Moq;
 using Repository;
+using SmartBuy.OrderManagement.Domain.Services;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
+using SmartBuy.OrderManagement.Infrastructure.Abstractions;
+using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+using SmartBuy.SharedKernel.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {
@@ -39,6 +45,25 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             MockGasStationScheduleByTimeRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationScheduleByTime, bool>>>())).ReturnsAsync((Expression<Func<GasStationScheduleByTime, bool>> predicate) =>
                 orderData.GasStationSchedulesByTime.Where(predicate.Compile())
              );
+
+            MockOrderRepository = new Mock<IOrderRepository>();
+            MockOrderRepository.Setup(x => x.GetOrdersByGasStationIdAsync(It.IsAny<Guid>(), It.IsAny<OrderType>())).ReturnsAsync((Guid gasStationId, OrderType orderType) =>
+            {
+                return new[] {
+                    new OrderDetailDTO{
+                        FromDateTime= new DateTime(2020, 9, 8, 18,0,0),
+                        ToDateTime = new DateTime(2020, 9, 9, 5,0,0),
+                        DeliveryData =new DateTime(2020, 9, 9, 5,0,0),
+                       GasStationId =orderData.GasStations.FirstOrDefault().Id
+                    },
+                     new OrderDetailDTO{
+                        FromDateTime= new DateTime(2020, 9, 8, 18,0,0),
+                        ToDateTime = new DateTime(2020, 9, 9, 5,0,0),
+                        DeliveryData =new DateTime(2020, 9, 9, 8,0,0),
+                       GasStationId =orderData.GasStations.LastOrDefault().Id
+                    }
+                    };
+            });
         }
 
         public Mock<IGenericReadRepository<GasStationSchedule>> MockGasStationScheduleRepo { get; }
@@ -52,5 +77,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
         public Mock<IDayComparable> MockDayComparable { get; }
 
         public Mock<ITimeIntervalComparable> MockTimeIntervalComparable { get; }
+
+        public Mock<IOrderRepository> MockOrderRepository { get; }
     }
 }

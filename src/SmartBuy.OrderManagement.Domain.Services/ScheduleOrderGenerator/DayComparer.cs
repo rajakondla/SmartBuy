@@ -7,7 +7,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
     {
         public bool Compare(DayOfWeek targetDay)
         {
-            return DateTime.UtcNow.DayOfWeek == targetDay;
+            return DateTime.Now.DayOfWeek == targetDay;
         }
     }
 }

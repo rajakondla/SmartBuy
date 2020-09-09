@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
 {
@@ -18,13 +19,15 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
         private readonly IGenericReadRepository<GasStationScheduleByTime> _gasStationScheduleByTime;
         private readonly IDayComparable _dayCompare;
         private readonly ITimeIntervalComparable _timeIntervalCompare;
+        private readonly IOrderRepository _orderRepository;
 
         public ScheduleOrder(IGenericReadRepository<GasStationSchedule> gasStationSchedule
             , IGenericReadRepository<GasStationScheduleByDay> gasStationScheduleByDay
             , IGenericReadRepository<GasStationTankSchedule> gasStationTankSchedule
             , IGenericReadRepository<GasStationScheduleByTime> gasStationScheduleByTime
             , IDayComparable dayCompare
-            , ITimeIntervalComparable timeIntervalCompare)
+            , ITimeIntervalComparable timeIntervalCompare
+            , IOrderRepository orderRepository)
         {
             _gasStationSchedule = gasStationSchedule;
             _gasStationScheduleByDay = gasStationScheduleByDay;
@@ -32,6 +35,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             _gasStationScheduleByTime = gasStationScheduleByTime;
             _dayCompare = dayCompare;
             _timeIntervalCompare = timeIntervalCompare;
+            _orderRepository = orderRepository;
         }
 
         public async Task<InputOrder> CreateOrderAsync(GasStationDetailDTO gasStationDetail)
@@ -85,10 +89,14 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             var gsByTime = await _gasStationScheduleByTime.FindByAsync(x =>
             x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
 
+            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStationDetail.GasStationId, OrderType.Schedule)).FirstOrDefault();
+
+            var deliveryDate = (order == null || order.DeliveryData == null) ? DateTime.MinValue : order.DeliveryData;
+
             if (!gsByTime.Any())
                 throw new TimIntervalConfigurationException(gasStationDetail.GasStationId.ToString());
 
-            if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral)))
+            if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral, deliveryDate.Value, DateTime.Now)))
             {
                 return CreateInputOrder(gasStationDetail, gsScheduleTanks);
             }
@@ -107,8 +115,8 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             {
                 GasStationId = gasStationDetail.GasStationId,
                 Comments = "Schedule Order created by system",
-                FromTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
-                ToTime = DateTime.UtcNow.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
+                FromTime = DateTime.Now.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
+                ToTime = DateTime.Now.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
                 OrderType = OrderType.Schedule,
                 LineItems = CreateLineItem(gsScheduleTanks)
             };
