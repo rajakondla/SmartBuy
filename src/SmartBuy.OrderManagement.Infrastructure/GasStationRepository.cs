@@ -30,7 +30,10 @@ namespace SmartBuy.OrderManagement.Infrastructure
             var tanks = await (from getGasStation in base.ReferenceContext.GasStations
                                join getTank in base.ReferenceContext.Tanks
                                on getGasStation.Id equals getTank.GasStationId
-                               select new { getTank, getGasStation.FromTime, getGasStation.ToTime }).ToListAsync().ConfigureAwait(false);
+                               select new { getTank, FromTime = getGasStation.DeliveryTime.Start
+                               , ToTime = getGasStation.DeliveryTime.End }).ToListAsync()
+                               .ConfigureAwait(false);
+
             (TimeSpan StartTime, TimeSpan EndTime) duration = tanks.Select(
                 x => (x.FromTime, x.ToTime)
                 ).FirstOrDefault();

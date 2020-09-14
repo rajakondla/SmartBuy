@@ -13,6 +13,15 @@ namespace SmartBuy.Administration.Infrastructure.Configurations
             builder.HasKey(g => g.Id);
             builder.Property(g => g.Name).HasMaxLength(50);
             builder.Property(g => g.Address).HasMaxLength(200);
+            builder.HasOne<DispatcherGroup>()
+                        .WithMany()
+                        .HasForeignKey(t => t.DispatcherGroupId);
+            builder.OwnsOne(g => g.DeliveryTime)
+               .Property(g => g.Start)
+               .HasColumnName("FromTime");
+            builder.OwnsOne(g => g.DeliveryTime)
+              .Property(g => g.End)
+              .HasColumnName("ToTime");
         }
     }
 }

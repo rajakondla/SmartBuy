@@ -1,7 +1,4 @@
-﻿using SmartBuy.SharedKernel.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SmartBuy.SharedKernel.Enums;
 
 namespace SmartBuy.SharedKernel.ValueObjects
 {
@@ -56,11 +53,5 @@ namespace SmartBuy.SharedKernel.ValueObjects
         {
             return new Measurement(this.NetQuantity, this.Unit, this.Top, bottom, this.Quantity);
         }
-    }
-
-    public enum TankMeasurement
-    {
-        Barrels,
-        Gallons
     }
 }

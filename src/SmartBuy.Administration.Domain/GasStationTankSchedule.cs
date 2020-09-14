@@ -1,8 +1,5 @@
-﻿using SmartBuy.SharedKernel;
-using SmartBuy.SharedKernel.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SmartBuy.SharedKernel.Enums;
+using SmartBuy.SharedKernel;
 
 namespace SmartBuy.Administration.Domain
 {

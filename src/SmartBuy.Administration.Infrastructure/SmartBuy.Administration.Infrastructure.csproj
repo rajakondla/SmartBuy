@@ -26,7 +26,7 @@
       <HintPath>..\SmartBuy.Administration.Domain\bin\Debug\netstandard2.1\SmartBuy.Administration.Domain.dll</HintPath>
     </Reference>
     <Reference Include="SmartBuy.SharedKernel">
-      <HintPath>..\SmartBuy.Administration.Domain\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+      <HintPath>..\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
     </Reference>
   </ItemGroup>
 

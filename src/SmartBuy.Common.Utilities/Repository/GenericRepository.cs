@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Repository
+namespace SmartBuy.Common.Utilities.Repository
 {
     public interface IGenericReadRepository<TEntity> where TEntity : class
     {

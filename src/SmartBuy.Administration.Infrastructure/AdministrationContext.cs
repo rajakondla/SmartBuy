@@ -49,6 +49,8 @@ namespace SmartBuy.Administration.Infrastructure
             modelBuilder.ApplyConfiguration(new GasStationScheduleByDayConfiguration());
             modelBuilder.ApplyConfiguration(new GasStationScheduleByTimeConfiguration());
             modelBuilder.ApplyConfiguration(new GasStationTankScheduleConfiguration());
+            modelBuilder.ApplyConfiguration(new DispatcherGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new DispatcherConfiguration());
         }
     }
 }

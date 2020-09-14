@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using SmartBuy.Administration.Domain;
 using SmartBuy.SharedKernel.ValueObjects;
-using SmartBuy.SharedKernel;
 using System;
 using System.Linq;
 using Xunit;
+using SmartBuy.SharedKernel.Enums;
 
 namespace SmartBuy.Administration.Infrastructure.Tests
 {

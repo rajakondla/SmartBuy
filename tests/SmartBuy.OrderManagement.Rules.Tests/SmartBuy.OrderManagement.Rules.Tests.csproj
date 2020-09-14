@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>8.0</LangVersion>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Moq.AutoMock" Version="2.0.1" />
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+	  <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="SmartBuy.OrderManagement.Rules">
+	    <HintPath>..\..\src\SmartBuy.OrderManagement.Rules\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Rules.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+</Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SmartBuy.SharedKernel;
+using SmartBuy.SharedKernel.ValueObjects;
 
 namespace SmartBuy.Administration.Domain
 {
@@ -26,10 +27,10 @@ namespace SmartBuy.Administration.Domain
 
         public string Address { get; set; }
 
-        public TimeSpan FromTime { get; set; }
-
-        public TimeSpan ToTime { get; set; }
+        public TimeRange DeliveryTime { get; set; }
 
         public IList<Tank> Tanks { get; private set; }
+
+        public Guid DispatcherGroupId { get; set; }
     }
 }

@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
-using SmartBuy.SharedKernel;
 using Microsoft.Data.SqlClient;
+using SmartBuy.SharedKernel.Enums;
 
 namespace SmartBuy.OrderManagement.Infrastructure.Tests
 {
@@ -43,7 +43,9 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
                 new TankSale(1,500, new DateTime(2020, 8, 6, 5, 30, 0)),
                 new TankSale(2,500, new DateTime(2020, 8, 6, 5, 30, 0))
             };
-            _gasStation = new GasStation(guid, tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+            _gasStation = new GasStation(guid, tanks,
+                new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
+                , Guid.NewGuid());
             _lineItems.Add(new InputOrderProduct
             {
                 TankId = 1,

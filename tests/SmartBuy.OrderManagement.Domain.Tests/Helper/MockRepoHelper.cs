@@ -1,17 +1,12 @@
 ﻿using Moq;
-using Repository;
-using SmartBuy.OrderManagement.Domain.Services;
+using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {

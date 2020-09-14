@@ -1,4 +1,4 @@
-using Repository;
+using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
 {

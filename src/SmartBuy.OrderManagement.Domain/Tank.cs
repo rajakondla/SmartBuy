@@ -1,4 +1,5 @@
 ﻿using SmartBuy.SharedKernel;
+using SmartBuy.SharedKernel.Enums;
 using SmartBuy.SharedKernel.ValueObjects;
 using System;
 

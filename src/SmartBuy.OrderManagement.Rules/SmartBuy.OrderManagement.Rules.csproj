@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

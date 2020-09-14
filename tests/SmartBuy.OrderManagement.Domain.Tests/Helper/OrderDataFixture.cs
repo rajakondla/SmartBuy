@@ -43,13 +43,17 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 new Tank(1, guid1, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
                 new Tank(2, guid1, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
             };
-            _gasStation1 = new GasStation(guid1, guid1tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+            _gasStation1 = new GasStation(guid1, guid1tanks,
+                new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
+                , Guid.NewGuid());
 
             var guid2tanks = new List<Tank> {
                 new Tank(1, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
                 new Tank(2, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
             };
-            _gasStation2 = new GasStation(guid2, guid2tanks, new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0));
+            _gasStation2 = new GasStation(guid2, guid2tanks,
+                new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
+                , Guid.NewGuid());
 
             _lineItems.Add(new InputOrderProduct
             {

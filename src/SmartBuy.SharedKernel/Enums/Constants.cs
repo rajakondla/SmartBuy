@@ -17,4 +17,15 @@ namespace SmartBuy.SharedKernel.Enums
         ByDay,
         ByTime
     }
+    public enum TankMeasurement
+    {
+        Barrels,
+        Gallons
+    }
+
+    public enum CurrencyUnit
+    {
+        Dollor,
+        Cents
+    }
 }
