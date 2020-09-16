@@ -1,7 +1,7 @@
 ﻿using Moq;
-using SmartBuy.Administration.Domain;
 using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Rules.Tests.Helper;
+using SmartBuy.OrderManagement.Domain;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;

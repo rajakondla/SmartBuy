@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartBuy.OrderManagement.Domain
+﻿namespace SmartBuy.OrderManagement.Domain
 {
     public class GasStationTankSchedule
     {

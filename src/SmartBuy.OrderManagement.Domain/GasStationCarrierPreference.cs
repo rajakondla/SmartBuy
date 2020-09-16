@@ -1,7 +1,6 @@
-﻿using SmartBuy.SharedKernel;
-using System;
+﻿using System;
 
-namespace SmartBuy.Administration.Domain
+namespace SmartBuy.OrderManagement.Domain
 {
     public class GasStationCarrierPreference
     {

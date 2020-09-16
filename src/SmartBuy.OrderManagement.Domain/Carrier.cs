@@ -1,10 +1,7 @@
-﻿using SmartBuy.SharedKernel;
-using SmartBuy.SharedKernel.ValueObjects;
+﻿using SmartBuy.SharedKernel.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SmartBuy.Administration.Domain
+namespace SmartBuy.OrderManagement.Domain
 {
     public class Carrier 
     {

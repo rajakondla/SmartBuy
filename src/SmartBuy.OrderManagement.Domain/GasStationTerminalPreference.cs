@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SmartBuy.Administration.Domain
+namespace SmartBuy.OrderManagement.Domain
 {
     public class GasStationTerminalPreference
     {

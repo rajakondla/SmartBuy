@@ -1,8 +1,7 @@
-﻿using SmartBuy.SharedKernel;
-using SmartBuy.SharedKernel.ValueObjects;
+﻿using SmartBuy.SharedKernel.ValueObjects;
 using System;
 
-namespace SmartBuy.Administration.Domain
+namespace SmartBuy.OrderManagement.Domain
 {
     public class CarrierFreight
     {

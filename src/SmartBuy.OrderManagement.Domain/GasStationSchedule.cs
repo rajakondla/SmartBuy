@@ -1,9 +1,5 @@
-﻿using SmartBuy.SharedKernel;
-using SmartBuy.SharedKernel.Enums;
+﻿using SmartBuy.SharedKernel.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Transactions;
 
 namespace SmartBuy.OrderManagement.Domain
 {

@@ -1,7 +1,4 @@
-﻿using SmartBuy.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SmartBuy.OrderManagement.Domain
 {
