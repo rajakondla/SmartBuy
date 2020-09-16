@@ -35,6 +35,8 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
             var gasStation1Data = Guid.NewGuid();
             var gasStation2Data = Guid.NewGuid();
             var gasStation3Data = Guid.NewGuid();
+            var gasStation4Data = Guid.NewGuid();
+            var gasStation5Data = Guid.NewGuid();
 
             var carrier1 = Guid.NewGuid();
             var carrier2 = Guid.NewGuid();
@@ -45,10 +47,16 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 dispatcherGroupId1),
             new GasStation(gasStation2Data, Enumerable.Empty<Tank>(),
                 new TimeRange(new TimeSpan(20, 0, 0), new TimeSpan(4, 0, 0)),
-                dispatcherGroupId2),
+                dispatcherGroupId1),
             new GasStation(gasStation3Data, Enumerable.Empty<Tank>(),
                 new TimeRange(new TimeSpan(20, 0, 0), new TimeSpan(4, 0, 0)),
-                dispatcherGroupId2)};
+                dispatcherGroupId2),
+            new GasStation(gasStation4Data, Enumerable.Empty<Tank>(),
+                new TimeRange(new TimeSpan(20, 0, 0), new TimeSpan(4, 0, 0)),
+                dispatcherGroupId2),
+            new GasStation(gasStation5Data, Enumerable.Empty<Tank>(),
+                new TimeRange(new TimeSpan(20, 0, 0), new TimeSpan(4, 0, 0)),
+                dispatcherGroupId1)};
 
             Carriers = new List<Carrier> {
                 new Carrier(carrier1, 5000, new TimeRange(new TimeSpan(20, 0, 0),
@@ -70,7 +78,15 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 new GasStationTerminalPreference(gasStation3Data,
                terminal2, true),
                 new GasStationTerminalPreference(gasStation3Data,
-                terminal3, false)
+                terminal3, false),
+                new GasStationTerminalPreference(gasStation4Data,
+                terminal1, true),
+                new GasStationTerminalPreference(gasStation4Data,
+                terminal2, false), 
+                new GasStationTerminalPreference(gasStation5Data,
+                terminal1, true),
+                new GasStationTerminalPreference(gasStation5Data,
+                terminal2, false),
             };
 
             GasStationsCarrierPreferences = new List<GasStationCarrierPreference> {
@@ -85,6 +101,14 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                new GasStationCarrierPreference(gasStation3Data,
                carrier2, true),
                new GasStationCarrierPreference(gasStation3Data,
+               carrier3, false),
+               new GasStationCarrierPreference(gasStation4Data,
+               carrier1, true),
+               new GasStationCarrierPreference(gasStation4Data,
+               carrier3, false),
+               new GasStationCarrierPreference(gasStation5Data,
+               carrier1, true),
+               new GasStationCarrierPreference(gasStation5Data,
                carrier3, false)
             };
 
@@ -121,6 +145,28 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                   new CarrierFreight(gasStation3Data, terminal1, carrier2
                 , new Money(10, CurrencyUnit.Cents)),
                  new CarrierFreight(gasStation3Data, terminal2, carrier3
+                , new Money(9, CurrencyUnit.Cents)),
+
+                 new CarrierFreight(gasStation4Data, terminal1, carrier1
+                , new Money(10, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation4Data, terminal2, carrier1
+                , new Money(9, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation4Data, terminal3, carrier1
+                , new Money(8, CurrencyUnit.Cents)),
+                  new CarrierFreight(gasStation4Data, terminal1, carrier2
+                , new Money(10, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation4Data, terminal2, carrier3
+                , new Money(9, CurrencyUnit.Cents)),
+
+                 new CarrierFreight(gasStation5Data, terminal1, carrier1
+                , new Money(10, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation5Data, terminal2, carrier1
+                , new Money(9, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation5Data, terminal3, carrier1
+                , new Money(8, CurrencyUnit.Cents)),
+                  new CarrierFreight(gasStation5Data, terminal1, carrier2
+                , new Money(10, CurrencyUnit.Cents)),
+                 new CarrierFreight(gasStation5Data, terminal2, carrier3
                 , new Money(9, CurrencyUnit.Cents))
             };
 
@@ -131,6 +177,7 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
                 ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
                 OrderType = OrderType.Schedule,
+                CarrierId = carrier1,
                 LineItems = new List<InputOrderProduct> {
                     new InputOrderProduct{
                         Quantity = 1000,
@@ -150,14 +197,15 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                     FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
                     ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
                     OrderType = OrderType.Schedule,
+                    CarrierId = carrier1,
                     LineItems = new List<InputOrderProduct> {
                     new InputOrderProduct{
-                        Quantity = 1000,
+                        Quantity = 500,
                         TankId = 4
                     },
-                    new InputOrderProduct{ Quantity = 1000,
+                    new InputOrderProduct{ Quantity = 500,
                         TankId = 5},
-                    new InputOrderProduct{ Quantity = 1000,
+                    new InputOrderProduct{ Quantity = 500,
                         TankId = 6}}
                 }, new InputOrder
                 {
@@ -165,6 +213,7 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                     FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
                     ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
                     OrderType = OrderType.Schedule,
+                    CarrierId = carrier3,
                     LineItems = new List<InputOrderProduct> {
                     new InputOrderProduct{
                         Quantity = 1000,
@@ -174,6 +223,38 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                         TankId = 8},
                     new InputOrderProduct{ Quantity = 1000,
                         TankId = 9}}
+                }, new InputOrder
+                {
+                    GasStationId = gasStation4Data,
+                    FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
+                    ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                    OrderType = OrderType.Historical,
+                    CarrierId = carrier3,
+                    LineItems = new List<InputOrderProduct> {
+                    new InputOrderProduct{
+                        Quantity = 1000,
+                        TankId = 10
+                    },
+                    new InputOrderProduct{ Quantity = 1000,
+                        TankId = 11},
+                    new InputOrderProduct{ Quantity = 2000,
+                        TankId = 12}}
+                }, new InputOrder
+                {
+                    GasStationId = gasStation5Data,
+                    FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
+                    ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                    OrderType = OrderType.Historical,
+                    CarrierId = carrier1,
+                    LineItems = new List<InputOrderProduct> {
+                    new InputOrderProduct{
+                        Quantity = 1000,
+                        TankId = 13
+                    },
+                    new InputOrderProduct{ Quantity = 1000,
+                        TankId = 14},
+                    new InputOrderProduct{ Quantity = 1000,
+                        TankId = 15}}
                 } };
         }
     }

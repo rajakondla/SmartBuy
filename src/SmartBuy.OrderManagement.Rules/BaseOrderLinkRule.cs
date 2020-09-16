@@ -16,7 +16,7 @@ namespace SmartBuy.OrderManagement.Rules
             _gasStationRepo = gasStationRepo;
         }
 
-        protected virtual async Task<bool> IsSameDispatcherGroup(IEnumerable<InputOrder> inputOrders)
+        private async Task<bool> IsSameDispatcherGroup(IEnumerable<InputOrder> inputOrders)
         {
             var distinctGasStationIds = inputOrders.Select(x => x.GasStationId).Distinct();
 
@@ -25,9 +25,17 @@ namespace SmartBuy.OrderManagement.Rules
             return gasStations.Select(x => x.DispatcherGroupId).Distinct().Count() == 1;
         }
 
+        private bool IsCarrierSame(IEnumerable<InputOrder> inputOrders)
+        {
+            return inputOrders.Select(x => x.CarrierId).Distinct().Count() == 1;
+        }
+
         public async Task<bool> Validate(IEnumerable<InputOrder> inputOrders)
         {
-            return await IsSameDispatcherGroup(inputOrders);
+            var result = await IsSameDispatcherGroup(inputOrders);
+            if (result)
+                result = IsCarrierSame(inputOrders);
+            return result;
         }
     }
 }

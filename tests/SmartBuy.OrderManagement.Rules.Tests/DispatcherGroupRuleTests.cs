@@ -8,12 +8,12 @@ using Xunit;
 
 namespace SmartBuy.OrderManagement.Rules.Tests
 {
-    public class BaseOrderLinkRulesTests : IClassFixture<OrderDataFixture>
+    public class DispatcherGroupRuleTests : IClassFixture<OrderDataFixture>
     {
         private readonly OrderDataFixture _orderData;
         private readonly Mock<IGenericReadRepository<GasStation>> _mockGasStationRepo;
 
-        public BaseOrderLinkRulesTests(OrderDataFixture orderData)
+        public DispatcherGroupRuleTests(OrderDataFixture orderData)
         {
             var mockRepo = new MockRepoHelper(orderData);
             _mockGasStationRepo = mockRepo.MockGasStationsRepo;
@@ -21,19 +21,21 @@ namespace SmartBuy.OrderManagement.Rules.Tests
         }
 
         [Fact]
-        public async Task ShouldPassOrderIfDispatcherGroupIsSame()
+        public async Task ShouldPassOrdersIfDispatcherGroupIsSame()
         {
-            BaseOrderLinkRule baseRule = new BaseOrderLinkRule(_mockGasStationRepo.Object);
-            var result = await baseRule.Validate(_orderData.InputOrders.Skip(1).Take(2));
+            DispatcherGroupRule dispatcherGroupRule = new DispatcherGroupRule(_mockGasStationRepo.Object);
+
+            var result = await dispatcherGroupRule.IsDispatcherSame(
+                _orderData.InputOrders.Take(2));
 
             Assert.True(result);
         }
 
         [Fact]
-        public async Task ShouldPassOrderIfDispatcherGroupAreDifferent()
+        public async Task ShouldNotPassOrdersIfDispatcherGroupAreDifferent()
         {
-            BaseOrderLinkRule baseRule = new BaseOrderLinkRule(_mockGasStationRepo.Object);
-            var result = await baseRule.Validate(_orderData.InputOrders);
+            DispatcherGroupRule dispatcherGroupRule = new DispatcherGroupRule(_mockGasStationRepo.Object);
+            var result = await dispatcherGroupRule.IsDispatcherSame(_orderData.InputOrders);
 
             Assert.False(result);
         }

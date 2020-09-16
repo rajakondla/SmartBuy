@@ -23,8 +23,8 @@ namespace SmartBuy.Common.Utilities.Repository
           params Expression<Func<TEntity, object>>[] includeProperties);
         IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate);
-        TEntity FindByKey(int id);
-        Task<TEntity> FindByKeyAsync(int id);
+        TEntity FindByKey(object id);
+        Task<TEntity> FindByKeyAsync(object id);
     }
 
     public class GenericReadRepository<TEntity> : IGenericReadRepository<TEntity>
@@ -100,13 +100,13 @@ namespace SmartBuy.Common.Utilities.Repository
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
-        public TEntity FindByKey(int id)
+        public TEntity FindByKey(object id)
         {
             Expression<Func<TEntity, bool>> lambda = Helper.BuildLambdaForFindByKey<TEntity>(id);
             return _dbSet.AsNoTracking().SingleOrDefault(lambda);
         }
 
-        public Task<TEntity> FindByKeyAsync(int id)
+        public Task<TEntity> FindByKeyAsync(object id)
         {
             Expression<Func<TEntity, bool>> lambda = Helper.BuildLambdaForFindByKey<TEntity>(id);
             return _dbSet.AsNoTracking().SingleOrDefaultAsync(lambda);

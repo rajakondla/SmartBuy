@@ -103,7 +103,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             return DefaultOrder.GetInstance.InputOrder;
         }
 
-        private InputOrder CreateInputOrder(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
+        private static InputOrder CreateInputOrder(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             List<InputOrderProduct> CreateLineItem(IEnumerable<GasStationTankSchedule> tanks)
             {

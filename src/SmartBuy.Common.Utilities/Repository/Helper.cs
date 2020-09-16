@@ -7,7 +7,7 @@ namespace SmartBuy.Common.Utilities.Repository
 {
     public class Helper
     {
-        public static Expression<Func<TEntity, bool>> BuildLambdaForFindByKey<TEntity>(int id)
+        public static Expression<Func<TEntity, bool>> BuildLambdaForFindByKey<TEntity>(object id)
         {
             var item = Expression.Parameter(typeof(TEntity), "entity");
             var prop = Expression.Property(item, "Id");
