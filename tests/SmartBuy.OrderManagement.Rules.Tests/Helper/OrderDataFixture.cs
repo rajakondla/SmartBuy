@@ -1,5 +1,4 @@
-﻿using SmartBuy.Administration.Domain;
-using SmartBuy.OrderManagement.Domain;
+﻿using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.SharedKernel.Enums;
 using SmartBuy.SharedKernel.ValueObjects;
@@ -175,7 +174,7 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
             {
                 GasStationId = gasStation1Data,
                 FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
-                ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                ToTime = new DateTime(2020, 9, 15, 2, 0, 0),
                 OrderType = OrderType.Schedule,
                 CarrierId = carrier1,
                 LineItems = new List<InputOrderProduct> {
@@ -195,7 +194,7 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 {
                     GasStationId = gasStation2Data,
                     FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
-                    ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                    ToTime = new DateTime(2020, 9, 15, 2, 0, 0),
                     OrderType = OrderType.Schedule,
                     CarrierId = carrier1,
                     LineItems = new List<InputOrderProduct> {
@@ -226,8 +225,8 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 }, new InputOrder
                 {
                     GasStationId = gasStation4Data,
-                    FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
-                    ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                    FromTime = new DateTime(2020, 9, 14, 5, 0, 0),
+                    ToTime = new DateTime(2020, 9, 15, 9, 0, 0),
                     OrderType = OrderType.Historical,
                     CarrierId = carrier3,
                     LineItems = new List<InputOrderProduct> {
@@ -242,8 +241,8 @@ namespace SmartBuy.OrderManagement.Rules.Tests.Helper
                 }, new InputOrder
                 {
                     GasStationId = gasStation5Data,
-                    FromTime = new DateTime(2020, 9, 14, 20, 0, 0),
-                    ToTime = new DateTime(2020, 9, 15, 4, 0, 0),
+                    FromTime = new DateTime(2020, 9, 15, 20, 0, 0),
+                    ToTime = new DateTime(2020, 9, 15, 2, 0, 0),
                     OrderType = OrderType.Historical,
                     CarrierId = carrier1,
                     LineItems = new List<InputOrderProduct> {

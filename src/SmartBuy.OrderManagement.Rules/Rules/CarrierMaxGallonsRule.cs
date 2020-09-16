@@ -1,10 +1,10 @@
-﻿using FluentValidation.Results;
-using SmartBuy.Administration.Domain;
+﻿using SmartBuy.OrderManagement.Domain;
 using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace SmartBuy.OrderManagement.Rules
 {
@@ -19,6 +19,9 @@ namespace SmartBuy.OrderManagement.Rules
 
         internal async Task<bool> IsOrderGallonsLessThanOrEqualMaxCapacity(IEnumerable<InputOrder> inputOrders)
         {
+            if (inputOrders == null)
+                throw new ArgumentException("input order is null", nameof(inputOrders));
+
             var carrierId = inputOrders.FirstOrDefault().CarrierId;
 
             var carrier = (await _carrierRepo.FindByKeyAsync(carrierId));

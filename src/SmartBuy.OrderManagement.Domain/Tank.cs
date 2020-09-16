@@ -5,7 +5,7 @@ using System;
 
 namespace SmartBuy.OrderManagement.Domain
 {
-    public class Tank : Entity<int>
+    public class Tank
     {
         private Tank()
         {
@@ -13,13 +13,15 @@ namespace SmartBuy.OrderManagement.Domain
         }
 
         public Tank(int id, Guid gasStationId,
-            int productId, Measurement measurement) : base(id)
+            int productId, Measurement measurement)
         {
             GasStationId = gasStationId;
             ProductId = productId;
             Measurement = measurement;
             ProductId = productId;
         }
+
+        public int Id { get; private set; }
 
         public Guid GasStationId { get; private set; }
 

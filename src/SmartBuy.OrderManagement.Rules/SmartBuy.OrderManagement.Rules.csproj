@@ -6,14 +6,24 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
-    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
-    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>SmartBuy.OrderManagement.Rules.Tests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.OrderManagement.Domain">
+      <HintPath>..\SmartBuy.OrderManagement.Domain\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Domain.Services.Abstractions">
+      <HintPath>..\SmartBuy.OrderManagement.Domain.Services.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.SharedKernel">
+      <HintPath>..\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

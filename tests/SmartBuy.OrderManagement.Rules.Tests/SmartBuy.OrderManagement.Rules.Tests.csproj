@@ -19,13 +19,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
-	  <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
 	  <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="SmartBuy.OrderManagement.Rules">
-	    <HintPath>..\..\src\SmartBuy.OrderManagement.Rules\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Rules.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
 ﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using SmartBuy.SharedKernel.ValueObjects;
-using System;
 using System.Collections.Generic;
 
 namespace SmartBuy.OrderManagement.Domain
