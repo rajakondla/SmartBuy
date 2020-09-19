@@ -21,4 +21,16 @@
 	  <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
 	  <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="SmartBuy.OrderManagement.Domain.Services.Abstractions">
+	    <HintPath>..\..\src\SmartBuy.OrderManagement.Domain.Services.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.Abstractions.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SmartBuy.OrderManagement.Rules">
+	    <HintPath>..\..\src\SmartBuy.OrderManagement.Rules\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Rules.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SmartBuy.SharedKernel">
+	    <HintPath>..\..\src\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 </Project>
