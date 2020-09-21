@@ -13,9 +13,9 @@ using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
-    public class ScheduleOrderGeneratorTests : IClassFixture<OrderDataFixture>
+    public class ScheduleOrderGeneratorTests : IClassFixture<ScheduleOrderDataFixture>
     {
-        private readonly OrderDataFixture _orderData;
+        private readonly ScheduleOrderDataFixture _orderData;
         private Mock<IGenericReadRepository<GasStationSchedule>> _mockGasStationScheduleRepo;
         private Mock<IGenericReadRepository<GasStationScheduleByDay>> _mockGasStationScheduleByDayRepo;
         private Mock<IGenericReadRepository<GasStationTankSchedule>> _mockGasStationTanksScheduleRepo;
@@ -24,9 +24,9 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         private Mock<ITimeIntervalComparable> _mockTimeIntervalComparable;
         private Mock<IOrderRepository> _mockOrderRepository;
 
-        public ScheduleOrderGeneratorTests(OrderDataFixture orderData)
+        public ScheduleOrderGeneratorTests(ScheduleOrderDataFixture orderData)
         {
-            MockRepoHelper mockhelper = new MockRepoHelper(orderData);
+            ScheduleMockRepoHelper mockhelper = new ScheduleMockRepoHelper(orderData);
             _mockGasStationScheduleRepo = mockhelper.MockGasStationScheduleRepo;
             _mockGasStationScheduleByDayRepo = mockhelper.MockGasStationScheduleByDayRepo;
             _mockGasStationTanksScheduleRepo = mockhelper.MockGasStationTanksScheduleRepo;

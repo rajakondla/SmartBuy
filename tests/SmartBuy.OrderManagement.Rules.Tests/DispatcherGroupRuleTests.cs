@@ -2,7 +2,9 @@
 using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Rules.Tests.Helper;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,6 +30,8 @@ namespace SmartBuy.OrderManagement.Rules.Tests
             var result = await dispatcherGroupRule.IsDispatcherSame(
                 _orderData.InputOrders.Take(2));
 
+            _mockGasStationRepo.Verify(x =>
+            x.FindByAsync(It.IsAny<Expression<Func<GasStation, bool>>>()), Times.Once);
             Assert.True(result);
         }
 

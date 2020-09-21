@@ -13,12 +13,13 @@ namespace SmartBuy.OrderManagement.Domain
         }
 
         public Tank(int id, Guid gasStationId,
-            int productId, Measurement measurement)
+            int productId, Measurement measurement, int estimatedDaySale)
         {
             GasStationId = gasStationId;
             ProductId = productId;
             Measurement = measurement;
             ProductId = productId;
+            EstimatedDaySale = estimatedDaySale;
         }
 
         public int Id { get; private set; }

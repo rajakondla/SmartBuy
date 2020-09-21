@@ -9,14 +9,14 @@ using SmartBuy.SharedKernel.Enums;
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {
     [CollectionDefinition("OrderDataCollection")]
-    public class OrderDataCollection : ICollectionFixture<OrderDataFixture>
+    public class OrderDataCollection : ICollectionFixture<ScheduleOrderDataFixture>
     {
         // This class has no code, and is never created. Its purpose is simply
         // to be the place to apply [CollectionDefinition] and all the
         // ICollectionFixture<> interfaces.
     }
 
-    public class OrderDataFixture
+    public class ScheduleOrderDataFixture
     {
         private InputOrder _inputOrder;
         private GasStation _gasStation1;
@@ -33,23 +33,23 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
         private GasStationTankSchedule _gasStation2Tank2Schedule;
         private List<GasStationScheduleByTime> _gasStation2ScheduleByTime;
 
-        public OrderDataFixture()
+        public ScheduleOrderDataFixture()
         {
             var _lineItems = new List<InputOrderProduct>();
             var date = DateTime.Now;
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
             var guid1tanks = new List<Tank> {
-                new Tank(1, guid1, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
-                new Tank(2, guid1, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
+                new Tank(1, guid1, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 1000),
+                new Tank(2, guid1, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 1500)
             };
             _gasStation1 = new GasStation(guid1, guid1tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
                 , Guid.NewGuid());
 
             var guid2tanks = new List<Tank> {
-                new Tank(1, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
-                new Tank(2, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
+                new Tank(1, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 500),
+                new Tank(2, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 2000)
             };
             _gasStation2 = new GasStation(guid2, guid2tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))

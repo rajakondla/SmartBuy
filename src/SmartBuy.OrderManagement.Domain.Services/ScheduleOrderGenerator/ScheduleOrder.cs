@@ -40,7 +40,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
         public async Task<InputOrder> CreateOrderAsync(GasStationDetailDTO gasStationDetail)
         {
             if (gasStationDetail == null)
-                throw new ArgumentException("Invalid gas station details", nameof(gasStationDetail));
+                throw new ArgumentException("gasStationDetail cannot be null", nameof(gasStationDetail));
 
             if (gasStationDetail.OrderType == OrderType.Schedule)
             {

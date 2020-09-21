@@ -10,10 +10,10 @@ using SmartBuy.OrderManagement.Domain.Tests.Helper;
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
     //[CollectionDefinition("OrderDataCollection")]
-    public class OrderTests : IClassFixture<OrderDataFixture>
+    public class OrderTests : IClassFixture<ScheduleOrderDataFixture>
     {
-        OrderDataFixture _orderData;
-        public OrderTests(OrderDataFixture orderData)
+        ScheduleOrderDataFixture _orderData;
+        public OrderTests(ScheduleOrderDataFixture orderData)
         {
             _orderData = orderData;
         }
@@ -63,7 +63,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         [Fact]
         public void ShouldNotCreateOrderWithoutProducts()
         {
-            OrderDataFixture orderData = _orderData;
+            ScheduleOrderDataFixture orderData = _orderData;
             orderData.InputOrder.LineItems = new List<InputOrderProduct>();
             var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 

@@ -10,9 +10,9 @@ using System.Linq.Expressions;
 
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {
-    public class MockRepoHelper
+    public class ScheduleMockRepoHelper
     {
-        public MockRepoHelper(OrderDataFixture orderData)
+        public ScheduleMockRepoHelper(ScheduleOrderDataFixture orderData)
         {
             MockGasStationScheduleRepo = new Mock<IGenericReadRepository<GasStationSchedule>>();
 
