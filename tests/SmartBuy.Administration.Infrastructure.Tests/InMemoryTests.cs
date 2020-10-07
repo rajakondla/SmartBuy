@@ -46,7 +46,7 @@ namespace SmartBuy.Administration.Infrastructure.Tests
                 tank.Number = 1;
                 tank.ProductId = 1;
                 tank.Name = "Tank1";
-                tank.AddMeasurement(new Measurement(100, TankMeasurement.Gallons, 100, 100, 800));
+                tank.AddMeasurement(new Measurement(TankMeasurement.Gallons, 100, 100, 800));
                 gasStation.Tanks.Add(tank);
                 context.GasStations.Add(gasStation);
 
@@ -92,13 +92,13 @@ namespace SmartBuy.Administration.Infrastructure.Tests
                 tank1.Number = 1;
                 tank1.ProductId = 1;
                 tank1.Name = "Tank1";
-                tank1.AddMeasurement(new Measurement(100, TankMeasurement.Gallons, 100, 100, 800));
+                tank1.AddMeasurement(new Measurement(TankMeasurement.Gallons, 100, 100, 800));
                 var tank2 = new SmartBuy.Administration.Domain.Tank();
                 tank2.GasStationId = guid;
                 tank2.Number = 1;
                 tank2.ProductId = 1;
                 tank2.Name = "Tank1";
-                tank2.AddMeasurement(new Measurement(100, TankMeasurement.Gallons, 100, 100, 800));
+                tank2.AddMeasurement(new Measurement(TankMeasurement.Gallons, 100, 100, 800));
                 gasStation.Tanks.Add(tank1);
                 gasStation.Tanks.Add(tank2);
                 context1.GasStations.Add(gasStation);

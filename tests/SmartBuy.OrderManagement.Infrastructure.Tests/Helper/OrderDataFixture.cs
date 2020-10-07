@@ -30,8 +30,8 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
             var date = DateTime.Now;
             var guid = Guid.NewGuid();
             var tanks = new List<Tank> {
-                new Tank(1, guid, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800)),
-                new Tank(2, guid, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800))
+                new Tank(1, guid, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 100),
+                new Tank(2, guid, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 100)
             };
             _tankReadings = new List<TankReading>
             {

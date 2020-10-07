@@ -44,12 +44,12 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests.Helper
             tank1.ProductId = 1;
             tank1.Name = "Tank1";
 
-            tank1.AddMeasurement(new Measurement(800, TankMeasurement.Gallons, 100, 100, 500));
+            tank1.AddMeasurement(new Measurement(TankMeasurement.Gallons, 100, 100, 500));
             var tank2 = new Tank();
             tank2.GasStationId = _gasStationId;
             tank2.Number = 1;
             tank2.Name = "Tank2";
-            tank2.AddMeasurement(new Measurement(800, TankMeasurement.Gallons, 100, 100, 500));
+            tank2.AddMeasurement(new Measurement(TankMeasurement.Gallons, 100, 100, 500));
             var tank1Sale1 = new TankSale();
             tank1Sale1.Quantity = 100;
             tank1Sale1.SaleTime = _dateTime1;

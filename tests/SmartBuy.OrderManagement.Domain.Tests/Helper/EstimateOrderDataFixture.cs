@@ -26,8 +26,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
             var guid1tanks = new List<Tank> {
-                new Tank(1, guid1, 1, new Measurement(10000,TankMeasurement.Gallons,200, 200, 5000), 1000),
-                new Tank(10000, guid1, 2, new Measurement(100,TankMeasurement.Gallons,200, 200, 6000), 1500)
+                new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons,200, 200, 5000), 1000),
+                new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons,200, 200, 6000), 1500)
             };
             _tankReadings = new List<TankReading> {
                 new TankReading(1, 7000, new DateTime(2020, 9, 21, 8, 0, 0)),
@@ -60,8 +60,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 , Guid.NewGuid());
 
             var guid2tanks = new List<Tank> {
-                new Tank(3, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 500),
-                new Tank(4, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 2000)
+                new Tank(3, guid2, 1, new Measurement(TankMeasurement.Gallons,100, 100, 5000), 1000),
+                new Tank(4, guid2, 2, new Measurement(TankMeasurement.Gallons,100, 100, 5500), 2000)
             };
             _gasStation2 = new GasStation(guid2, guid2tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))

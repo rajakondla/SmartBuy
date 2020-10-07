@@ -15,23 +15,20 @@ namespace SmartBuy.OrderManagement.Domain.Tests
     {
         private readonly EstimateOrderDataFixture _orderData;
         private readonly Mock<IGenericReadRepository<GasStation>> _mockGasStationsRepo;
-        private readonly Mock<IGenericReadRepository<TankReading>> _mockTankReadingsRepo;
 
         public EstimateOrderGeneratorTests(EstimateOrderDataFixture orderData)
         {
             _orderData = orderData;
             var mockHelper = new EstimateMockRepoHelper(_orderData);
             _mockGasStationsRepo = mockHelper.MockGasStationsRepo;
-            _mockTankReadingsRepo = mockHelper.MockTankReadingsRepo;
         }
 
         [Fact]
         public void ShouldThrowErrorWhenPassingInvalidGasStation()
         {
-            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object,
-                _mockTankReadingsRepo.Object);
+            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object);
 
-            Assert.ThrowsAsync<ArgumentException>(
+            Assert.ThrowsAsync<ArgumentNullException>(
                 async () =>
                 {
                     await estimateOrder.CreateOrderAsync(null);
@@ -42,7 +39,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         [Fact]
         public async Task ShouldGenerateOrderWhenTanksHaveEstimatedDaySaleGreaterThanZero()
         {
-            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object, _mockTankReadingsRepo.Object);
+            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object);
             var gasStation = _orderData.GasStations.FirstOrDefault();
 
             var inputOrder = await estimateOrder.CreateOrderAsync(_orderData.GasStationDetailEstimates.Where(x =>

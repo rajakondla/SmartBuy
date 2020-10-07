@@ -40,16 +40,16 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
             var guid1tanks = new List<Tank> {
-                new Tank(1, guid1, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 1000),
-                new Tank(2, guid1, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 1500)
+                new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1000),
+                new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1500)
             };
             _gasStation1 = new GasStation(guid1, guid1tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
                 , Guid.NewGuid());
 
             var guid2tanks = new List<Tank> {
-                new Tank(1, guid2, 1, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 500),
-                new Tank(2, guid2, 2, new Measurement(100,TankMeasurement.Gallons,100, 100, 800), 2000)
+                new Tank(1, guid2, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 500),
+                new Tank(2, guid2, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 2000)
             };
             _gasStation2 = new GasStation(guid2, guid2tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))

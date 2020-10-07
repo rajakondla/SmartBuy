@@ -10,20 +10,16 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
     public class EstimateOrder
     {
         public readonly IGenericReadRepository<GasStation> _gasStations;
-        public readonly IGenericReadRepository<TankReading> _tankReadings;
 
-        public EstimateOrder(IGenericReadRepository<GasStation> gasStations
-            , IGenericReadRepository<TankReading> tankReadings)
+        public EstimateOrder(IGenericReadRepository<GasStation> gasStations)
         {
             _gasStations = gasStations;
-            _tankReadings = tankReadings;
         }
 
         public async Task<InputOrder> CreateOrderAsync(GasStationDetailDTO gasStationDetailDTO)
         {
             if (gasStationDetailDTO is null)
-                throw new ArgumentException("gasStationDetailDTO cannot be null",
-                    nameof(gasStationDetailDTO));
+                throw new ArgumentNullException(nameof(gasStationDetailDTO));
 
             if (gasStationDetailDTO.OrderType == OrderType.Estimate)
             {

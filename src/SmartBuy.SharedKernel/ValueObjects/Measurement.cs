@@ -19,39 +19,39 @@ namespace SmartBuy.SharedKernel.ValueObjects
 
         }
 
-        public Measurement(int netQuantity, TankMeasurement unit,
+        public Measurement(TankMeasurement unit,
             int top, int bottom, int quantity)
         {
-            NetQuantity = netQuantity;
             Unit = unit;
             Top = top;
             Bottom = bottom;
             Quantity = quantity;
+            NetQuantity = top + bottom + quantity;
         }
 
         public Measurement ChangeUnit(TankMeasurement unit)
         {
-            return new Measurement(this.NetQuantity, unit, this.Top, this.Bottom, this.Quantity);
+            return new Measurement(unit, this.Top, this.Bottom, this.Quantity);
         }
 
         public Measurement UpdateNetQuantity(int netQuantity)
         {
-            return new Measurement(netQuantity, this.Unit, this.Top, this.Bottom, this.Quantity);
+            return new Measurement(this.Unit, this.Top, this.Bottom, this.Quantity);
         }
 
         public Measurement UpdateQuantity(int quantity)
         {
-            return new Measurement(this.NetQuantity, this.Unit, this.Top, this.Bottom, quantity);
+            return new Measurement(this.Unit, this.Top, this.Bottom, quantity);
         }
 
         public Measurement UpdateTankTop(int top)
         {
-            return new Measurement(this.NetQuantity, this.Unit, top, this.Bottom, this.Quantity);
+            return new Measurement(this.Unit, top, this.Bottom, this.Quantity);
         }
 
         public Measurement UpdateTankBottom(int bottom)
         {
-            return new Measurement(this.NetQuantity, this.Unit, this.Top, bottom, this.Quantity);
+            return new Measurement(this.Unit, this.Top, bottom, this.Quantity);
         }
     }
 }
