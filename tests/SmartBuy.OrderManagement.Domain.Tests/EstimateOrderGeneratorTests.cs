@@ -48,6 +48,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             _mockGasStationsRepo.Verify(x =>
             x.FindByKeyAsync(It.IsAny<object>()), Times.Once);
             Assert.True(gasStation.Id == inputOrder.GasStationId);
+            Assert.Equal(new DateTime(2020, 10, 10, 21, 0, 0), inputOrder.FromTime);
+            Assert.Equal(5750, inputOrder.LineItems.Last().Quantity);
         }
     }
 }
