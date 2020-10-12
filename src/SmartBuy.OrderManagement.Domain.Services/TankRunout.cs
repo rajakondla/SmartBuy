@@ -1,7 +1,6 @@
 ﻿using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace SmartBuy.OrderManagement.Domain.Services
@@ -22,16 +21,20 @@ namespace SmartBuy.OrderManagement.Domain.Services
             return readingsByHour;
         }
 
-        public static IEnumerable<(int TankId, TankReading TankReading)> GetFastRunoutReadings(IEnumerable<FastRunoutReading> readings)
+        public static (int TankId, TankReading TankReading) GetFastestRunoutTankReading(IEnumerable<FastRunoutReading> readings)
         {
             var runoutReadings = new Dictionary<int, TankReading>();
-            foreach(var reading in readings)
+            foreach (var reading in readings)
             {
-               var item= reading.TankReadings
-                    .Where(x => x.Quantity > reading.Bottom)
-                    .Last();
+                var item = reading.TankReadings
+                     .Where(x => x.Quantity > reading.Bottom)
+                     .Last();
                 runoutReadings.Add(reading.TankId, item);
             }
+
+            var result = runoutReadings.First(x => x.Value.ReadingTime == runoutReadings.Min(x => x.Value.ReadingTime));
+
+            return (result.Key, result.Value);
         }
     }
 }
