@@ -32,7 +32,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             //Assert.Equal(1166.64, tank1Readings.LastOrDefault().Quantity);
             Assert.Equal(250, lowestTankReadings.TankReading.Quantity);
-            Assert.Equal(new DateTime(2020, 10, 10, 8, 0, 0), lowestTankReadings.TankReading.ReadingTime);
+            Assert.Equal(new DateTime(2020, 10, 10, 20, 0, 0), lowestTankReadings.TankReading.ReadingTime);
             Assert.Equal(tank2Detail.Id, lowestTankReadings.TankId);
         }
     }

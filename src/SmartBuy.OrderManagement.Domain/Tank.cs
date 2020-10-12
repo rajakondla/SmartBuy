@@ -15,6 +15,7 @@ namespace SmartBuy.OrderManagement.Domain
         public Tank(int id, Guid gasStationId,
             int productId, Measurement measurement, int estimatedDaySale)
         {
+            Id = id;
             GasStationId = gasStationId;
             ProductId = productId;
             Measurement = measurement;

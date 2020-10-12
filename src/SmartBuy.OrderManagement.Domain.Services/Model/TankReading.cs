@@ -6,7 +6,7 @@ namespace SmartBuy.OrderManagement.Domain.Services
     public struct TankReading
     {
         private readonly DateTime _readingTime;
-        public double _quantity;
+        public readonly double _quantity;
 
         public TankReading(DateTime readingTime, double quantity)
         {
@@ -19,8 +19,7 @@ namespace SmartBuy.OrderManagement.Domain.Services
 
         public TankReading AddReading(DateTime readingTime, double quantity)
         {
-            this._quantity -= quantity;
-            return new TankReading(readingTime, this._quantity);
+            return new TankReading(readingTime, quantity);
         }
     }
     

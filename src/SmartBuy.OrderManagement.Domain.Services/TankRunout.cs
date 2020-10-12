@@ -10,12 +10,16 @@ namespace SmartBuy.OrderManagement.Domain.Services
         public static IEnumerable<TankReading> GetRunoutReadingsByHour(TankDetail tankDetail, DateTime runTime)
         {
             var perHourSale = tankDetail.EstimatedDaySale / 24.0;
-            var currentReading = new TankReading(runTime, tankDetail.Quantity);
-            var readingsByHour = new List<TankReading> { currentReading };
+            var reading = new TankReading(runTime, tankDetail.Quantity);
+            var readingsByHour = new List<TankReading> { reading };
+            (double currentQty, DateTime currentReadingTime)  currentReading = (reading.Quantity, reading.ReadingTime);
 
-            while (currentReading.Quantity > tankDetail.Bottom)
+            while (currentReading.currentQty > tankDetail.Bottom)
             {
-                readingsByHour.Add(currentReading.AddReading(currentReading.ReadingTime.AddHours(1), perHourSale));
+                currentReading.currentQty -= perHourSale;
+                currentReading.currentReadingTime = currentReading.currentReadingTime.AddHours(1);
+                readingsByHour.Add(reading.AddReading(currentReading.currentReadingTime,
+                    currentReading.currentQty));
             }
 
             return readingsByHour;
