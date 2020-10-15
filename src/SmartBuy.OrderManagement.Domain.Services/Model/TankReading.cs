@@ -23,9 +23,9 @@ namespace SmartBuy.OrderManagement.Domain.Services
         }
     }
     
-    public class FastRunoutReading
+    public class RunoutReading
     {
-        public FastRunoutReading()
+        public RunoutReading()
         {
             TankReadings = new List<TankReading>();
         }

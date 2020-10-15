@@ -9,9 +9,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Mappers
         public AutoMapping()
         {
             CreateMap<Tank, TankDetail>()
-                .ForMember(dest => dest.Bottom, src => src.MapFrom(src => src.Measurement.Bottom))
-                .ForMember(dest => dest.Top, src => src.MapFrom(src => src.Measurement.Top))
-                .ForMember(dest => dest.Quantity, src => src.MapFrom(src => src.Measurement.Quantity));
+                .ForMember(dest => dest.Measurement, src => src.MapFrom(src => src.Measurement));
         }
     }
 }

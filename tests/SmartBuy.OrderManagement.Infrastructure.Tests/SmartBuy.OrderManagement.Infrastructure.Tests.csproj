@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\src\SmartBuy.Administration.Domain\SmartBuy.Administration.Domain.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.Administration.Infrastructure\SmartBuy.Administration.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

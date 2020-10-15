@@ -32,7 +32,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         public void ShouldMatchRunTimeAndRunoutTimeWhenTankQtyIsBottomQty()
         {
             var tankDetail = _tankDetails.First();
-            tankDetail.Quantity = tankDetail.Bottom;
+            tankDetail.Measurement.UpdateQuantity(tankDetail.Measurement.Bottom);
             var readings = TankRunout.GetRunoutReadingsByHour(tankDetail, new DateTime(2020, 10, 7, 0, 0, 0));
             Assert.Equal(new DateTime(2020, 10, 7, 0, 0, 0), readings.LastOrDefault().ReadingTime);
         }
@@ -41,7 +41,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         public void ShouldMatchRunTimeAndRunoutTimeWhenTankQtyIsLessThanBottomQty()
         {
             var tankDetail = _tankDetails.First();
-            tankDetail.Quantity = tankDetail.Bottom - 50;
+            tankDetail.Measurement.UpdateQuantity(tankDetail.Measurement.Bottom - 50);
             var readings = TankRunout.GetRunoutReadingsByHour(tankDetail, new DateTime(2020, 10, 7, 0, 0, 0));
             Assert.Equal(new DateTime(2020, 10, 7, 0, 0, 0), readings.LastOrDefault().ReadingTime);
         }

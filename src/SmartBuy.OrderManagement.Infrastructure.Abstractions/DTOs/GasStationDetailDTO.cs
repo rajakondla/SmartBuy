@@ -1,4 +1,5 @@
 ﻿using SmartBuy.SharedKernel.Enums;
+using SmartBuy.SharedKernel.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -26,13 +27,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs
     {
         public int Id { get; set; }
 
-        public int NetQuantity { get; set; }
-
-        public int Top { get; set; }
-
-        public int Bottom { get; set; }
-
-        public int Quantity { get; set; }
+        public Measurement Measurement { get; set; }
 
         public int EstimatedDaySale { get; set; }
     }

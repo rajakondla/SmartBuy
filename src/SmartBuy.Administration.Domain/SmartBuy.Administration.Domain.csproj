@@ -8,6 +8,7 @@
 
   <ItemGroup>
 		<PackageReference Include="FluentValidation" Version="9.0.1" />
+		<ProjectReference Include="..\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
     <Reference Include="SmartBuy.SharedKernel">
       <HintPath>..\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
     </Reference>

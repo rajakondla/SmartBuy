@@ -76,10 +76,10 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 ToTime = new TimeSpan(23, 59, 0),
                 TankDetails = new List<TankDetail>
                      {
-                      new TankDetail{ Id=1, NetQuantity = 1000, Quantity =500,
-                     Bottom = 100, Top = 100 },
-                      new TankDetail{ Id=2, NetQuantity = 1000, Quantity =500,
-                     Bottom = 100, Top = 100 }
+                      new TankDetail{ Id=1, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) },
+                      new TankDetail{ Id=2, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) }
                      },
                 OrderType = OrderType.Schedule
             };
@@ -91,10 +91,10 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 ToTime = new TimeSpan(23, 59, 0),
                 TankDetails = new List<TankDetail>
                      {
-                      new TankDetail{ Id=3, NetQuantity = 1000, Quantity =500,
-                     Bottom = 100, Top = 100 },
-                      new TankDetail{ Id=4, NetQuantity = 1000, Quantity =500,
-                     Bottom = 100, Top = 100 }
+                      new TankDetail{ Id=3, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) },
+                      new TankDetail{ Id=4, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) }
                      },
                 OrderType = OrderType.Schedule
             };

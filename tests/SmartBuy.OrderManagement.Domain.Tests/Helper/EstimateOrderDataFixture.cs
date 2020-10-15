@@ -26,8 +26,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
             var guid1tanks = new List<Tank> {
-                new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons,200, 200, 5000), 1000),
-                new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons,200, 200, 6000), 1500)
+                new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons, 200, 200, 5000), 1000),
+                new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons, 200, 200, 6000), 1500)
             };
             _tankReadings = new List<TankReading> {
                 new TankReading(1, 7000, new DateTime(2020, 9, 21, 8, 0, 0)),
@@ -72,11 +72,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 return new TankDetail
                 {
                     Id = tank.Id,
-                    Bottom = tank.Measurement.Bottom,
-                    Top = tank.Measurement.Top,
-                    EstimatedDaySale = tank.EstimatedDaySale,
-                    NetQuantity = tank.NetQuantity,
-                    Quantity = tank.Measurement.Quantity
+                    Measurement = tank.Measurement,
+                    EstimatedDaySale = tank.EstimatedDaySale
                 };
             }
 
@@ -102,7 +99,11 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
         public IEnumerable<GasStation> GasStations => new[]
         { _gasStation1, _gasStation2 };
 
-        public IEnumerable<GasStationDetailDTO> GasStationDetailEstimates => new[] { _gasStation1DetailEstimate, _gasStation2DetailEstimate };
+        public IEnumerable<GasStationDetailDTO> GasStationDetailEstimates => new[] 
+        { 
+            _gasStation1DetailEstimate, 
+            _gasStation2DetailEstimate 
+        };
 
         public IEnumerable<TankReading> TankReadings => _tankReadings;
     }

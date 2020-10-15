@@ -14,42 +14,45 @@ namespace SmartBuy.OrderManagement.Domain.Tests
     public class EstimateOrderGeneratorTests : IClassFixture<EstimateOrderDataFixture>
     {
         private readonly EstimateOrderDataFixture _orderData;
-        private readonly Mock<IGenericReadRepository<GasStation>> _mockGasStationsRepo;
 
         public EstimateOrderGeneratorTests(EstimateOrderDataFixture orderData)
         {
             _orderData = orderData;
-            var mockHelper = new EstimateMockRepoHelper(_orderData);
-            _mockGasStationsRepo = mockHelper.MockGasStationsRepo;
         }
 
         [Fact]
         public void ShouldThrowErrorWhenPassingInvalidGasStation()
         {
-            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object);
+            var estimateOrder = new EstimateOrder();
 
-            Assert.ThrowsAsync<ArgumentNullException>(
-                async () =>
-                {
-                    await estimateOrder.CreateOrderAsync(null);
-                }
-            );
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                estimateOrder.CreateOrderAsync(null, DateTime.Now);
+            });
         }
 
         [Fact]
-        public async Task ShouldGenerateOrderWhenTanksHaveEstimatedDaySaleGreaterThanZero()
+        public void ShouldGenerateOrderWhenTanksHaveEstimatedDaySaleGreaterThanZero()
         {
-            var estimateOrder = new EstimateOrder(_mockGasStationsRepo.Object);
+            var estimateOrder = new EstimateOrder();
             var gasStation = _orderData.GasStations.FirstOrDefault();
+            var gasStationDetails = _orderData.GasStationDetailEstimates.First(x =>
+               x.GasStationId == gasStation.Id);
 
-            var inputOrder = await estimateOrder.CreateOrderAsync(_orderData.GasStationDetailEstimates.Where(x =>
-            x.GasStationId == gasStation.Id).FirstOrDefault());
+            var inputOrder = estimateOrder.CreateOrderAsync(
+               gasStationDetails, new DateTime(2020, 10, 7)
+            );
 
-            _mockGasStationsRepo.Verify(x =>
-            x.FindByKeyAsync(It.IsAny<object>()), Times.Once);
+            var tank1 = gasStationDetails.TankDetails.First();
+            var tank2 = gasStationDetails.TankDetails.Last();
+
             Assert.True(gasStation.Id == inputOrder.GasStationId);
-            Assert.Equal(new DateTime(2020, 10, 10, 21, 0, 0), inputOrder.FromTime);
-            Assert.Equal(5750, inputOrder.LineItems.Last().Quantity);
+            Assert.Equal(2, gasStationDetails.TankDetails.Count());
+            Assert.Equal(new DateTime(2020, 10, 10, 20, 0, 0), inputOrder.FromTime);
+            Assert.Equal(tank1.Measurement.NetQuantity - 1167,
+                inputOrder.LineItems.First(x => x.TankId == tank1.Id).Quantity);
+            Assert.Equal(tank2.Measurement.NetQuantity - 250,
+                inputOrder.LineItems.First(x => x.TankId == tank2.Id).Quantity);
         }
     }
 }

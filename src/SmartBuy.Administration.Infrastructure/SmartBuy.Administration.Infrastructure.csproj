@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Administration.Domain\SmartBuy.Administration.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="SmartBuy.Administration.Domain">
       <HintPath>..\SmartBuy.Administration.Domain\bin\Debug\netstandard2.1\SmartBuy.Administration.Domain.dll</HintPath>
     </Reference>

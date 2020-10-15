@@ -69,11 +69,11 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
             Assert.Single(gasStationDetail.TankDetails.Where(t =>
             t.Id == _adminstrationData.Tanks.FirstOrDefault().Id));
             Assert.Equal(_adminstrationData.Tanks.FirstOrDefault().Measurement.Quantity, gasStationDetail.TankDetails.Where(t =>
-            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Quantity);
+            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Measurement.Quantity);
             Assert.Equal(_adminstrationData.Tanks.FirstOrDefault().Measurement.Top, gasStationDetail.TankDetails.Where(t =>
-            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Top);
+            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Measurement.Top);
             Assert.Equal(_adminstrationData.Tanks.FirstOrDefault().Measurement.Bottom, gasStationDetail.TankDetails.Where(t =>
-            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Bottom);
+            t.Id == _adminstrationData.Tanks.FirstOrDefault().Id).FirstOrDefault().Measurement.Bottom);
         }
     }
 }
