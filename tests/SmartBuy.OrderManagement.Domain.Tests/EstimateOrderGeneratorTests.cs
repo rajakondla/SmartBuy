@@ -27,7 +27,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                estimateOrder.CreateOrderAsync(null, DateTime.Now);
+                estimateOrder.CreateOrder(null, DateTime.Now);
             });
         }
 
@@ -39,7 +39,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             var gasStationDetails = _orderData.GasStationDetailEstimates.First(x =>
                x.GasStationId == gasStation.Id);
 
-            var inputOrder = estimateOrder.CreateOrderAsync(
+            var inputOrder = estimateOrder.CreateOrder(
                gasStationDetails, new DateTime(2020, 10, 7)
             );
 

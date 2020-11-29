@@ -12,7 +12,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
 {
     public class EstimateOrder
     {
-        public InputOrder CreateOrderAsync(GasStationDetailDTO gasStationDetailDTO
+        public InputOrder CreateOrder(GasStationDetailDTO gasStationDetailDTO
             , DateTime runTime)
         {
             if (gasStationDetailDTO is null)

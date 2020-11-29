@@ -12,7 +12,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 {
     public class OrderGeneratorServiceTests : IClassFixture<ScheduleOrderDataFixture>
     {
-        private readonly OrderGeneratorService _orderGenService;
+        private readonly OrderGenerator _orderGenService;
         private readonly Mock<IGasStationRepository> _moqGasStationRepo;
         private readonly Guid _gasStationId;
 
@@ -26,7 +26,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
                 orderData.GasStationDetailSchedules.FirstOrDefault(x => x.GasStationId == orderData.GasStationSchedules.FirstOrDefault().GasStationId)
                 ));
             ScheduleMockRepoHelper mockhelper = new ScheduleMockRepoHelper(orderData);
-            _orderGenService = new OrderGeneratorService(_moqGasStationRepo.Object,
+            _orderGenService = new OrderGenerator(_moqGasStationRepo.Object,
                 new ScheduleOrder(
                     mockhelper.MockGasStationScheduleRepo.Object,
                     mockhelper.MockGasStationScheduleByDayRepo.Object,

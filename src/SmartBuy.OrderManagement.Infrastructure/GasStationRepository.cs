@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
-using SmartBuy.OrderManagement.Infrastructure.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
