@@ -1,11 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace SmartBuy.OrderManagement.Domain.Validattion
 {
@@ -24,6 +21,8 @@ namespace SmartBuy.OrderManagement.Domain.Validattion
             RuleForEach(x => x.LineItems).SetValidator(new InputOrderProductValidator());
             RuleFor(x => x.LineItems).Must(IsLineItemsValid)
                 .WithMessage("Gas Station tanks and Order tanks are not same");
+            RuleFor(x => x.CarrierId).NotNull()
+                .WithMessage("Carrier Id should not be null");
         }
 
         private bool IsLineItemsValid(IEnumerable<InputOrderProduct> lineItems)

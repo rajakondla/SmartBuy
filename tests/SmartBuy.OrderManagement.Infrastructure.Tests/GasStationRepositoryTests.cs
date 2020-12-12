@@ -53,7 +53,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         [Fact]
         public void ShouldThrowArugumentExceptionError()
         {
-            Assert.ThrowsAsync<ArgumentException>(async () => { await _gasStationRepository.    `GetGasStationDetailsAsync(default(Guid)); });
+            Assert.ThrowsAsync<ArgumentException>(async () => { await _gasStationRepository.GetGasStationDetailsAsync(default(Guid)); });
         }
 
         [Fact]

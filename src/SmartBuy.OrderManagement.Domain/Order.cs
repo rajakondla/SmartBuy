@@ -21,6 +21,8 @@ namespace SmartBuy.OrderManagement.Domain
 
         public OrderType OrderType { get; private set; }
 
+        public Guid? CarrierId { get; private set; }
+
         private Order()
         {
             OrderProducts = new List<OrderProduct>();

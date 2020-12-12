@@ -10,7 +10,7 @@ namespace SmartBuy.OrderManagement.Domain.Services
 {
     public class DefaultOrder
     {
-        private InputOrder _inputOrder = new InputOrder();
+        private static InputOrder _inputOrder = new InputOrder();
         private static DefaultOrder _instance = new DefaultOrder();
 
         private DefaultOrder()

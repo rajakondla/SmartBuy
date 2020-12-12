@@ -14,6 +14,9 @@
 	  <Reference Include="SmartBuy.OrderManagement.Domain.Services.Abstractions">
 	    <HintPath>..\SmartBuy.OrderManagement.Domain.Services.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.Abstractions.dll</HintPath>
 	  </Reference>
+	  <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
+	    <HintPath>..\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
+	  </Reference>
 	  <Reference Include="SmartBuy.SharedKernel">
 	    <HintPath>..\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
 	  </Reference>

@@ -22,7 +22,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         private Mock<IGenericReadRepository<GasStationScheduleByTime>> _mockGasStationScheduleByTimeRepo;
         private Mock<IDayComparable> _mockDayComparable;
         private Mock<ITimeIntervalComparable> _mockTimeIntervalComparable;
-        private Mock<IOrderRepository> _mockOrderRepository;
+        private Mock<IManageOrderRepository> _mockOrderRepository;
 
         public ScheduleOrderGeneratorTests(ScheduleOrderDataFixture orderData)
         {

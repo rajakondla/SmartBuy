@@ -18,7 +18,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
         private readonly IGenericReadRepository<GasStationScheduleByTime> _gasStationScheduleByTime;
         private readonly IDayComparable _dayCompare;
         private readonly ITimeIntervalComparable _timeIntervalCompare;
-        private readonly IOrderRepository _orderRepository;
+        private readonly IManageOrderRepository _orderRepository;
 
         public ScheduleOrder(IGenericReadRepository<GasStationSchedule> gasStationSchedule
             , IGenericReadRepository<GasStationScheduleByDay> gasStationScheduleByDay
@@ -26,7 +26,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             , IGenericReadRepository<GasStationScheduleByTime> gasStationScheduleByTime
             , IDayComparable dayCompare
             , ITimeIntervalComparable timeIntervalCompare
-            , IOrderRepository orderRepository)
+            , IManageOrderRepository orderRepository)
         {
             _gasStationSchedule = gasStationSchedule;
             _gasStationScheduleByDay = gasStationScheduleByDay;
@@ -88,14 +88,14 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             var gsByTime = await _gasStationScheduleByTime.FindByAsync(x =>
             x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
 
-            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStationDetail.GasStationId, OrderType.Schedule)).FirstOrDefault();
+            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStationDetail.GasStationId, OrderType.Schedule)).Orders.FirstOrDefault();
 
-            var deliveryDate = (order == null || order.DeliveryData == null) ? DateTime.MinValue : order.DeliveryData;
+            var deliveryDate = order == null ? DateTime.MinValue : order.DispatchDate.Start;
 
             if (!gsByTime.Any())
                 throw new TimIntervalConfigurationException(gasStationDetail.GasStationId.ToString());
 
-            if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral, deliveryDate.Value, DateTime.Now)))
+            if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral, deliveryDate, DateTime.Now)))
             {
                 return CreateInputOrder(gasStationDetail, gsScheduleTanks);
             }

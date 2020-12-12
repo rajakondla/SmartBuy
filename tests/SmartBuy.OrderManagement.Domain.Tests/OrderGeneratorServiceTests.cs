@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SmartBuy.OrderManagement.Domain.Tests.Helper;
 using System.Linq;
 using SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator;
+using SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator;
 
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
@@ -35,7 +36,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests
                     mockhelper.MockDayComparable.Object,
                     mockhelper.MockTimeIntervalComparable.Object,
                     mockhelper.MockOrderRepository.Object
-                    ));
+                    ),
+                new EstimateOrder());
         }
 
         [Fact]
@@ -45,11 +47,10 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         }
 
         [Fact]
-        public async Task ShouldGetDefaultInputOrderObjectWhenPassValidGasStationId()
+        public async Task ShouldGetEmptyListWhenNoGasStationIdFound()
         {
-            var inputOrder = await _orderGenService.RunOrderGenAsync(Guid.NewGuid());
-            Assert.NotNull(inputOrder);
-            Assert.Equal(DefaultOrder.GetInstance.InputOrder, inputOrder);
+            var inputOrders = await _orderGenService.RunOrderGenAsync(Guid.NewGuid());
+            Assert.Empty(inputOrders);
         }
 
         [Fact]
@@ -59,7 +60,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             _moqGasStationRepo.Verify(repo => repo.GetGasStationDetailsAsync(It.IsAny<Guid>())
             , Times.Once);
-            Assert.True(inputOrder.GasStationId == _gasStationId);
+            Assert.True(inputOrder.First().GasStationId == _gasStationId);
         }
     }
 }

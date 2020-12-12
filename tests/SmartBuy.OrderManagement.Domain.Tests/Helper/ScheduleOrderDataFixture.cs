@@ -5,6 +5,7 @@ using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
+using System.Linq;
 
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {
@@ -142,5 +143,69 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 
         public IEnumerable<GasStationScheduleByTime> GasStationSchedulesByTime =>
             _gasStation2ScheduleByTime;
+
+        public IEnumerable<Order> GetOrders()
+        {
+            var order1 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 9, 8, 18, 0, 0),
+                        ToTime = new DateTime(2020, 9, 9, 5, 0, 0),
+                        GasStationId = GasStations.FirstOrDefault().Id,
+                        LineItems = GasStations.FirstOrDefault().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.FirstOrDefault()
+                )!.Entity;
+
+            var order2 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 9, 8, 18, 0, 0),
+                        ToTime = new DateTime(2020, 9, 9, 5, 0, 0),
+                        GasStationId = GasStations.LastOrDefault().Id,
+                        LineItems = GasStations.LastOrDefault().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.LastOrDefault()
+                )!.Entity;
+
+            var order3 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 11, 8, 6, 0, 0),
+                        ToTime = new DateTime(2020, 11, 8, 9, 0, 0),
+                        GasStationId = GasStations.FirstOrDefault().Id,
+                        LineItems = GasStations.FirstOrDefault().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.FirstOrDefault()
+                )!.Entity;
+
+            return new List<Order>
+            {
+               order1!,
+               order2!,
+               order3!
+            };
+        }
     }
 }
