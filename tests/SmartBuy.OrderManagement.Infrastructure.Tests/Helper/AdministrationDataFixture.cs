@@ -61,11 +61,12 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests.Helper
             var tank2Sale2 = new TankSale();
             tank2Sale2.Quantity = 100;
             tank2Sale2.SaleTime = _dateTime2;
+            var dispatcherGrp = new DispatcherGroup { Name = "DP1" };
             using (var context = new AdministrationContext())
             {
                 _gasStation.Tanks.Add(tank1);
                 _gasStation.Tanks.Add(tank2);
-
+                context.DispatcherGroup.Add(dispatcherGrp);
                 if (context.GasStations.Any())
                 {
                     context.GasStations.RemoveRange(context.GasStations);
@@ -85,6 +86,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests.Helper
                 context.SaveChanges();
                 tank1.ProductId = product.Id;
                 tank2.ProductId = product.Id;
+                _gasStation.DispatcherGroupId = dispatcherGrp.Id;
                 context.GasStations.Add(_gasStation);
                 context.SaveChanges();
                 _tanks.AddRange(new[] { tank1, tank2 });

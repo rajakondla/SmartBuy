@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Moq;
 using SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator;
-using SmartBuy.OrderManagement.Domain.Tests.Helper;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
-using SmartBuy.SharedKernel.Enums;
 using Xunit;
 
 namespace SmartBuy.OrderManagement.Domain.Tests

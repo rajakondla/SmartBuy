@@ -1,11 +1,12 @@
-﻿using SmartBuy.OrderManagement.Domain;
-using SmartBuy.OrderManagement.Domain.Services.Abstractions;
+﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using System;
 using System.Collections.Generic;
 using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
-using Microsoft.Data.SqlClient;
+using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
+using System.Linq;
+using SmartBuy.OrderManagement.Domain;
 
 namespace SmartBuy.OrderManagement.Infrastructure.Tests
 {
@@ -17,43 +18,40 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         // ICollectionFixture<> interfaces.
     }
 
-    public class OrderDataFixture : IDisposable
+    public class OrderDataFixture
     {
         private InputOrder _inputOrder;
-        private GasStation _gasStation;
-        private List<TankReading> _tankReadings;
-        private List<TankSale> _tankSales;
+        private GasStation _gasStation1;
+        private GasStationDetailDTO _gasStation1Detail;
+
+        private GasStation _gasStation2;
+        private GasStationDetailDTO _gasStation2Detail;
 
         public OrderDataFixture()
         {
             var _lineItems = new List<InputOrderProduct>();
             var date = DateTime.Now;
-            var guid = Guid.NewGuid();
-            var tanks = new List<Tank> {
-                new Tank(1, guid, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 100),
-                new Tank(2, guid, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 100)
+            var guid1 = Guid.NewGuid();
+            var guid2 = Guid.NewGuid();
+            var guid1tanks = new List<Tank> {
+                new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1000),
+                new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1500)
             };
-            _tankReadings = new List<TankReading>
-            {
-                new TankReading(1,500, new DateTime(2020, 8, 6, 5, 30, 0)),
-                new TankReading(2,500, new DateTime(2020, 8, 6, 5, 30, 0))
-            };
-            _tankSales = new List<TankSale>
-            {
-                new TankSale(1,500, new DateTime(2020, 8, 6, 5, 30, 0)),
-                new TankSale(2,500, new DateTime(2020, 8, 6, 5, 30, 0))
-            };
-            _gasStation = new GasStation(guid, tanks,
+            _gasStation1 = new GasStation(guid1, guid1tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
                 , Guid.NewGuid());
+
+            var guid2tanks = new List<Tank> {
+                new Tank(1, guid2, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 500),
+                new Tank(2, guid2, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 2000)
+            };
+            _gasStation2 = new GasStation(guid2, guid2tanks,
+                new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
+                , Guid.NewGuid());
+
             _lineItems.Add(new InputOrderProduct
             {
                 TankId = 1,
-                Quantity = 100
-            });
-            _lineItems.Add(new InputOrderProduct
-            {
-                TankId = 2,
                 Quantity = 100
             });
             _inputOrder = new InputOrder
@@ -64,40 +62,105 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
                 ToTime = date.AddHours(8),
                 LineItems = _lineItems
             };
+
+            _gasStation1Detail = new GasStationDetailDTO
+            {
+                GasStationId = _gasStation1.Id,
+                FromTime = new TimeSpan(12, 0, 0),
+                ToTime = new TimeSpan(23, 59, 0),
+                TankDetails = new List<TankDetail>
+                     {
+                      new TankDetail{ Id=1, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) },
+                      new TankDetail{ Id=2, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) }
+                     },
+                OrderType = OrderType.Schedule
+            };
+
+            _gasStation2Detail = new GasStationDetailDTO
+            {
+                GasStationId = _gasStation2.Id,
+                FromTime = new TimeSpan(12, 0, 0),
+                ToTime = new TimeSpan(23, 59, 0),
+                TankDetails = new List<TankDetail>
+                     {
+                      new TankDetail{ Id=3, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) },
+                      new TankDetail{ Id=4, Measurement = new Measurement(TankMeasurement.Gallons, 100,
+                      100, 500) }
+                     },
+                OrderType = OrderType.Schedule
+            };
         }
 
         public InputOrder InputOrder => _inputOrder;
 
-        public GasStation GasStation => _gasStation;
+        public IEnumerable<GasStation> GasStations => new[]
+        { _gasStation1, _gasStation2 };
 
-        public IEnumerable<TankReading> TankReadings => _tankReadings;
-
-        public IEnumerable<TankSale> TankSales => _tankSales;
-
-        public void Dispose()
+        public IEnumerable<Order> GetOrders()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SmartBuy;Integrated Security=True");
-            try
+            var order1 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 9, 8, 18, 0, 0),
+                        ToTime = new DateTime(2020, 9, 9, 5, 0, 0),
+                        GasStationId = GasStations.First().Id,
+                        LineItems = GasStations.First().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.First()
+                )!.Entity;
+
+            var order2 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 9, 8, 18, 0, 0),
+                        ToTime = new DateTime(2020, 9, 9, 5, 0, 0),
+                        GasStationId = GasStations.Last().Id,
+                        LineItems = GasStations.Last().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.Last()
+                )!.Entity;
+
+            var order3 = Order.Create(
+                    new InputOrder
+                    {
+                        Comments = "Test Order",
+                        CarrierId = Guid.NewGuid(),
+                        FromTime = new DateTime(2020, 11, 8, 6, 0, 0),
+                        ToTime = new DateTime(2020, 11, 8, 9, 0, 0),
+                        GasStationId = GasStations.First().Id,
+                        LineItems = GasStations.First().Tanks.Select(x => new InputOrderProduct
+                        {
+                            Quantity = x.Measurement.Quantity,
+                            TankId = x.Id
+                        }),
+                        OrderType = OrderType.Manual
+                    },
+                    GasStations.First()
+                )!.Entity;
+
+            return new List<Order>
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(@"delete from Administrator.TankSales
-                                    delete from Administrator.TankReadings
-                                    delete from Administrator.Products
-                                    delete from Administrator.OrderStrategies
-                                    delete from Administrator.GasStationTankSchedule
-                                    delete from Administrator.GasStationSchedules
-                                    delete from Administrator.GasStationScheduleByTimes
-                                    delete from Administrator.GasStationScheduleByDays
-                                    delete from Administrator.Tanks
-                                    delete from  Administrator.gasstations
-                                    ", con);
-                cmd.ExecuteNonQuery();
-            }
-            finally
-            {
-                con.Close();
-                con.Dispose();
-            }
+               order1!,
+               order2!,
+               order3!
+            };
         }
     }
 }

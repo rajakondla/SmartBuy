@@ -16,6 +16,8 @@ namespace SmartBuy.OrderManagement.Infrastructure.Configurations
             builder.OwnsOne(o => o.DispatchDate).
                 Property(o => o.End)
                 .HasColumnName("ToDateTime");
+            builder.Ignore(o => o.State);
+            builder.Ignore(o => o.IsConflicting);
             //builder.HasOne<GasStation>()
             //       .WithMany()
             //       .HasForeignKey(o => o.GasStationId);

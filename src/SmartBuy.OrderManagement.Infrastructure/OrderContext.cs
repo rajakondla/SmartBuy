@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Infrastructure.Configurations;
-using System;
+using Serilog.Extensions.Logging.File;
 
 namespace SmartBuy.OrderManagement.Infrastructure
 {
@@ -24,10 +25,22 @@ namespace SmartBuy.OrderManagement.Infrastructure
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.
-                    UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog= SmartBuy ; Integrated Security=True;");
+                optionsBuilder
+                    .UseLoggerFactory(ConsoleLoggerFactory)
+                    .EnableSensitiveDataLogging()
+                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog= SmartBuy ; Integrated Security=True;");
             }
         }
+
+        public static readonly ILoggerFactory ConsoleLoggerFactory
+  = LoggerFactory.Create(builder =>
+  {
+      builder
+           .AddFilter((category, level) =>
+               category == DbLoggerCategory.Database.Command.Name
+               && level == LogLevel.Information)
+           .AddFile(@"D:\Logs\query.txt");
+  });
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

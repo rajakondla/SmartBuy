@@ -23,6 +23,17 @@ namespace SmartBuy.OrderManagement.Domain
 
         public Guid? CarrierId { get; private set; }
 
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
+
+        #region non persisted
+        public TrackingState State { get; set; }
+
+        public bool IsConflicting { get; set; }
+
+#       endregion
+
         private Order()
         {
             OrderProducts = new List<OrderProduct>();
@@ -40,14 +51,15 @@ namespace SmartBuy.OrderManagement.Domain
                     GasStationId = inputOrder.GasStationId,
                     Comments = inputOrder.Comments,
                     OrderType = inputOrder.OrderType,
-                    DispatchDate = new DateTimeRange(inputOrder.FromTime, inputOrder.ToTime)
+                    DispatchDate = new DateTimeRange(inputOrder.FromTime, inputOrder.ToTime),
+                    State = TrackingState.Added
                 };
                 foreach (var lineItem in inputOrder.LineItems)
                     order.InsertOrderProduct(lineItem.TankId, lineItem.Quantity);
                 return new OutputDomainResult<Order>(result.IsValid, entity: order);
             }
             else
-            {
+            { 
                 return new OutputDomainResult<Order>(result.IsValid, result.Errors.Select(x => x.ErrorMessage).ToList());
             }
         }

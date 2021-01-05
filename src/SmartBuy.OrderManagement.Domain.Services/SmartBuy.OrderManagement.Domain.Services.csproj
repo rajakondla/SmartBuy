@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="HistoricalOrderGenerator\" />
+    <Folder Include="HistoricalOrder\" />
   </ItemGroup>
 
   <ItemGroup>

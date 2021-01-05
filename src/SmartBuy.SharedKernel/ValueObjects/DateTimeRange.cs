@@ -54,5 +54,15 @@ namespace SmartBuy.SharedKernel.ValueObjects
             return this.Start < dateTimeRange.End &&
                 this.End > dateTimeRange.Start;
         }
+
+        public static bool operator ==(DateTimeRange source, DateTimeRange target)
+        {
+            return source.Start == target.Start && source.End == target.End;
+        }
+
+        public static bool operator !=(DateTimeRange source, DateTimeRange target)
+        {
+            return source.Start != target.Start || source.End != target.End;
+        }
     }
 }

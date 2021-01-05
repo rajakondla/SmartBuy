@@ -1,4 +1,5 @@
 ﻿using SmartBuy.SharedKernel;
+using SmartBuy.SharedKernel.Enums;
 
 namespace SmartBuy.OrderManagement.Domain
 {
@@ -23,5 +24,10 @@ namespace SmartBuy.OrderManagement.Domain
         public int Quantity { get; private set; }
 
         public int OrderId { get; private set; }
+
+        #region non persisted
+        public TrackingState State { get; set; }
+
+        #endregion
     }
 }

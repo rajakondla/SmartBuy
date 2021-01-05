@@ -2,47 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Domain
 {
     public class ManageOrder
     {
-        public IEnumerable<Order> Orders;
+        private List<Order> _orders;
+
+        public ManageOrder()
+        {
+            _orders = new List<Order>();
+        }
 
         public ManageOrder(IEnumerable<Order> orders)
         {
-            Orders = orders;
+            _orders = new List<Order>(orders);
         }
 
-        public IEnumerable<OutputDomainResult<Order>> ValidateOrders(
-            IEnumerable<Order> oldOrders)
+        public IEnumerable<Order> Orders => _orders;
+
+        public Order Add(Order order)
         {
-            if (Orders == null)
-                throw new NullReferenceException(nameof(Orders));
+            if (ValidateOrders(order))
+                order.State = SharedKernel.Enums.TrackingState.Added;
+            else
+                order.IsConflicting = true;
 
-            if (oldOrders == null)
-                throw new ArgumentNullException(nameof(oldOrders));
+            _orders.Add(order);
+            return order;
+        }
 
-            var overlappingOrders = (
-                from newOrd in oldOrders
-                from oldOrd in Orders
-                .Where(x => x.GasStationId == newOrd.GasStationId
-                 && ((x.DispatchDate.Start <= newOrd.DispatchDate.Start && newOrd.DispatchDate.Start <= x.DispatchDate.End)
-                 || (x.DispatchDate.Start <= newOrd.DispatchDate.End && newOrd.DispatchDate.End <= x.DispatchDate.End)))
-                select newOrd
-                ).ToList();
-
-            var result = new List<OutputDomainResult<Order>>();
-            foreach (var newOrder in Orders)
-            {
-                result.Add(new OutputDomainResult<Order>(
-                    !overlappingOrders.Select(x => x.GasStationId).Contains(
-                        newOrder.GasStationId),
-                    entity: newOrder));
-            }
-
-            return result;
+        private bool ValidateOrders(Order order)
+        {
+            return _orders
+              .FirstOrDefault(x => x.GasStationId == order.GasStationId
+              && x.DispatchDate.Overlaps(order.DispatchDate)) == null;
         }
     }
 }

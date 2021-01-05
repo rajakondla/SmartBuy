@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using SmartBuy.OrderManagement.Domain;
+using SmartBuy.OrderManagement.Infrastructure;
 using System.Linq;
 using Xunit;
+using SmartBuy.Tests.Helper;
 
-namespace SmartBuy.OrderManagement.Infrastructure.Tests
+namespace SmartBuy.OrderManagement.Domain.Tests
 {
-    //[CollectionDefinition("OrderDataCollection")]
     public class InMemoryTests : IClassFixture<OrderDataFixture>
     {
         private DbContextOptionsBuilder<OrderContext> _builder;
@@ -23,10 +23,10 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
-                context.Orders.Add(order.Entity!);
+                var order = _orderData.GetOrders().First();
+                context.Orders.Add(order);
 
-                Assert.Equal(EntityState.Added, context.Entry(order.Entity).State);
+                Assert.Equal(EntityState.Added, context.Entry(order).State);
             }
         }
 
@@ -37,10 +37,10 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
-                context.Orders.Add(order.Entity);
+                var order = _orderData.GetOrders().First();
+                context.Orders.Add(order);
 
-                Assert.Equal(2, order.Entity.OrderProducts.Count);
+                Assert.Equal(2, order.OrderProducts.Count);
             }
         }
 
@@ -48,19 +48,19 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         public void CanInsertAndFetchOrderOrderProductsDatabase()
         {
             _builder.UseInMemoryDatabase("InsertAndFetchOrderOrderProducts");
-            var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
+            var order = _orderData.GetOrders().FirstOrDefault();
             using (var context = new OrderContext(_builder.Options))
             {
-                context.Orders.Add(order.Entity);
+                context.Orders.Add(order);
 
-                Assert.Equal(2, order.Entity.OrderProducts.Count);
+                Assert.Equal(2, order.OrderProducts.Count);
                 context.SaveChanges();
             }
 
             using (var context1 = new OrderContext(_builder.Options))
             {
-                var orders = context1.Orders.Where(o => o.Id == order.Entity.Id).FirstOrDefault();
-                var orderProducts = context1.OrderProducts.Where(o => o.OrderId == order.Entity.Id).ToList();
+                var orders = context1.Orders.Where(o => o.Id == order.Id).First();
+                var orderProducts = context1.OrderProducts.Where(o => o.OrderId == order.Id).ToList();
 
                 Assert.NotNull(orders);
                 Assert.Equal(2, orderProducts.Count);
@@ -74,12 +74,12 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = Order.Create(_orderData.InputOrder, _orderData.GasStation);
-                context.Orders.Add(order.Entity!);
+                var order = _orderData.GetOrders().First();
+                context.Orders.Add(order);
 
-                Assert.Equal(EntityState.Added, context.Entry(order.Entity!).State);
-                Assert.Equal(_orderData.InputOrder.FromTime, order.Entity!.DispatchDate.Start);
-                Assert.Equal(_orderData.InputOrder.ToTime, order.Entity!.DispatchDate.End);
+                Assert.Equal(EntityState.Added, context.Entry(order).State);
+                Assert.Equal(_orderData.InputOrder.FromTime, order.DispatchDate.Start);
+                Assert.Equal(_orderData.InputOrder.ToTime, order.DispatchDate.End);
             }
         }
 

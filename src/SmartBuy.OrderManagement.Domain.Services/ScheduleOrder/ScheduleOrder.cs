@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
 using System.Collections.Generic;
+using SmartBuy.SharedKernel;
 
 namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
 {
@@ -37,88 +38,96 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             _orderRepository = orderRepository;
         }
 
-        public async Task<InputOrder> CreateOrderAsync(GasStationDetailDTO gasStationDetail)
+        public async Task<OutputDomainResult<Order>> GetAsync(
+            (GasStation GasStation, OrderType OrderType) gasStationDetail)
         {
-            if (gasStationDetail == null)
-                throw new ArgumentException("gasStationDetail cannot be null", nameof(gasStationDetail));
-
             if (gasStationDetail.OrderType == OrderType.Schedule)
             {
                 var scheduleDetail = await _gasStationSchedule.FindByAsync(x =>
-                 x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
+                 x.GasStationId == gasStationDetail.GasStation.Id).ConfigureAwait(false);
 
-                var tankIds = gasStationDetail.TankDetails.Select(x => x.Id).ToList();
+                var tankIds = gasStationDetail.GasStation.Tanks.Select(x => x.Id).ToList();
                 var gsScheduleTanks = await _gasStationTankSchedule.FindByAsync(x =>
                  tankIds.Contains(x.TankId)).ConfigureAwait(false);
 
                 if (!gsScheduleTanks.Any())
-                    throw new TankConfugurationException(gasStationDetail.GasStationId.ToString());
+                    throw new TankConfugurationException(gasStationDetail.GasStation.Id.ToString());
 
                 if (scheduleDetail.FirstOrDefault().ScheduleType == ScheduleType.ByDay)
                 {
-                    return await CreateOrderByDay(gasStationDetail, gsScheduleTanks);
+                    return await CreateOrderByDay(gasStationDetail.GasStation, gsScheduleTanks);
                 }
                 else
                 {
-                    return await CreateOrderByTimeInterval(gasStationDetail, gsScheduleTanks);
+                    return await CreateOrderByTimeInterval(gasStationDetail.GasStation, gsScheduleTanks);
                 }
             }
 
-            return DefaultOrder.GetInstance.InputOrder;
+            return DefaultOutputDomainResult.GetInstance.Order;
         }
 
-        private async Task<InputOrder> CreateOrderByDay(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
+        private async Task<OutputDomainResult<Order>> CreateOrderByDay(GasStation gasStation, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             var gsByDay = await _gasStationScheduleByDay.FindByAsync(x =>
-            x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
+            x.GasStationId == gasStation.Id).ConfigureAwait(false);
 
             if (!gsByDay.Any())
-                throw new DayConfugurationException(gasStationDetail.GasStationId.ToString());
+                throw new DayConfugurationException(gasStation.Id.ToString());
 
             if (gsByDay.Any(x => _dayCompare.Compare(x.DayOfWeek)))
             {
-                return CreateInputOrder(gasStationDetail, gsScheduleTanks);
+                return CreateOrder(gasStation, gsScheduleTanks);
             }
 
-            return DefaultOrder.GetInstance.InputOrder;
+            return DefaultOutputDomainResult.GetInstance.Order;
         }
 
-        private async Task<InputOrder> CreateOrderByTimeInterval(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
+        private async Task<OutputDomainResult<Order>> CreateOrderByTimeInterval(GasStation gasStation,
+            IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             var gsByTime = await _gasStationScheduleByTime.FindByAsync(x =>
-            x.GasStationId == gasStationDetail.GasStationId).ConfigureAwait(false);
+            x.GasStationId == gasStation.Id).ConfigureAwait(false);
 
-            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStationDetail.GasStationId, OrderType.Schedule)).Orders.FirstOrDefault();
+            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStation.Id
+                , OrderType.Schedule)).Orders.FirstOrDefault();
 
             var deliveryDate = order == null ? DateTime.MinValue : order.DispatchDate.Start;
 
             if (!gsByTime.Any())
-                throw new TimIntervalConfigurationException(gasStationDetail.GasStationId.ToString());
+                throw new TimIntervalConfigurationException(gasStation.Id.ToString());
 
             if (gsByTime.Any(x => _timeIntervalCompare.Compare(x.TimeInteral, deliveryDate, DateTime.Now)))
             {
-                return CreateInputOrder(gasStationDetail, gsScheduleTanks);
+                return CreateOrder(gasStation, gsScheduleTanks);
             }
 
-            return DefaultOrder.GetInstance.InputOrder;
+            return DefaultOutputDomainResult.GetInstance.Order;
         }
 
-        private static InputOrder CreateInputOrder(GasStationDetailDTO gasStationDetail, IEnumerable<GasStationTankSchedule> gsScheduleTanks)
+        private static OutputDomainResult<Order> CreateOrder(GasStation gasStation
+            , IEnumerable<GasStationTankSchedule> gsScheduleTanks)
         {
             List<InputOrderProduct> CreateLineItem(IEnumerable<GasStationTankSchedule> tanks)
             {
-                return tanks.Select(x => new InputOrderProduct { Quantity = x.Quantity, TankId = x.TankId }).ToList();
+                return tanks.Select(x =>
+                new InputOrderProduct
+                {
+                    Quantity = x.Quantity,
+                    TankId = x.TankId
+                }).ToList();
             }
 
-            return new InputOrder
+            var inputOrder = new InputOrder
             {
-                GasStationId = gasStationDetail.GasStationId,
+                GasStationId = gasStation.Id,
                 Comments = "Schedule Order created by system",
-                FromTime = DateTime.Now.Date.AddMinutes(gasStationDetail.FromTime.TotalMinutes),
-                ToTime = DateTime.Now.Date.AddMinutes(gasStationDetail.ToTime.TotalMinutes),
+                FromTime = DateTime.UtcNow.Date.AddMinutes(gasStation.DeliveryTime.Start.Minutes),
+                ToTime = DateTime.Now.Date.AddMinutes(gasStation.DeliveryTime.End.Minutes),
                 OrderType = OrderType.Schedule,
                 LineItems = CreateLineItem(gsScheduleTanks)
             };
+
+            return Order.Create(inputOrder, gasStation);
         }
 
         public class DayConfugurationException : Exception

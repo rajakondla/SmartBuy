@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -12,15 +12,17 @@
     <PackageReference Include="Moq.AutoMock" Version="2.0.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.6" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+     <PrivateAssets>all</PrivateAssets>
+     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +37,9 @@
     </Reference>
     <Reference Include="SmartBuy.SharedKernel">
       <HintPath>..\..\src\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.Tests.Helper">
+      <HintPath>..\SmartBuy.Tests.Helper\bin\Debug\netstandard2.1\SmartBuy.Tests.Helper.dll</HintPath>
     </Reference>
   </ItemGroup>
 

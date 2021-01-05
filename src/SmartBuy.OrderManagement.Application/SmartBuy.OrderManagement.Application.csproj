@@ -11,4 +11,19 @@
     <Folder Include="Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
+      <HintPath>..\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.SharedKernel">
+      <HintPath>..\SmartBuy.SharedKernel\bin\Debug\netstandard2.1\SmartBuy.SharedKernel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

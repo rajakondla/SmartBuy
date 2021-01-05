@@ -6,14 +6,15 @@ using Xunit;
 using System.Linq;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Domain.Tests.Helper;
+using SmartBuy.Tests.Helper;
 
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
     //[CollectionDefinition("OrderDataCollection")]
-    public class OrderTests : IClassFixture<ScheduleOrderDataFixture>
+    public class OrderTests : IClassFixture<OrderDataFixture>
     {
-        ScheduleOrderDataFixture _orderData;
-        public OrderTests(ScheduleOrderDataFixture orderData)
+        OrderDataFixture _orderData;
+        public OrderTests(OrderDataFixture orderData)
         {
             _orderData = orderData;
         }
@@ -63,7 +64,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         [Fact]
         public void ShouldNotCreateOrderWithoutProducts()
         {
-            ScheduleOrderDataFixture orderData = _orderData;
+            OrderDataFixture orderData = _orderData;
             orderData.InputOrder.LineItems = new List<InputOrderProduct>();
             var order = Order.Create(_orderData.InputOrder, _orderData.GasStations.FirstOrDefault());
 

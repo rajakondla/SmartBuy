@@ -10,20 +10,19 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 {
     public class TankRunoutTests : IClassFixture<EstimateOrderDataFixture>
     {
-        public readonly List<TankDetail> _tankDetails;
+        public readonly List<Tank> _tanks;
         public TankRunoutTests(EstimateOrderDataFixture orderData)
         {
-            _tankDetails = orderData.GasStationDetailEstimates.Where(x=>
-            x.GasStationId == orderData.GasStations.First().Id).SelectMany(x => x.TankDetails).ToList();
+            _tanks = orderData.GasStations.First().Tanks.ToList();
         }
 
         [Fact]
         public void ShouldGetRunoutDateTime()
         {
-            var tank1Detail = _tankDetails.First();
-            var tank2Detail = _tankDetails.Last();
-            var tank1Readings = TankRunout.GetRunoutReadingsByHour(tank1Detail, new DateTime(2020, 10, 7, 0, 0, 0));
-            var tank2Readings = TankRunout.GetRunoutReadingsByHour(tank2Detail, new DateTime(2020, 10, 7, 0, 0, 0));
+            var tank1 = _tanks.First();
+            var tank2 = _tanks.Last();
+            var tank1Readings = TankRunout.GetRunoutReadingsByHour(tank1, new DateTime(2020, 10, 7, 0, 0, 0));
+            var tank2Readings = TankRunout.GetRunoutReadingsByHour(tank2, new DateTime(2020, 10, 7, 0, 0, 0));
             Assert.Equal(new DateTime(2020, 10, 11, 20, 0, 0), tank1Readings.LastOrDefault().ReadingTime);
             Assert.Equal(new DateTime(2020, 10, 10, 21, 0, 0), tank2Readings.LastOrDefault().ReadingTime);
         }
@@ -31,18 +30,18 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         [Fact]
         public void ShouldMatchRunTimeAndRunoutTimeWhenTankQtyIsBottomQty()
         {
-            var tankDetail = _tankDetails.First();
-            tankDetail.Measurement.UpdateQuantity(tankDetail.Measurement.Bottom);
-            var readings = TankRunout.GetRunoutReadingsByHour(tankDetail, new DateTime(2020, 10, 7, 0, 0, 0));
+            var tank = _tanks.First();
+            tank.Measurement.UpdateQuantity(tank.Measurement.Bottom);
+            var readings = TankRunout.GetRunoutReadingsByHour(tank, new DateTime(2020, 10, 7, 0, 0, 0));
             Assert.Equal(new DateTime(2020, 10, 7, 0, 0, 0), readings.LastOrDefault().ReadingTime);
         }
 
         [Fact]
         public void ShouldMatchRunTimeAndRunoutTimeWhenTankQtyIsLessThanBottomQty()
         {
-            var tankDetail = _tankDetails.First();
-            tankDetail.Measurement.UpdateQuantity(tankDetail.Measurement.Bottom - 50);
-            var readings = TankRunout.GetRunoutReadingsByHour(tankDetail, new DateTime(2020, 10, 7, 0, 0, 0));
+            var tank = _tanks.First();
+            tank.Measurement.UpdateQuantity(tank.Measurement.Bottom - 50);
+            var readings = TankRunout.GetRunoutReadingsByHour(tank, new DateTime(2020, 10, 7, 0, 0, 0));
             Assert.Equal(new DateTime(2020, 10, 7, 0, 0, 0), readings.LastOrDefault().ReadingTime);
         }
     }

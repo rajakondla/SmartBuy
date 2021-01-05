@@ -1,5 +1,7 @@
 ﻿using SmartBuy.OrderManagement.Domain;
+using SmartBuy.SharedKernel;
 using SmartBuy.SharedKernel.Enums;
+using SmartBuy.SharedKernel.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,12 +13,8 @@ namespace SmartBuy.OrderManagement.Infrastructure.Abstractions
         Task<ManageOrder> GetOrdersByGasStationIdAsync(Guid gasStationId,
             OrderType? orderType = null);
 
-        Task<ManageOrder> GetLatestOrdersByGasStationAndOrderTypeAsync((Guid gasStationId,
-            OrderType orderType) gasStation);
+        Task<Order> GetOrdersByGasStationIdDeliveryDateAsync(Guid gasStationId, DateTimeRange dispatchDate);
 
-        Task<ManageOrder> GetOrdersDetailByGasStationIdAsync(Guid gasStationId,
-            OrderType? orderType = null);
-
-        Task<ManageOrder> GetOrdersByGasStationIdsAsync(IEnumerable<Guid> gasStationIds);
+        Task UpsertAsync(ManageOrder manageOrder);
     }
 }

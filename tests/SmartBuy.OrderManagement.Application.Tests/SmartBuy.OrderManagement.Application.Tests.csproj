@@ -14,4 +14,21 @@
 	  <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SmartBuy.OrderManagement.Application">
+      <HintPath>..\..\src\SmartBuy.OrderManagement.Application\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
+      <HintPath>..\..\src\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.Tests.Helper">
+      <HintPath>..\SmartBuy.Tests.Helper\bin\Debug\netstandard2.1\SmartBuy.Tests.Helper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

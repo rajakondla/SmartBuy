@@ -2,7 +2,7 @@
 
 namespace SmartBuy.SharedKernel
 {
-    public class OutputDomainResult<T> where T:class
+    public class OutputDomainResult<T> where T : class
     {
         public OutputDomainResult(bool isSuccess,
             IEnumerable<string>? messages = null,

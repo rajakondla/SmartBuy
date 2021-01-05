@@ -1,4 +1,5 @@
-﻿using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+﻿using SmartBuy.OrderManagement.Domain;
+using SmartBuy.SharedKernel.Enums;
 using System;
 using System.Threading.Tasks;
 
@@ -6,6 +7,6 @@ namespace SmartBuy.OrderManagement.Infrastructure.Abstractions
 {
     public interface IGasStationRepository
     {
-        Task<GasStationDetailDTO> GetGasStationDetailsAsync(Guid gasStationId);
+        Task<(GasStation GasStation, OrderType OrderType)> GetGasStationIncludeTankOrderStrategyAsync(Guid gasStationId);
     }
 }

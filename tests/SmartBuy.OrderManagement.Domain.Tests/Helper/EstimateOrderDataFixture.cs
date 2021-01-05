@@ -13,10 +13,8 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
     public class EstimateOrderDataFixture
     {
         private GasStation _gasStation1;
-        private GasStationDetailDTO _gasStation1DetailEstimate;
 
         private GasStation _gasStation2;
-        private GasStationDetailDTO _gasStation2DetailEstimate;
 
         private List<TankReading> _tankReadings;
 
@@ -25,10 +23,12 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             var date = DateTime.Now;
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
+
             var guid1tanks = new List<Tank> {
                 new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons, 200, 200, 5000), 1000),
                 new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons, 200, 200, 6000), 1500)
             };
+
             _tankReadings = new List<TankReading> {
                 new TankReading(1, 7000, new DateTime(2020, 9, 21, 8, 0, 0)),
                 new TankReading(1, 6000, new DateTime(2020, 9, 21, 9, 0, 0)),
@@ -63,47 +63,14 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 new Tank(3, guid2, 1, new Measurement(TankMeasurement.Gallons,100, 100, 5000), 1000),
                 new Tank(4, guid2, 2, new Measurement(TankMeasurement.Gallons,100, 100, 5500), 2000)
             };
+
             _gasStation2 = new GasStation(guid2, guid2tanks,
                 new TimeRange(new TimeSpan(12, 0, 0), new TimeSpan(23, 59, 0))
                 , Guid.NewGuid());
-
-            TankDetail CreateTankDetail(Tank tank)
-            {
-                return new TankDetail
-                {
-                    Id = tank.Id,
-                    Measurement = tank.Measurement,
-                    EstimatedDaySale = tank.EstimatedDaySale
-                };
-            }
-
-            _gasStation1DetailEstimate = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation1.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = guid1tanks.Select(x => CreateTankDetail(x)),
-                OrderType = OrderType.Estimate
-            };
-
-            _gasStation2DetailEstimate = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation2.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = guid2tanks.Select(x => CreateTankDetail(x)),
-                OrderType = OrderType.Estimate
-            };
         }
 
         public IEnumerable<GasStation> GasStations => new[]
         { _gasStation1, _gasStation2 };
-
-        public IEnumerable<GasStationDetailDTO> GasStationDetailEstimates => new[] 
-        { 
-            _gasStation1DetailEstimate, 
-            _gasStation2DetailEstimate 
-        };
 
         public IEnumerable<TankReading> TankReadings => _tankReadings;
     }

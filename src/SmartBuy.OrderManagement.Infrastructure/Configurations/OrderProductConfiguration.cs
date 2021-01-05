@@ -10,6 +10,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<OrderProduct> builder)
         {
             builder.HasKey(o => o.Id);
+            builder.Ignore(o => o.State);
         }
     }
 }

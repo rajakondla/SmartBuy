@@ -36,6 +36,7 @@ namespace SmartBuy.OrderManagement.Infrastructure
         {
             modelBuilder.HasDefaultSchema("Administrator");
             modelBuilder.ApplyConfiguration(new TankConfiguration());
+            modelBuilder.ApplyConfiguration(new GasStationConfiguration());
             modelBuilder.Entity<TankSale>(x => x.HasNoKey());
             modelBuilder.Entity<TankReading>(x => x.HasNoKey());
             modelBuilder.Entity<GasStationSchedule>(x => x.HasNoKey());

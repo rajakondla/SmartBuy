@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+using SmartBuy.SharedKernel.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,34 +20,22 @@ namespace SmartBuy.OrderManagement.Infrastructure
             _mapper = mapper;
         }
 
-        public async Task<GasStationDetailDTO> GetGasStationDetailsAsync(Guid gasStationId)
+        public async Task<(GasStation GasStation, OrderType OrderType)> GetGasStationIncludeTankOrderStrategyAsync(Guid gasStationId)
         {
             if (gasStationId == default(Guid))
                 throw new ArgumentException("Please pass valid gas station id");
 
-            var tanks = await (from getGasStation in base.ReferenceContext.GasStations
-                               join getTank in base.ReferenceContext.Tanks
-                               on getGasStation.Id equals getTank.GasStationId
-                               select new { getTank, FromTime = getGasStation.DeliveryTime.Start
-                               , ToTime = getGasStation.DeliveryTime.End }).ToListAsync()
+            var gasStationDetail = await (from getGasStation in base.ReferenceContext.GasStations.Include(x=>x.Tanks)
+                               join getOrderStrategy in base.ReferenceContext.OrderStrategies
+                               on getGasStation.Id equals getOrderStrategy.GasStationId
+                               select new
+                               {
+                                   getGasStation,
+                                   getOrderStrategy.OrderType
+                               }).FirstOrDefaultAsync()
                                .ConfigureAwait(false);
 
-            (TimeSpan StartTime, TimeSpan EndTime) duration = tanks.Select(
-                x => (x.FromTime, x.ToTime)
-                ).FirstOrDefault();
-
-            var orderStrategy = await base.ReferenceContext.OrderStrategies
-                .FirstOrDefaultAsync(x => x.GasStationId == gasStationId)
-                .ConfigureAwait(false);
-
-            return new GasStationDetailDTO
-            {
-                GasStationId = gasStationId,
-                FromTime = duration.StartTime,
-                ToTime = duration.EndTime,
-                OrderType = orderStrategy.OrderType,
-                TankDetails = tanks.Select(t => _mapper.Map<TankDetail>(t.getTank)).ToList()
-            };
+            return (gasStationDetail.getGasStation, gasStationDetail.OrderType);
         }
     }
 }

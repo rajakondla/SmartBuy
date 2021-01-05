@@ -1,45 +1,49 @@
 ﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using System;
 using System.Collections.Generic;
-using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
+using SmartBuy.OrderManagement.Domain;
 
-namespace SmartBuy.OrderManagement.Domain.Tests.Helper
+namespace SmartBuy.Tests.Helper
 {
-    [CollectionDefinition("OrderDataCollection")]
-    public class OrderDataCollection : ICollectionFixture<ScheduleOrderDataFixture>
-    {
-        // This class has no code, and is never created. Its purpose is simply
-        // to be the place to apply [CollectionDefinition] and all the
-        // ICollectionFixture<> interfaces.
-    }
+    //[CollectionDefinition("OrderDataCollection")]
+    //public class OrderDataCollection : ICollectionFixture<OrderDataFixture>
+    //{
+    //    // This class has no code, and is never created. Its purpose is simply
+    //    // to be the place to apply [CollectionDefinition] and all the
+    //    // ICollectionFixture<> interfaces.
+    //}
 
-    public class ScheduleOrderDataFixture
+    public class OrderDataFixture : IOrderDataFixture
     {
         private InputOrder _inputOrder;
         private GasStation _gasStation1;
-        private GasStationDetailDTO _gasStation1DetailSchedule;
         private GasStationSchedule _gasStation1Schedule;
         private GasStationTankSchedule _gasStation1Tank1Schedule;
         private GasStationTankSchedule _gasStation1Tank2Schedule;
         private List<GasStationScheduleByDay> _gasStation1SchedulesByDay;
+        private OrderStrategy _gasStation1Strategy;
+
 
         private GasStation _gasStation2;
-        private GasStationDetailDTO _gasStation2DetailSchedule;
         private GasStationSchedule _gasStation2Schedule;
         private GasStationTankSchedule _gasStation2Tank1Schedule;
         private GasStationTankSchedule _gasStation2Tank2Schedule;
         private List<GasStationScheduleByTime> _gasStation2ScheduleByTime;
+        private OrderStrategy _gasStation2Strategy;
 
-        public ScheduleOrderDataFixture()
+        private List<Carrier> _carriers;
+
+        public OrderDataFixture()
         {
             var _lineItems = new List<InputOrderProduct>();
             var date = DateTime.Now;
             var guid1 = Guid.NewGuid();
             var guid2 = Guid.NewGuid();
+            var carrierId = Guid.NewGuid();
             var guid1tanks = new List<Tank> {
                 new Tank(1, guid1, 1, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1000),
                 new Tank(2, guid1, 2, new Measurement(TankMeasurement.Gallons,100, 100, 800), 1500)
@@ -70,36 +74,6 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                 LineItems = _lineItems
             };
 
-            _gasStation1DetailSchedule = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation1.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = new List<TankDetail>
-                     {
-                      new TankDetail{ Id=1, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) },
-                      new TankDetail{ Id=2, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) }
-                     },
-                OrderType = OrderType.Schedule
-            };
-
-            _gasStation2DetailSchedule = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation2.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = new List<TankDetail>
-                     {
-                      new TankDetail{ Id=3, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) },
-                      new TankDetail{ Id=4, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) }
-                     },
-                OrderType = OrderType.Schedule
-            };
-
             _gasStation1Schedule = new GasStationSchedule(_gasStation1.Id,
                 ScheduleType.ByDay);
 
@@ -124,14 +98,21 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
             {
                 new GasStationScheduleByTime(_gasStation2.Id, new TimeSpan(12))
             };
+
+            _carriers = new List<Carrier>
+            {
+                new Carrier(carrierId, 5000, new TimeRange(new TimeSpan(6, 0,0), new TimeSpan(18, 0, 0)))
+            };
+
+            _gasStation1Strategy = new OrderStrategy(_gasStation1.Id, OrderType.Schedule);
+
+            _gasStation2Strategy = new OrderStrategy(_gasStation2.Id, OrderType.Schedule);
         }
 
         public InputOrder InputOrder => _inputOrder;
 
         public IEnumerable<GasStation> GasStations => new[]
         { _gasStation1, _gasStation2 };
-
-        public IEnumerable<GasStationDetailDTO> GasStationDetailSchedules => new[] { _gasStation1DetailSchedule, _gasStation2DetailSchedule };
 
         public IEnumerable<GasStationSchedule> GasStationSchedules => new[] { _gasStation1Schedule, _gasStation2Schedule };
 
@@ -207,5 +188,12 @@ namespace SmartBuy.OrderManagement.Domain.Tests.Helper
                order3!
             };
         }
+
+        public IEnumerable<Carrier> Carriers => _carriers;
+
+        public IEnumerable<OrderStrategy> OrderStrategies => new[] {
+            _gasStation1Strategy,
+            _gasStation2Strategy
+        };
     }
 }

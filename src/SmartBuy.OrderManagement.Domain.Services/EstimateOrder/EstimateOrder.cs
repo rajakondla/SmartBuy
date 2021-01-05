@@ -1,6 +1,7 @@
 ﻿using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+using SmartBuy.SharedKernel;
 using SmartBuy.SharedKernel.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,14 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
 {
     public class EstimateOrder
     {
-        public InputOrder CreateOrder(GasStationDetailDTO gasStationDetailDTO
+        public OutputDomainResult<Order> Get((GasStation GasStation, OrderType OrderType) gasStationDetail
             , DateTime runTime)
         {
-            if (gasStationDetailDTO is null)
-                throw new ArgumentNullException(nameof(gasStationDetailDTO));
-
-            if (gasStationDetailDTO.OrderType == OrderType.Estimate)
+            if (gasStationDetail.OrderType == OrderType.Estimate)
             {
-                var allTankReadings = new List<(TankDetail tank, IEnumerable<TankReading> TankReadings)>();
+                var allTankReadings = new List<(Tank tank, IEnumerable<TankReading> TankReadings)>();
 
-                foreach (var tank in gasStationDetailDTO.TankDetails)
+                foreach (var tank in gasStationDetail.GasStation.Tanks)
                     allTankReadings.Add((tank, TankRunout.GetRunoutReadingsByHour(tank, runTime)));
 
                 var readings = allTankReadings.Select(x => new RunoutReading
@@ -37,9 +35,9 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
                 var allTankQuantities = TankRunout.GetTanksQuantityByReadingTime(readings,
                     fastestRunoutTank.TankReading.ReadingTime);
 
-                return new InputOrder
+                var inputOrder = new InputOrder
                 {
-                    GasStationId = gasStationDetailDTO.GasStationId,
+                    GasStationId = gasStationDetail.GasStation.Id,
                     Comments = "Estimate order created by system",
                     FromTime = fastestRunoutTank.TankReading.ReadingTime,
                     ToTime = fastestRunoutTank.TankReading.ReadingTime.AddHours(4),
@@ -47,14 +45,16 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
                     LineItems = allTankQuantities.Select(x => new InputOrderProduct
                     {
                         TankId = x.TankId,
-                        Quantity = (gasStationDetailDTO.TankDetails
+                        Quantity = (gasStationDetail.GasStation.Tanks
                                    .First(t => t.Id == x.TankId)
                                    .Measurement.NetQuantity) - (int)Math.Round(x.TankReading.Quantity),
                     }).ToList()
                 };
+
+                return Order.Create(inputOrder, gasStationDetail.GasStation);
             }
 
-            return DefaultOrder.GetInstance.InputOrder;
+            return DefaultOutputDomainResult.GetInstance.Order;
         }
     }
 }

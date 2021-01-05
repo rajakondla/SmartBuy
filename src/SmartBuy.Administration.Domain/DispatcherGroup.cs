@@ -5,8 +5,8 @@ using System.Text;
 
 namespace SmartBuy.Administration.Domain
 {
-    public class DispatcherGroup:Entity<Guid>
+    public class DispatcherGroup : Entity<Guid>
     {
-        public string Name { get; set; } 
+        public string Name { get; set; }
     }
 }

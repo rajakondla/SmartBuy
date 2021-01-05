@@ -25,6 +25,7 @@ namespace SmartBuy.Administration.Infrastructure
         public DbSet<GasStationSchedule> GasStationSchedules { get; set; }
         public DbSet<GasStationScheduleByDay> GasStationScheduleByDays { get; set; }
         public DbSet<GasStationScheduleByTime> GasStationScheduleByTimes { get; set; }
+        public DbSet<DispatcherGroup> DispatcherGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
