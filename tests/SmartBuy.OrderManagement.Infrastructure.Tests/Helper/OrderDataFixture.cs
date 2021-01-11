@@ -7,6 +7,7 @@ using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
 using SmartBuy.OrderManagement.Domain;
+using Microsoft.Data.SqlClient;
 
 namespace SmartBuy.OrderManagement.Infrastructure.Tests
 {
@@ -18,7 +19,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         // ICollectionFixture<> interfaces.
     }
 
-    public class OrderDataFixture
+    public class OrderDataFixture : IDisposable
     {
         private InputOrder _inputOrder;
         private GasStation _gasStation1;
@@ -161,6 +162,21 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
                order2!,
                order3!
             };
+        }
+        public void Dispose()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SmartBuy;Integrated Security=True");
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(@"delete from OrderManagement.Orders", con);
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
         }
     }
 }

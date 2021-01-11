@@ -11,7 +11,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator
 {
     public class EstimateOrder
     {
-        public OutputDomainResult<Order> Get((GasStation GasStation, OrderType OrderType) gasStationDetail
+        public OutputDomainResult<Order> Create((GasStation GasStation, OrderType OrderType) gasStationDetail
             , DateTime runTime)
         {
             if (gasStationDetail.OrderType == OrderType.Estimate)

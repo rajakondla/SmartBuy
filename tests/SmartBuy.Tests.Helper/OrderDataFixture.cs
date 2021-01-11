@@ -36,6 +36,7 @@ namespace SmartBuy.Tests.Helper
         private OrderStrategy _gasStation2Strategy;
 
         private List<Carrier> _carriers;
+        private List<Order> _orders;
 
         public OrderDataFixture()
         {
@@ -107,26 +108,7 @@ namespace SmartBuy.Tests.Helper
             _gasStation1Strategy = new OrderStrategy(_gasStation1.Id, OrderType.Schedule);
 
             _gasStation2Strategy = new OrderStrategy(_gasStation2.Id, OrderType.Schedule);
-        }
 
-        public InputOrder InputOrder => _inputOrder;
-
-        public IEnumerable<GasStation> GasStations => new[]
-        { _gasStation1, _gasStation2 };
-
-        public IEnumerable<GasStationSchedule> GasStationSchedules => new[] { _gasStation1Schedule, _gasStation2Schedule };
-
-        public IEnumerable<GasStationTankSchedule> GasStationTankSchedules => new[] { _gasStation1Tank1Schedule, _gasStation1Tank2Schedule,
-        _gasStation2Tank1Schedule, _gasStation2Tank2Schedule};
-
-        public IEnumerable<GasStationScheduleByDay> GasStationSchedulesByDay =>
-            _gasStation1SchedulesByDay;
-
-        public IEnumerable<GasStationScheduleByTime> GasStationSchedulesByTime =>
-            _gasStation2ScheduleByTime;
-
-        public IEnumerable<Order> GetOrders()
-        {
             var order1 = Order.Create(
                     new InputOrder
                     {
@@ -181,13 +163,30 @@ namespace SmartBuy.Tests.Helper
                     GasStations.FirstOrDefault()
                 )!.Entity;
 
-            return new List<Order>
-            {
+            _orders = new List<Order> {
                order1!,
                order2!,
                order3!
             };
         }
+
+        public InputOrder InputOrder => _inputOrder;
+
+        public IEnumerable<GasStation> GasStations => new[]
+        { _gasStation1, _gasStation2 };
+
+        public IEnumerable<GasStationSchedule> GasStationSchedules => new[] { _gasStation1Schedule, _gasStation2Schedule };
+
+        public IEnumerable<GasStationTankSchedule> GasStationTankSchedules => new[] { _gasStation1Tank1Schedule, _gasStation1Tank2Schedule,
+        _gasStation2Tank1Schedule, _gasStation2Tank2Schedule};
+
+        public IEnumerable<GasStationScheduleByDay> GasStationSchedulesByDay =>
+            _gasStation1SchedulesByDay;
+
+        public IEnumerable<GasStationScheduleByTime> GasStationSchedulesByTime =>
+            _gasStation2ScheduleByTime;
+
+        public IEnumerable<Order> Orders => _orders;
 
         public IEnumerable<Carrier> Carriers => _carriers;
 
@@ -195,5 +194,11 @@ namespace SmartBuy.Tests.Helper
             _gasStation1Strategy,
             _gasStation2Strategy
         };
+
+        public void AddOrder(Order order)
+        {
+            typeof(Order).GetProperty("Id").SetValue(order, new Random().Next(10000), null);
+            _orders.Add(order);
+        }
     }
 }

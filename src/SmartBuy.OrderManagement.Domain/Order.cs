@@ -32,7 +32,7 @@ namespace SmartBuy.OrderManagement.Domain
 
         public bool IsConflicting { get; set; }
 
-#       endregion
+        #endregion
 
         private Order()
         {
@@ -52,14 +52,14 @@ namespace SmartBuy.OrderManagement.Domain
                     Comments = inputOrder.Comments,
                     OrderType = inputOrder.OrderType,
                     DispatchDate = new DateTimeRange(inputOrder.FromTime, inputOrder.ToTime),
-                    State = TrackingState.Added
+                    CarrierId = inputOrder.CarrierId
                 };
                 foreach (var lineItem in inputOrder.LineItems)
                     order.InsertOrderProduct(lineItem.TankId, lineItem.Quantity);
                 return new OutputDomainResult<Order>(result.IsValid, entity: order);
             }
             else
-            { 
+            {
                 return new OutputDomainResult<Order>(result.IsValid, result.Errors.Select(x => x.ErrorMessage).ToList());
             }
         }

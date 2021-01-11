@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
-using SmartBuy.SharedKernel;
 using SmartBuy.SharedKernel.Enums;
 using SmartBuy.SharedKernel.ValueObjects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,11 +18,10 @@ namespace SmartBuy.OrderManagement.Infrastructure
             _orderContext = orderContext;
         }
 
-        public async Task<ManageOrder> GetOrdersByGasStationIdAsync(Guid gasStationId, OrderType? orderType = null)
+        public async Task<ManageOrder> GetOrdersByGasStationIdAsync(Guid gasStationId)
         {
             var orders = await _orderContext.Orders
-                .Where(o => o.GasStationId == gasStationId &&
-                        (orderType == null || orderType == o.OrderType)).ToListAsync();
+                .Where(o => o.GasStationId == gasStationId).ToListAsync();
 
             var manageOrder = new ManageOrder();
 
@@ -34,7 +31,7 @@ namespace SmartBuy.OrderManagement.Infrastructure
             return manageOrder;
         }
 
-        public async Task<Order> GetOrdersByGasStationIdDeliveryDateAsync(Guid gasStationId,
+        public async Task<Order> GetOrderByGasStationIdDeliveryDateAsync(Guid gasStationId,
             DateTimeRange dispatchDate)
         {
             return await _orderContext.Orders.FirstOrDefaultAsync(o => o.GasStationId == gasStationId &&

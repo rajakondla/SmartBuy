@@ -18,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="SmartBuy.Common.Utilities">
+      <HintPath>..\SmartBuy.Common.Utilities\bin\Debug\netstandard2.1\SmartBuy.Common.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartBuy.OrderManagement.Domain.Services">
+      <HintPath>..\SmartBuy.OrderManagement.Domain.Services\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.dll</HintPath>
+    </Reference>
     <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
       <HintPath>..\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
     </Reference>

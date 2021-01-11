@@ -6,27 +6,27 @@ namespace SmartBuy.SharedKernel.Enums
 {
     public enum OrderType
     {
-        Manual,
-        Schedule,
-        Estimate,
-        Historical
+        Manual = 1,
+        Schedule = 2,
+        Estimate = 3,
+        Historical = 4
     }
 
     public enum ScheduleType
     {
-        ByDay,
-        ByTime
+        ByTime = 1,
+        ByDay = 2
     }
     public enum TankMeasurement
     {
-        Barrels,
-        Gallons
-    }
+        Gallons = 1,
+        Barrels = 2
+    } 
 
     public enum CurrencyUnit
     {
-        Dollor,
-        Cents
+        Cents = 1,
+        Dollor = 2
     }
 
     public enum TrackingState

@@ -12,10 +12,10 @@ namespace SmartBuy.OrderManagement.Infrastructure.Configurations
             builder.Property(o => o.Comments).HasMaxLength(200);
             builder.OwnsOne(o => o.DispatchDate).
                 Property(o => o.Start)
-                .HasColumnName("FromDateTime");
+                .HasColumnName("FromDateTime").IsRequired();
             builder.OwnsOne(o => o.DispatchDate).
                 Property(o => o.End)
-                .HasColumnName("ToDateTime");
+                .HasColumnName("ToDateTime").IsRequired();
             builder.Ignore(o => o.State);
             builder.Ignore(o => o.IsConflicting);
             //builder.HasOne<GasStation>()

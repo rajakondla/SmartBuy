@@ -1,7 +1,6 @@
 using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using System;
 using System.Threading.Tasks;
 using SmartBuy.SharedKernel.Enums;
@@ -38,7 +37,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             _orderRepository = orderRepository;
         }
 
-        public async Task<OutputDomainResult<Order>> GetAsync(
+        public async Task<OutputDomainResult<Order>> CreateAsync(
             (GasStation GasStation, OrderType OrderType) gasStationDetail)
         {
             if (gasStationDetail.OrderType == OrderType.Schedule)
@@ -88,8 +87,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
             var gsByTime = await _gasStationScheduleByTime.FindByAsync(x =>
             x.GasStationId == gasStation.Id).ConfigureAwait(false);
 
-            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStation.Id
-                , OrderType.Schedule)).Orders.FirstOrDefault();
+            var order = (await _orderRepository.GetOrdersByGasStationIdAsync(gasStation.Id)).Orders.FirstOrDefault();
 
             var deliveryDate = order == null ? DateTime.MinValue : order.DispatchDate.Start;
 

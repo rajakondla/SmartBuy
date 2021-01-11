@@ -23,7 +23,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = _orderData.GetOrders().First();
+                var order = _orderData.Orders.First();
                 context.Orders.Add(order);
 
                 Assert.Equal(EntityState.Added, context.Entry(order).State);
@@ -37,7 +37,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = _orderData.GetOrders().First();
+                var order = _orderData.Orders.First();
                 context.Orders.Add(order);
 
                 Assert.Equal(2, order.OrderProducts.Count);
@@ -48,7 +48,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
         public void CanInsertAndFetchOrderOrderProductsDatabase()
         {
             _builder.UseInMemoryDatabase("InsertAndFetchOrderOrderProducts");
-            var order = _orderData.GetOrders().FirstOrDefault();
+            var order = _orderData.Orders.FirstOrDefault();
             using (var context = new OrderContext(_builder.Options))
             {
                 context.Orders.Add(order);
@@ -74,7 +74,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             using (var context = new OrderContext(_builder.Options))
             {
-                var order = _orderData.GetOrders().First();
+                var order = _orderData.Orders.First();
                 context.Orders.Add(order);
 
                 Assert.Equal(EntityState.Added, context.Entry(order).State);

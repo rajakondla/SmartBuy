@@ -1,5 +1,4 @@
-﻿using SmartBuy.SharedKernel;
-using System;
+﻿using SmartBuy.SharedKernel.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +23,12 @@ namespace SmartBuy.OrderManagement.Domain
         public Order Add(Order order)
         {
             if (ValidateOrders(order))
-                order.State = SharedKernel.Enums.TrackingState.Added;
+            {
+                foreach(var item in order.OrderProducts)
+                     item.State = TrackingState.Added;
+
+                order.State = TrackingState.Added;
+            }
             else
                 order.IsConflicting = true;
 

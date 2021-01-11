@@ -7,7 +7,8 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using SmartBuy.OrderManagement.Domain;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+using SmartBuy.SharedKernel.ValueObjects;
+using System.Threading.Tasks;
 
 namespace SmartBuy.Tests.Helper
 {
@@ -27,7 +28,11 @@ namespace SmartBuy.Tests.Helper
 
             MockGasStationScheduleByTimeRepo = new Mock<IGenericReadRepository<GasStationScheduleByTime>>();
 
+            MockGasStationsRepo = new Mock<IGenericReadRepository<GasStation>>();
 
+            MockManagerOrderRepository = new Mock<IManageOrderRepository>();
+
+            MockGasStationCustomRepository = new Mock<IGasStationRepository>();
 
             MockGasStationScheduleRepo.Setup(x => x.FindByAsync(It.IsAny<Expression<Func<GasStationSchedule, bool>>>())).ReturnsAsync(
                 (Expression<Func<GasStationSchedule, bool>> predicate) => orderData.GasStationSchedules.Where(predicate.Compile()));
@@ -47,18 +52,50 @@ namespace SmartBuy.Tests.Helper
                 orderData.GasStationSchedulesByTime.Where(predicate.Compile())
              );
 
-            MockManagerOrderRepository = new Mock<IManageOrderRepository>();
-
             MockManagerOrderRepository.Setup(x => x.GetOrdersByGasStationIdAsync(
-                It.IsAny<Guid>(),
-                It.IsAny<OrderType>())).ReturnsAsync((Guid gasStationId, OrderType orderType) =>
+                It.IsAny<Guid>())).ReturnsAsync((Guid gasStationId) =>
                 {
                     var manageOrder = new ManageOrder();
-                    foreach (var ord in orderData.GetOrders().Where(x => x.GasStationId == gasStationId
-                    && x.OrderType == orderType))
+                    foreach (var ord in orderData.Orders.Where(x => x.GasStationId == gasStationId))
                         manageOrder.Add(ord);
                     return manageOrder;
                 });
+
+            MockManagerOrderRepository.Setup(x => x.GetOrderByGasStationIdDeliveryDateAsync(
+               It.IsAny<Guid>(),
+               It.IsAny<DateTimeRange>())).ReturnsAsync((Guid gasStationId, DateTimeRange dispatchDate) =>
+               {
+                   return orderData.Orders.Where(x => x.GasStationId == gasStationId
+                   && x.DispatchDate == dispatchDate).First();
+
+               });
+
+            MockManagerOrderRepository.Setup(x => x.UpsertAsync(
+               It.IsAny<ManageOrder>())).Returns((ManageOrder manageOrder) =>
+               {
+                   void insertOrder(Order order)
+                   {
+                       order.CreatedDate = DateTime.UtcNow;
+                       order.ModifiedDate = DateTime.UtcNow;
+
+                       orderData.AddOrder(order);
+                   }
+
+                   void updateOrder(Order order)
+                   {
+                       order.ModifiedDate = DateTime.UtcNow;
+                   }
+
+                   foreach (var order in manageOrder.Orders)
+                   {
+                       if (order.State == TrackingState.Added)
+                           insertOrder(order);
+                       else if (order.State == TrackingState.Modified)
+                           updateOrder(order);
+                   }
+
+                   return Task.CompletedTask;
+               });
 
             MockGasStationCustomRepository
                 .Setup(x => x.GetGasStationIncludeTankOrderStrategyAsync(It.IsAny<Guid>()))

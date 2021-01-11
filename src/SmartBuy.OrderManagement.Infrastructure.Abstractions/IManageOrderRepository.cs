@@ -10,10 +10,9 @@ namespace SmartBuy.OrderManagement.Infrastructure.Abstractions
 {
     public interface IManageOrderRepository
     {
-        Task<ManageOrder> GetOrdersByGasStationIdAsync(Guid gasStationId,
-            OrderType? orderType = null);
+        Task<ManageOrder> GetOrdersByGasStationIdAsync(Guid gasStationId);
 
-        Task<Order> GetOrdersByGasStationIdDeliveryDateAsync(Guid gasStationId, DateTimeRange dispatchDate);
+        Task<Order> GetOrderByGasStationIdDeliveryDateAsync(Guid gasStationId, DateTimeRange dispatchDate);
 
         Task UpsertAsync(ManageOrder manageOrder);
     }

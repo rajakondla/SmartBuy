@@ -54,7 +54,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             Assert.ThrowsAsync<ArgumentException>(
                 async () =>
                      {
-                         await scheduleOrder.GetAsync(
+                         await scheduleOrder.CreateAsync(
                              (_orderData.GasStations.First(), _orderData.OrderStrategies.First().OrderType));
                      }
             );
@@ -75,7 +75,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             );
 
             var gasStation = _orderData.GasStations.First();
-            var result = await scheduleOrder.GetAsync((gasStation, _orderData.OrderStrategies.First().OrderType));
+            var result = await scheduleOrder.CreateAsync((gasStation, _orderData.OrderStrategies.First().OrderType));
 
             Assert.True(result.IsSuccess);
             var lineItemsTankIds = result.Entity!.OrderProducts.Select(x => x.TankId).ToList();
@@ -116,7 +116,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             await Assert.ThrowsAsync<ScheduleOrder.DayConfugurationException>(async () =>
             {
-                await scheduleOrder.GetAsync((_orderData.GasStations.First(), _orderData.OrderStrategies.First().OrderType));
+                await scheduleOrder.CreateAsync((_orderData.GasStations.First(), _orderData.OrderStrategies.First().OrderType));
             });
         }
 
@@ -140,7 +140,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             await Assert.ThrowsAsync<ScheduleOrder.TankConfugurationException>(async () =>
             {
-                await scheduleOrder.GetAsync((_orderData.GasStations.First(), _orderData.OrderStrategies.First().OrderType));
+                await scheduleOrder.CreateAsync((_orderData.GasStations.First(), _orderData.OrderStrategies.First().OrderType));
             });
         }
 
@@ -157,7 +157,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             , _mockTimeIntervalComparable.Object
             , _mockOrderRepository.Object
             );
-            var result = await scheduleOrder.GetAsync((_orderData.GasStations.Last(), _orderData.OrderStrategies.Last().OrderType));
+            var result = await scheduleOrder.CreateAsync((_orderData.GasStations.Last(), _orderData.OrderStrategies.Last().OrderType));
 
             Assert.True(result.IsSuccess);
             var lineItemsTankIds = result.Entity!.OrderProducts.Select(x => x.TankId).ToList();
@@ -198,7 +198,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
 
             await Assert.ThrowsAsync<ScheduleOrder.TimIntervalConfigurationException>(async () =>
             {
-                await scheduleOrder.GetAsync((_orderData.GasStations.Last(), _orderData.OrderStrategies.Last().OrderType));
+                await scheduleOrder.CreateAsync((_orderData.GasStations.Last(), _orderData.OrderStrategies.Last().OrderType));
             });
         }
     }

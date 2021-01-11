@@ -18,7 +18,7 @@ namespace SmartBuy.OrderManagement.Domain.Services.Abstractions
         public DateTime ToTime { get; set; }
         public string? Comments { get; set; }
         public OrderType OrderType { get; set; }
-        public Guid CarrierId { get; set; }
+        public Guid? CarrierId { get; set; }
 
         public IEnumerable<InputOrderProduct> LineItems { get; set; }
     }

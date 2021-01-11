@@ -22,7 +22,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             var estimateOrder = new EstimateOrder();
             var gasStation = _orderData.GasStations.First();
 
-            var result = estimateOrder.Get(
+            var result = estimateOrder.Create(
                (gasStation, OrderType.Estimate), new DateTime(2020, 10, 7)
             );
 

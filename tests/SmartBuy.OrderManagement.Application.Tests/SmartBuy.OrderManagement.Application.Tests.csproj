@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+    <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain.Services\SmartBuy.OrderManagement.Domain.Services.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Application.InputDTOs;
 using SmartBuy.OrderManagement.Application.ViewModels;
 using SmartBuy.OrderManagement.Domain;
+using SmartBuy.OrderManagement.Domain.Services;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using System;
@@ -11,19 +12,22 @@ using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Application
 {
-    public class OrderAPI
+    public class OrderApp
     {
         private readonly IManageOrderRepository _manageOrderRepository;
         private readonly IGenericReadRepository<GasStation> _gasStationRepository;
+        private readonly OrderGenerator _orderGenerator;
 
-        public OrderAPI(IManageOrderRepository manageOrderRepository
-            , IGenericReadRepository<GasStation> gasStationRepository)
+        public OrderApp(IManageOrderRepository manageOrderRepository
+            , IGenericReadRepository<GasStation> gasStationRepository
+            , OrderGenerator orderGenerator)
         {
             _manageOrderRepository = manageOrderRepository;
             _gasStationRepository = gasStationRepository;
+            _orderGenerator = orderGenerator;
         }
 
-        public async Task<OrderViewModel> Add(OrderInputDTO orderInput)
+        public async Task<OrderViewModel> AddAsync(OrderInputDTO orderInput)
         {
             var inputOrder = new InputOrder
             {
@@ -40,19 +44,40 @@ namespace SmartBuy.OrderManagement.Application
                         TankId = x.TankId
                     })
             };
+
             var gasStation = await _gasStationRepository
                 .FindByKeyAsync(orderInput.GasStationId)
                 .ConfigureAwait(false);
 
             var result = Order.Create(inputOrder, gasStation);
+
             if (result.IsSuccess)
             {
-                var manageOrder = new ManageOrder();
-                manageOrder.Add(result.Entity!);
-
                 try
                 {
-                    await _manageOrderRepository.UpsertAsync(manageOrder);
+                    var order = await _orderGenerator.SaveAsync(result.Entity!);
+
+                    if (!order.IsConflicting)
+                    {
+                        order = await _manageOrderRepository
+                             .GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
+                             order.DispatchDate);
+
+                        return new OrderViewModel
+                        {
+                            IsSuccess = true,
+                            Message = new[] { OrderConstant.successMessage },
+                            OrderId = order.Id
+                        };
+                    }
+                    else
+                    {
+                        return new OrderViewModel
+                        {
+                            IsSuccess = false,
+                            Message = new[] { OrderConstant.duplicateOrderMessage }
+                        };
+                    }
                 }
                 catch (Exception e) when (e.InnerException.GetType() == typeof(SqlException))
                 {
@@ -66,11 +91,6 @@ namespace SmartBuy.OrderManagement.Application
                 {
                     throw;
                 }
-
-                var orderId = (await _manageOrderRepository.GetOrdersByGasStationIdAsync(orderInput.GasStationId,
-                    orderInput.OrderType)).Orders.First().Id;
-
-                return new OrderViewModel { OrderId = orderId, IsSuccess = true };
             }
             else
             {

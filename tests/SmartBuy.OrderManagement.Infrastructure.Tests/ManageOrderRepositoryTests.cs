@@ -44,7 +44,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
 
             await manageOrderRepo.UpsertAsync(manageOrder);
 
-            var result = await manageOrderRepo.GetOrdersByGasStationIdAsync(order.GasStationId, OrderType.Schedule);
+            var result = await manageOrderRepo.GetOrdersByGasStationIdAsync(order.GasStationId);
 
             Assert.NotEmpty(result.Orders);
             Assert.Equal(order.GasStationId, result.Orders.First().GasStationId);
@@ -55,12 +55,11 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         {
             var manageOrderRepo = new ManageOrderRepository(_orderContext);
             var order = _orderData.GetOrders().First();
-            order.State = TrackingState.Added;
             var manageOrder = new ManageOrder();
             manageOrder.Add(order);
 
             await manageOrderRepo.UpsertAsync(manageOrder);
-            var res = await manageOrderRepo.GetOrdersByGasStationIdDeliveryDateAsync(order.GasStationId,
+            var res = await manageOrderRepo.GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
                order.DispatchDate);
 
             Assert.NotNull(res);

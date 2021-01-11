@@ -22,8 +22,10 @@ namespace SmartBuy.Tests.Helper
 
         IEnumerable<OrderStrategy> OrderStrategies { get; }
 
-        IEnumerable<Order> GetOrders();
+        IEnumerable<Order> Orders { get; }
 
         IEnumerable<Carrier> Carriers { get; }
+
+        void AddOrder(Order order);
     }
 }

@@ -36,7 +36,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             };
             Order? entity = Order.Create(inputOrder, gasStation)!.Entity;
 
-            var manageOrder = new ManageOrder(_orderData.GetOrders());
+            var manageOrder = new ManageOrder(_orderData.Orders);
             manageOrder.Add(entity!);
 
             Assert.False(manageOrder.Add(entity!).IsConflicting);
@@ -64,7 +64,7 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             };
             Order? entity = Order.Create(inputOrder, gasStation)!.Entity;
 
-            var manageOrder = new ManageOrder(_orderData.GetOrders());
+            var manageOrder = new ManageOrder(_orderData.Orders);
 
             Assert.True(manageOrder.Add(entity!).IsConflicting);
             Assert.True(manageOrder.Orders.Count(x => x.GasStationId == entity!.GasStationId) == 3);

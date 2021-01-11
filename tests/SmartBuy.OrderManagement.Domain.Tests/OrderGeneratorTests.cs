@@ -4,72 +4,51 @@ using Moq;
 using System;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using System.Threading.Tasks;
-using SmartBuy.OrderManagement.Domain.Tests.Helper;
 using System.Linq;
-using SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator;
-using SmartBuy.OrderManagement.Domain.Services.EstimateOrderGenerator;
 using SmartBuy.Tests.Helper;
-using SmartBuy.SharedKernel.Enums;
 
 namespace SmartBuy.OrderManagement.Domain.Tests
 {
     public class OrderGeneratorTests : IClassFixture<OrderDataFixture>
     {
         private readonly OrderGenerator _orderGen;
-        private readonly Mock<IGasStationRepository> _moqGasStationRepo;
-        private readonly Guid _gasStationId;
+        private readonly Mock<IManageOrderRepository> _manageOrderRepo;
         private readonly OrderDataFixture _orderData;
 
         public OrderGeneratorTests(OrderDataFixture orderData)
         {
             var mock = new MockRepoHelper(orderData);
-
-            MockRepoHelper mockhelper = new MockRepoHelper(orderData);
-            _orderGen = new OrderGenerator(mock.MockGasStationCustomRepository.Object,
-                new ScheduleOrder(
-                    mockhelper.MockGasStationScheduleRepo.Object,
-                    mockhelper.MockGasStationScheduleByDayRepo.Object,
-                    mockhelper.MockGasStationTanksScheduleRepo.Object,
-                    mockhelper.MockGasStationScheduleByTimeRepo.Object,
-                    mockhelper.MockDayComparable.Object,
-                    mockhelper.MockTimeIntervalComparable.Object,
-                    mockhelper.MockManagerOrderRepository.Object
-                    ),
-                new EstimateOrder(),
-                mock.MockManagerOrderRepository.Object);
+            _manageOrderRepo = mock.MockManagerOrderRepository;
+            _orderGen = new OrderGenerator(_manageOrderRepo.Object);
             _orderData = orderData;
         }
 
         [Fact]
-        public void ShouldThrowErrorWhenPassInvaildGasStationId()
+        public async Task ShouldCreateOrderAndReturnOrderWithoutConflicting()
         {
-            Assert.ThrowsAsync<ArgumentException>(async () => { await _orderGen.AutoOrderGenAsync(default(Guid)); });
-        }
+            var order = _orderData.Orders.First();
 
-        [Fact]
-        public async Task ShouldGetEmptyListWhenNoGasStationIdFound()
-        {
-            var inputOrders = await _orderGen.AutoOrderGenAsync(Guid.NewGuid());
-            Assert.Empty(inputOrders);
-        }
+            var newOrder = Order.Create(new Services.Abstractions.InputOrder
+            {
+                CarrierId = order.CarrierId,
+                Comments = order.Comments,
+                FromTime = new DateTime(2021, 1, 9, 8, 0, 0),
+                ToTime = new DateTime(2021, 1, 9, 11, 0, 0),
+                GasStationId = order.GasStationId,
+                LineItems = order.OrderProducts.Select(x =>
+                new Services.Abstractions.InputOrderProduct
+                {
+                    Quantity = x.Quantity,
+                    TankId = x.TankId
+                }).ToList(),
+                OrderType = order.OrderType
+            }, _orderData.GasStations.First());
 
-        [Fact]
-        public async Task ShouldGetVaildInputOrderObjectWhenPassValidGasStationid()
-        {
-            var inputOrder = await _orderGen.AutoOrderGenAsync(_gasStationId);
+            order = await _orderGen.SaveAsync(newOrder.Entity!);
+            _manageOrderRepo.Verify(repo => repo.GetOrdersByGasStationIdAsync(It.IsAny<Guid>()),
+                Times.Once);
 
-            _moqGasStationRepo.Verify(repo => repo.GetGasStationIncludeTankOrderStrategyAsync(It.IsAny<Guid>())
-            , Times.Once);
-            Assert.True(inputOrder.First().IsSuccess);
-            Assert.True(inputOrder.First().Entity!.GasStationId == _gasStationId);
-        }
-
-        [Fact]
-        public void ShouldCreateOrderAndReturnOrderId()
-        {
-            var order = _orderData.GetOrders().First();
-
-          //  var inputOrder = await _orderGen.CreateOrder(order);
+            Assert.False(order.IsConflicting);
         }
     }
 }
