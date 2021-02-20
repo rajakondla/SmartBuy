@@ -1,7 +1,5 @@
 ﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using System;
-using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
 {

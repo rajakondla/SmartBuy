@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
 using System.Linq;
 using SmartBuy.OrderManagement.Domain;
@@ -23,10 +22,7 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
     {
         private InputOrder _inputOrder;
         private GasStation _gasStation1;
-        private GasStationDetailDTO _gasStation1Detail;
-
         private GasStation _gasStation2;
-        private GasStationDetailDTO _gasStation2Detail;
 
         public OrderDataFixture()
         {
@@ -62,36 +58,6 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
                 FromTime = date,
                 ToTime = date.AddHours(8),
                 LineItems = _lineItems
-            };
-
-            _gasStation1Detail = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation1.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = new List<TankDetail>
-                     {
-                      new TankDetail{ Id=1, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) },
-                      new TankDetail{ Id=2, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) }
-                     },
-                OrderType = OrderType.Schedule
-            };
-
-            _gasStation2Detail = new GasStationDetailDTO
-            {
-                GasStationId = _gasStation2.Id,
-                FromTime = new TimeSpan(12, 0, 0),
-                ToTime = new TimeSpan(23, 59, 0),
-                TankDetails = new List<TankDetail>
-                     {
-                      new TankDetail{ Id=3, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) },
-                      new TankDetail{ Id=4, Measurement = new Measurement(TankMeasurement.Gallons, 100,
-                      100, 500) }
-                     },
-                OrderType = OrderType.Schedule
             };
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.SharedKernel.Enums;
@@ -12,9 +13,12 @@ namespace SmartBuy.OrderManagement.Infrastructure
     public class ManageOrderRepository : IManageOrderRepository
     {
         private readonly OrderContext _orderContext;
+        private readonly ILogger _logger;
 
-        public ManageOrderRepository(OrderContext orderContext)
+        public ManageOrderRepository(OrderContext orderContext,
+            ILoggerFactory loggerFactory)
         {
+            _logger = loggerFactory.CreateLogger("Database");
             _orderContext = orderContext;
         }
 
@@ -34,6 +38,8 @@ namespace SmartBuy.OrderManagement.Infrastructure
         public async Task<Order> GetOrderByGasStationIdDeliveryDateAsync(Guid gasStationId,
             DateTimeRange dispatchDate)
         {
+            _logger.LogDebug(new EventId(123), "Debug from GetOrderByGasStationIdDeliveryDateAsync");
+
             return await _orderContext.Orders.FirstOrDefaultAsync(o => o.GasStationId == gasStationId &&
              o.DispatchDate.Start == dispatchDate.Start && o.DispatchDate.End == dispatchDate.End);
         }

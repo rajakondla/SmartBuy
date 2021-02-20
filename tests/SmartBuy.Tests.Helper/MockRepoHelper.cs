@@ -1,5 +1,4 @@
 ﻿using Moq;
-using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using SmartBuy.SharedKernel.Enums;
@@ -16,19 +15,19 @@ namespace SmartBuy.Tests.Helper
     {
         public MockRepoHelper(IOrderDataFixture orderData)
         {
-            MockGasStationScheduleRepo = new Mock<IGenericReadRepository<GasStationSchedule>>();
+            MockGasStationScheduleRepo = new Mock<IReferenceRepository<GasStationSchedule>>();
 
-            MockGasStationScheduleByDayRepo = new Mock<IGenericReadRepository<GasStationScheduleByDay>>();
+            MockGasStationScheduleByDayRepo = new Mock<IReferenceRepository<GasStationScheduleByDay>>();
 
-            MockGasStationTanksScheduleRepo = new Mock<IGenericReadRepository<GasStationTankSchedule>>();
+            MockGasStationTanksScheduleRepo = new Mock<IReferenceRepository<GasStationTankSchedule>>();
 
             MockDayComparable = new Mock<IDayComparable>();
 
             MockTimeIntervalComparable = new Mock<ITimeIntervalComparable>();
 
-            MockGasStationScheduleByTimeRepo = new Mock<IGenericReadRepository<GasStationScheduleByTime>>();
+            MockGasStationScheduleByTimeRepo = new Mock<IReferenceRepository<GasStationScheduleByTime>>();
 
-            MockGasStationsRepo = new Mock<IGenericReadRepository<GasStation>>();
+            MockGasStationsRepo = new Mock<IReferenceRepository<GasStation>>();
 
             MockManagerOrderRepository = new Mock<IManageOrderRepository>();
 
@@ -114,15 +113,15 @@ namespace SmartBuy.Tests.Helper
              );
         }
 
-        public Mock<IGenericReadRepository<GasStationSchedule>> MockGasStationScheduleRepo { get; }
+        public Mock<IReferenceRepository<GasStationSchedule>> MockGasStationScheduleRepo { get; }
 
-        public Mock<IGenericReadRepository<GasStationScheduleByDay>> MockGasStationScheduleByDayRepo { get; }
+        public Mock<IReferenceRepository<GasStationScheduleByDay>> MockGasStationScheduleByDayRepo { get; }
 
-        public Mock<IGenericReadRepository<GasStationTankSchedule>> MockGasStationTanksScheduleRepo { get; }
+        public Mock<IReferenceRepository<GasStationTankSchedule>> MockGasStationTanksScheduleRepo { get; }
 
-        public Mock<IGenericReadRepository<GasStationScheduleByTime>> MockGasStationScheduleByTimeRepo { get; }
+        public Mock<IReferenceRepository<GasStationScheduleByTime>> MockGasStationScheduleByTimeRepo { get; }
 
-        public Mock<IGenericReadRepository<GasStation>> MockGasStationsRepo { get; }
+        public Mock<IReferenceRepository<GasStation>> MockGasStationsRepo { get; }
 
         public Mock<IDayComparable> MockDayComparable { get; }
 

@@ -7,16 +7,18 @@ using SmartBuy.OrderManagement.Domain;
 using System.Linq;
 using SmartBuy.SharedKernel.Enums;
 using System.Threading.Tasks;
+using SmartBuy.Tests.Helper;
 
 namespace SmartBuy.OrderManagement.Infrastructure.Tests
 {
-    public class ManageOrderRepositoryTests : IClassFixture<AdministrationDataFixture>,
+    public class ManageOrderRepositoryTests : BaseTest, IClassFixture<AdministrationDataFixture>,
         IClassFixture<OrderDataFixture>
     {
         private AdministrationDataFixture _adminstrationData;
         private GasStationRepository _gasStationRepository;
         private OrderContext _orderContext;
         private OrderDataFixture _orderData;
+        private ManageOrderRepository _manageOrderRepository;
 
         public ManageOrderRepositoryTests(AdministrationDataFixture adminstrationData
             , OrderDataFixture orderData)
@@ -31,20 +33,22 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
             var mapper = config.CreateMapper();
             _gasStationRepository = new GasStationRepository(new ReferenceContext(), mapper);
             _orderContext = new OrderContext();
+
+            _manageOrderRepository = new ManageOrderRepository(_orderContext,
+                base.LoggerFactory);
         }
 
         [Fact]
         public async Task ShouldCreateOrderWhenThereIsNoOverlappingDatesWithPreviousOrders()
         {
-            var manageOrderRepo = new ManageOrderRepository(_orderContext);
             var order = _orderData.GetOrders().First();
             order.State = TrackingState.Added;
             var manageOrder = new ManageOrder();
             manageOrder.Add(order);
 
-            await manageOrderRepo.UpsertAsync(manageOrder);
+            await _manageOrderRepository.UpsertAsync(manageOrder);
 
-            var result = await manageOrderRepo.GetOrdersByGasStationIdAsync(order.GasStationId);
+            var result = await _manageOrderRepository.GetOrdersByGasStationIdAsync(order.GasStationId);
 
             Assert.NotEmpty(result.Orders);
             Assert.Equal(order.GasStationId, result.Orders.First().GasStationId);
@@ -53,13 +57,12 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
         [Fact]
         public async Task ShouldReturnOrderByGasStationIdAndDeliveryDate()
         {
-            var manageOrderRepo = new ManageOrderRepository(_orderContext);
             var order = _orderData.GetOrders().First();
             var manageOrder = new ManageOrder();
             manageOrder.Add(order);
 
-            await manageOrderRepo.UpsertAsync(manageOrder);
-            var res = await manageOrderRepo.GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
+            await _manageOrderRepository.UpsertAsync(manageOrder);
+            var res = await _manageOrderRepository.GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
                order.DispatchDate);
 
             Assert.NotNull(res);

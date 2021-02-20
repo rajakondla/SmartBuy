@@ -10,10 +10,12 @@ using Moq;
 using SmartBuy.SharedKernel.ValueObjects;
 using SmartBuy.OrderManagement.Domain;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace SmartBuy.OrderManagement.Application.Tests
 {
-    public class OrderAppTests : IClassFixture<OrderDataFixture>
+    public class OrderAppTests : BaseTest, IClassFixture<OrderDataFixture>
     {
         private readonly MockRepoHelper _mockHelper;
         private readonly OrderDataFixture _orderDateFixture;
@@ -22,12 +24,16 @@ namespace SmartBuy.OrderManagement.Application.Tests
 
         public OrderAppTests(OrderDataFixture orderDataFixture)
         {
+            //var logger = new LoggerConfiguration().WriteTo
+            //     .Sink(new TestCorrelatorSink()).CreateLogger();
+
             _mockHelper = new MockRepoHelper(orderDataFixture);
             _orderDateFixture = orderDataFixture;
             _orderGen = new OrderGenerator(_mockHelper.MockManagerOrderRepository.Object);
             _orderApp = new OrderApp(_mockHelper.MockManagerOrderRepository.Object
                 , _mockHelper.MockGasStationsRepo.Object
-                , _orderGen);
+                , _orderGen
+                , base.LoggerFactory.CreateLogger<OrderApp>());
         }
 
         [Fact]

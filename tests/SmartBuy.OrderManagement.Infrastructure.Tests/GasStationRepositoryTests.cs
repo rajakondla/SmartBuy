@@ -1,5 +1,4 @@
 ﻿using SmartBuy.OrderManagement.Infrastructure.Mappers;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using Xunit;
 using System;
 using System.Linq;
@@ -31,14 +30,6 @@ namespace SmartBuy.OrderManagement.Infrastructure.Tests
             var mapper = config.CreateMapper();
             var refContext = new ReferenceContext();
             _gasStationRepository = new GasStationRepository(refContext, mapper);
-        }
-
-        [Fact]
-        public void GasStationDetailsTest()
-        {
-            var gasStationDetailModel = new GasStationDetailDTO();
-
-            Assert.NotNull(gasStationDetailModel.TankDetails);
         }
 
         [Fact]

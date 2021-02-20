@@ -1,8 +1,11 @@
-﻿using System;
+﻿using SmartBuy.Common.Utilities.Repository;
+using System;
 
 namespace SmartBuy.Administration.Infrastructure.Abstraction
 {
-    public class Class1
+    public interface IAdministrationRepository<TEntity> :
+         IGenericReadRepository<TEntity> where TEntity : class
     {
+
     }
 }

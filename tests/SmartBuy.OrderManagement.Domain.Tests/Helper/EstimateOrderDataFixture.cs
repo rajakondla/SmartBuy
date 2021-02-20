@@ -1,12 +1,7 @@
-﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Xunit;
 using SmartBuy.SharedKernel.ValueObjects;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using SmartBuy.SharedKernel.Enums;
-using Moq.Language.Flow;
-using System.Linq;
 
 namespace SmartBuy.OrderManagement.Domain.Tests.Helper
 {

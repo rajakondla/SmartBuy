@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,10 @@ namespace SmartBuy.Common.Utilities.Repository
     public class GenericReadRepository<TEntity> : IGenericReadRepository<TEntity>
         where TEntity : class
     {
-        private DbContext _context;
-        private DbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
 
         public GenericReadRepository(DbContext context)
         {
-            _context = context;
             _dbSet = context.Set<TEntity>();
         }
 

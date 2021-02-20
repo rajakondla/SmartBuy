@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+﻿using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using SmartBuy.OrderManagement.Domain;
 using System.Threading.Tasks;

@@ -6,7 +6,6 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using SmartBuy.SharedKernel;
-using System.Linq;
 
 namespace SmartBuy.OrderManagement.Domain.Services
 {

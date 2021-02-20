@@ -16,10 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
     <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="SmartBuy.Core.Modules">
+      <HintPath>..\SmartBuy.Core.Modules\bin\Debug\netstandard2.1\SmartBuy.Core.Modules.dll</HintPath>
+    </Reference>
     <Reference Include="SmartBuy.OrderManagement.Infrastructure.Abstractions">
       <HintPath>..\SmartBuy.OrderManagement.Infrastructure.Abstractions\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Infrastructure.Abstractions.dll</HintPath>
     </Reference>

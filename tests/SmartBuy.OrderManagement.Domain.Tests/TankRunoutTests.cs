@@ -1,6 +1,5 @@
 ﻿using SmartBuy.OrderManagement.Domain.Services;
 using SmartBuy.OrderManagement.Domain.Tests.Helper;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,6 @@
 ﻿using SmartBuy.OrderManagement.Domain;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartBuy.OrderManagement.Infrastructure.Abstractions

@@ -16,10 +16,10 @@ namespace SmartBuy.OrderManagement.Domain.Tests
     public class ScheduleOrderTests : IClassFixture<OrderDataFixture>
     {
         private readonly OrderDataFixture _orderData;
-        private Mock<IGenericReadRepository<GasStationSchedule>> _mockGasStationScheduleRepo;
-        private Mock<IGenericReadRepository<GasStationScheduleByDay>> _mockGasStationScheduleByDayRepo;
-        private Mock<IGenericReadRepository<GasStationTankSchedule>> _mockGasStationTanksScheduleRepo;
-        private Mock<IGenericReadRepository<GasStationScheduleByTime>> _mockGasStationScheduleByTimeRepo;
+        private Mock<IReferenceRepository<GasStationSchedule>> _mockGasStationScheduleRepo;
+        private Mock<IReferenceRepository<GasStationScheduleByDay>> _mockGasStationScheduleByDayRepo;
+        private Mock<IReferenceRepository<GasStationTankSchedule>> _mockGasStationTanksScheduleRepo;
+        private Mock<IReferenceRepository<GasStationScheduleByTime>> _mockGasStationScheduleByTimeRepo;
         private Mock<IDayComparable> _mockDayComparable;
         private Mock<ITimeIntervalComparable> _mockTimeIntervalComparable;
         private Mock<IManageOrderRepository> _mockOrderRepository;

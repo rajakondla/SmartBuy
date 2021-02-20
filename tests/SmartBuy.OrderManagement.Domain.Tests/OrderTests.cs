@@ -71,5 +71,12 @@ namespace SmartBuy.OrderManagement.Domain.Tests
             Assert.False(order.IsSuccess);
             Assert.Contains("No line items for this order", order.ErrorMessages);
         }
+
+        [Fact]
+        public void ShouldThrowArgumentNullExceptionWhenGasStationIdIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => Order.Create(_orderData.InputOrder, null));
+        }
     }
 }

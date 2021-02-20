@@ -1,11 +1,4 @@
-﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
-using SmartBuy.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartBuy.SharedKernel;
 
 namespace SmartBuy.OrderManagement.Domain.Services
 {

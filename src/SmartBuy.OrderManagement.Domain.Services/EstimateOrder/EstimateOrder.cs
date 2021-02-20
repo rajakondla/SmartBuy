@@ -1,6 +1,4 @@
-﻿using SmartBuy.Common.Utilities.Repository;
-using SmartBuy.OrderManagement.Domain.Services.Abstractions;
-using SmartBuy.OrderManagement.Infrastructure.Abstractions.DTOs;
+﻿using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.SharedKernel;
 using SmartBuy.SharedKernel.Enums;
 using System;

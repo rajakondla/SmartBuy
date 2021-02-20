@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmartBuy.OrderManagement.Application;
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SmartBuyApi.Controllers
 {
@@ -11,29 +13,37 @@ namespace SmartBuyApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly OrderApp _orderApp;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(OrderApp orderApp,
+            ILogger<WeatherForecastController> logger)
         {
+            _orderApp = orderApp;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<WeatherForecast>))]
+        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _logger.LogInformation("Hello from controller");
+
+            var result = await _orderApp.AddAsync(
+                 new SmartBuy.OrderManagement.Application.InputDTOs.OrderInputDTO
+                 {
+                     GasStationId = Guid.NewGuid()
+                 });
+
+            // throw new Exception("User should not see this exception");
+
+            return Ok(new List<WeatherForecast>{
+                new WeatherForecast{
+                    Summary= "Weather is good",
+                    Date=DateTime.Now,
+                    TemperatureC = 30
+                }
+            });
         }
     }
 }

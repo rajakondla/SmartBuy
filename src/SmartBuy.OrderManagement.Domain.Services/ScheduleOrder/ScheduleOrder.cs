@@ -1,4 +1,3 @@
-using SmartBuy.Common.Utilities.Repository;
 using SmartBuy.OrderManagement.Domain.Services.Abstractions;
 using SmartBuy.OrderManagement.Infrastructure.Abstractions;
 using System;
@@ -12,18 +11,18 @@ namespace SmartBuy.OrderManagement.Domain.Services.ScheduleOrderGenerator
 {
     public class ScheduleOrder
     {
-        private readonly IGenericReadRepository<GasStationSchedule> _gasStationSchedule;
-        private readonly IGenericReadRepository<GasStationScheduleByDay> _gasStationScheduleByDay;
-        private readonly IGenericReadRepository<GasStationTankSchedule> _gasStationTankSchedule;
-        private readonly IGenericReadRepository<GasStationScheduleByTime> _gasStationScheduleByTime;
+        private readonly IReferenceRepository<GasStationSchedule> _gasStationSchedule;
+        private readonly IReferenceRepository<GasStationScheduleByDay> _gasStationScheduleByDay;
+        private readonly IReferenceRepository<GasStationTankSchedule> _gasStationTankSchedule;
+        private readonly IReferenceRepository<GasStationScheduleByTime> _gasStationScheduleByTime;
         private readonly IDayComparable _dayCompare;
         private readonly ITimeIntervalComparable _timeIntervalCompare;
         private readonly IManageOrderRepository _orderRepository;
 
-        public ScheduleOrder(IGenericReadRepository<GasStationSchedule> gasStationSchedule
-            , IGenericReadRepository<GasStationScheduleByDay> gasStationScheduleByDay
-            , IGenericReadRepository<GasStationTankSchedule> gasStationTankSchedule
-            , IGenericReadRepository<GasStationScheduleByTime> gasStationScheduleByTime
+        public ScheduleOrder(IReferenceRepository<GasStationSchedule> gasStationSchedule
+            , IReferenceRepository<GasStationScheduleByDay> gasStationScheduleByDay
+            , IReferenceRepository<GasStationTankSchedule> gasStationTankSchedule
+            , IReferenceRepository<GasStationScheduleByTime> gasStationScheduleByTime
             , IDayComparable dayCompare
             , ITimeIntervalComparable timeIntervalCompare
             , IManageOrderRepository orderRepository)

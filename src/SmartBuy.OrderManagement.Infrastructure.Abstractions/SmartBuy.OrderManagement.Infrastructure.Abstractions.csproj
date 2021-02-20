@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
     <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
     <ProjectReference Include="..\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
   </ItemGroup>

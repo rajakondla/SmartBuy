@@ -7,14 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+    <ProjectReference Include="..\SmartBuy.Core.Modules\SmartBuy.Core.Modules.csproj" />
     <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj" />
     <ProjectReference Include="..\SmartBuy.SharedKernel\SmartBuy.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SmartBuy.Common.Utilities">
-      <HintPath>..\SmartBuy.Common.Utilities\bin\Debug\netstandard2.1\SmartBuy.Common.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="SmartBuy.OrderManagement.Domain">
       <HintPath>..\SmartBuy.OrderManagement.Domain\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.dll</HintPath>
     </Reference>
@@ -28,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

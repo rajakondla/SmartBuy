@@ -40,8 +40,15 @@ namespace SmartBuy.OrderManagement.Domain
             DispatchDate = new DateTimeRange(DateTime.Now, DateTime.Now);
         }
 
-        public static OutputDomainResult<Order> Create(InputOrder inputOrder, GasStation gasStation)
+        public static OutputDomainResult<Order> Create(InputOrder inputOrder
+            , GasStation gasStation)
         {
+            if (inputOrder is null)
+                throw new ArgumentNullException(nameof(inputOrder));
+
+            if (gasStation is null)
+                throw new ArgumentNullException(nameof(gasStation));
+
             var orderValidator = new InputOrderValidator(gasStation);
             var result = orderValidator.Validate(inputOrder);
             if (result.IsValid)

@@ -13,14 +13,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
+    <ProjectReference Include="..\SmartBuy.Core.Modules\SmartBuy.Core.Modules.csproj" />
     <ProjectReference Include="..\SmartBuy.OrderManagement.Domain.Services.Abstractions\SmartBuy.OrderManagement.Domain.Services.Abstractions.csproj" />
     <ProjectReference Include="..\SmartBuy.OrderManagement.Domain\SmartBuy.OrderManagement.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SmartBuy.Common.Utilities">
-      <HintPath>..\SmartBuy.Common.Utilities\bin\Debug\netstandard2.1\SmartBuy.Common.Utilities.dll</HintPath>
-    </Reference>
     <Reference Include="SmartBuy.OrderManagement.Domain.Services">
       <HintPath>..\SmartBuy.OrderManagement.Domain.Services\bin\Debug\netstandard2.1\SmartBuy.OrderManagement.Domain.Services.dll</HintPath>
     </Reference>

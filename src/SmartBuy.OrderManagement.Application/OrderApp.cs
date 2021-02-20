@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using SmartBuy.Common.Utilities.Repository;
+using Microsoft.Extensions.Logging;
 using SmartBuy.OrderManagement.Application.InputDTOs;
 using SmartBuy.OrderManagement.Application.ViewModels;
 using SmartBuy.OrderManagement.Domain;
@@ -15,16 +15,19 @@ namespace SmartBuy.OrderManagement.Application
     public class OrderApp
     {
         private readonly IManageOrderRepository _manageOrderRepository;
-        private readonly IGenericReadRepository<GasStation> _gasStationRepository;
+        private readonly IReferenceRepository<GasStation> _gasStationRepository;
         private readonly OrderGenerator _orderGenerator;
+        private readonly ILogger<OrderApp> _logger;
 
         public OrderApp(IManageOrderRepository manageOrderRepository
-            , IGenericReadRepository<GasStation> gasStationRepository
-            , OrderGenerator orderGenerator)
+            , IReferenceRepository<GasStation> gasStationRepository
+            , OrderGenerator orderGenerator
+            , ILogger<OrderApp> logger)
         {
             _manageOrderRepository = manageOrderRepository;
             _gasStationRepository = gasStationRepository;
             _orderGenerator = orderGenerator;
+            _logger = logger;
         }
 
         public async Task<OrderViewModel> AddAsync(OrderInputDTO orderInput)
@@ -45,59 +48,78 @@ namespace SmartBuy.OrderManagement.Application
                     })
             };
 
-            var gasStation = await _gasStationRepository
-                .FindByKeyAsync(orderInput.GasStationId)
-                .ConfigureAwait(false);
-
-            var result = Order.Create(inputOrder, gasStation);
-
-            if (result.IsSuccess)
+            try
             {
-                try
+                var gasStation = await _gasStationRepository
+                    .FindByKeyAsync(orderInput.GasStationId)
+                    .ConfigureAwait(false);
+
+                if (gasStation != null)
                 {
-                    var order = await _orderGenerator.SaveAsync(result.Entity!);
+                    var result = Order.Create(inputOrder, gasStation);
 
-                    if (!order.IsConflicting)
+                    if (result.IsSuccess)
                     {
-                        order = await _manageOrderRepository
-                             .GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
-                             order.DispatchDate);
+                        var order = await _orderGenerator.SaveAsync(result.Entity!);
 
-                        return new OrderViewModel
+                        if (!order.IsConflicting)
                         {
-                            IsSuccess = true,
-                            Message = new[] { OrderConstant.successMessage },
-                            OrderId = order.Id
-                        };
+                            order = await _manageOrderRepository
+                                 .GetOrderByGasStationIdDeliveryDateAsync(order.GasStationId,
+                                 order.DispatchDate);
+
+                            return new OrderViewModel
+                            {
+                                IsSuccess = true,
+                                Message = new[] { OrderConstant.successMessage },
+                                OrderId = order.Id
+                            };
+                        }
+                        else
+                        {
+                            return new OrderViewModel
+                            {
+                                IsSuccess = false,
+                                Message = new[] { OrderConstant.duplicateOrderMessage }
+                            };
+                        }
+                        //catch (Exception e) when (e.InnerException.GetType() == typeof(SqlException))
                     }
                     else
                     {
                         return new OrderViewModel
                         {
                             IsSuccess = false,
-                            Message = new[] { OrderConstant.duplicateOrderMessage }
+                            Message = result.ErrorMessages!
                         };
                     }
                 }
-                catch (Exception e) when (e.InnerException.GetType() == typeof(SqlException))
+                else
                 {
+                    _logger.LogWarning(OrderConstant.GasStationIdNotFound(orderInput.GasStationId));
                     return new OrderViewModel
                     {
                         IsSuccess = false,
-                        Message = new[] { e.Message }
+                        Message = new[] { OrderConstant.GasStationIdNotFound(orderInput.GasStationId) }
                     };
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
             }
-            else
+            catch (SqlException e)
             {
+                _logger.LogError("Sql exception when saving order", e);
                 return new OrderViewModel
                 {
                     IsSuccess = false,
-                    Message = result.ErrorMessages!
+                    Message = new[] { "Network failure in processing order" }
+                };
+            }
+            catch (ArgumentNullException e)
+            {
+                _logger.LogError("Required parameter is not passed", e);
+                return new OrderViewModel
+                {
+                    IsSuccess = false,
+                    Message = new[] { "Internal application error" }
                 };
             }
         }

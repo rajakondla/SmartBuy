@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SmartBuy.Common.Utilities\SmartBuy.Common.Utilities.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure.Abstractions\SmartBuy.OrderManagement.Infrastructure.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\SmartBuy.OrderManagement.Infrastructure\SmartBuy.OrderManagement.Infrastructure.csproj" />
   </ItemGroup>
