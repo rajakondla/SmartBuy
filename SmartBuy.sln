@@ -176,13 +176,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBuy.Web.Infrastructure", "src\SmartBuy.Web.Infrastructure\SmartBuy.Web.Infrastructure.csproj", "{B7AC242C-5F40-4378-9307-92BC9C3C7D07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "..\..\New folder\IdentityServer\IdentityServer.csproj", "{A5F9ED30-210E-4C8B-8C42-8DDB1C4C0872}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "src\IdentityServer\IdentityServer.csproj", "{A5F9ED30-210E-4C8B-8C42-8DDB1C4C0872}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{48A0C228-FDC9-4178-B41E-5FBB8003B5DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Client", "..\..\New folder\ImageGallery.Client\ImageGallery.Client.csproj", "{F8B18321-2CEC-4742-9C06-1BFFF2F1C912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Client", "src\ImageGallery.Client\ImageGallery.Client.csproj", "{F8B18321-2CEC-4742-9C06-1BFFF2F1C912}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Model", "..\..\New folder\ImageGallery.Model\ImageGallery.Model.csproj", "{340CD445-3C2E-49DC-ACB8-2ED4AF5B3878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageGallery.Model", "src\ImageGallery.Model\ImageGallery.Model.csproj", "{340CD445-3C2E-49DC-ACB8-2ED4AF5B3878}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

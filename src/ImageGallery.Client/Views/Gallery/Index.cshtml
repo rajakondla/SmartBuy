@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ImageGallery.Client.ViewModels.WeatherForecast>
+
+<div class="bottomMarginDefault">
+</div>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div>@item.Summary</div>
+        <div>@item.TemperatureC</div>
+        <div>@item.Date</div>
+    }
+</div> 
